@@ -91,16 +91,17 @@ export function PricingLandingTemplate({
     setSelectedPack(packId);
     const formSection = document.getElementById("confirmar-plan");
     if (formSection) {
-      formSection.scrollIntoView({ behavior: "smooth" });
+      formSection.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!form.correo || !form.nombre) return;
+    const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
     confetti({
-      particleCount: 130,
-      spread: 85,
+      particleCount: isMobile ? 65 : 130,
+      spread: isMobile ? 60 : 85,
       origin: { y: 0.7 },
       colors: ["#9E5C6A", "#C27A8A", "#F8F4F2", "#D946EF"],
     });
@@ -137,26 +138,28 @@ export function PricingLandingTemplate({
       {/* ========================================================================= */}
       {/* NAVBAR (ONLY: Desglose, Garantías & Dudas, Contacto Directo) */}
       {/* ========================================================================= */}
-      <header className="sticky top-0 z-50 w-full flex justify-center px-4 sm:px-6 pt-4 pb-2">
+      <header className="sticky top-0 z-50 w-full flex justify-center px-3 sm:px-6 pt-3 sm:pt-4 pb-2">
         <motion.nav
           initial={{ y: -20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.5 }}
-          className="w-full max-w-3xl h-14 px-5 sm:px-8 rounded-full border bg-[#14080F]/90 border-[#9E5C6A]/30 backdrop-blur-2xl shadow-[0_20px_50px_rgba(0,0,0,0.8)] flex items-center justify-between"
+          className="w-full max-w-3xl h-12 sm:h-14 px-3.5 sm:px-8 rounded-full border bg-[#14080F]/90 border-[#9E5C6A]/30 backdrop-blur-2xl shadow-[0_20px_50px_rgba(0,0,0,0.8)] flex items-center justify-between gap-2"
         >
           {/* Navigation Links */}
-          <div className="flex items-center gap-4 sm:gap-6">
+          <div className="flex items-center gap-2.5 sm:gap-6 min-w-0">
             <a
               href="#desglose"
-              className="text-xs sm:text-sm font-medium text-zinc-300 hover:text-white transition-colors flex items-center gap-1.5"
+              className="text-[11px] sm:text-sm font-medium text-zinc-300 hover:text-white transition-colors flex items-center gap-1 shrink-0"
             >
-              <span>Desglose de Servicios</span>
+              <span className="hidden sm:inline">Desglose de Servicios</span>
+              <span className="sm:hidden">Servicios</span>
             </a>
             <a
               href="#faq"
-              className="text-xs sm:text-sm font-medium text-zinc-300 hover:text-white transition-colors flex items-center gap-1.5"
+              className="text-[11px] sm:text-sm font-medium text-zinc-300 hover:text-white transition-colors flex items-center gap-1 shrink-0"
             >
-              <span>Garantías &amp; Dudas</span>
+              <span className="hidden sm:inline">Garantías &amp; Dudas</span>
+              <span className="sm:hidden">Dudas</span>
             </a>
           </div>
 
@@ -167,10 +170,11 @@ export function PricingLandingTemplate({
             href={`https://wa.me/34603625946?text=${whatsappMessage}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="h-8 sm:h-9 px-3.5 sm:px-4 rounded-full text-xs font-bold text-white bg-[#9E5C6A] hover:bg-[#854b57] shadow-lg shadow-[#9E5C6A]/30 flex items-center gap-1.5 transition-all"
+            className="h-8 sm:h-9 px-3 sm:px-4 rounded-full text-[11px] sm:text-xs font-bold text-white bg-[#9E5C6A] hover:bg-[#854b57] shadow-lg shadow-[#9E5C6A]/30 flex items-center gap-1.5 transition-all shrink-0 touch-manipulation"
           >
-            <MessageCircle className="w-3.5 h-3.5" />
-            <span>Contacto Directo</span>
+            <MessageCircle className="w-3.5 h-3.5 shrink-0" />
+            <span className="hidden sm:inline">Contacto Directo</span>
+            <span className="sm:hidden">Contacto</span>
           </motion.a>
         </motion.nav>
       </header>
@@ -178,44 +182,44 @@ export function PricingLandingTemplate({
       {/* ========================================================================= */}
       {/* HERO SECTION */}
       {/* ========================================================================= */}
-      <section className="relative z-10 w-full max-w-4xl mx-auto px-6 sm:px-8 pt-10 sm:pt-14 pb-10 text-center">
+      <section className="relative z-10 w-full max-w-4xl mx-auto px-4 sm:px-8 pt-8 sm:pt-14 pb-8 sm:pb-10 text-center">
         <motion.div
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}
         >
-          <h1 className="text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-white mb-4 leading-[1.12]">
+          <h1 className="text-2xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-white mb-3 sm:mb-4 leading-[1.15] sm:leading-[1.12]">
             {heroHeadline}
           </h1>
 
-          <p className="text-sm sm:text-base text-zinc-300 max-w-2xl mx-auto mb-8 leading-relaxed font-normal">
+          <p className="text-xs sm:text-base text-zinc-300 max-w-2xl mx-auto mb-6 sm:mb-8 leading-relaxed font-normal px-1 sm:px-0">
             {heroDescription}
           </p>
 
-          {/* 4 Clean Value Pillars (Replaced with tangible advantages) */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-3xl mx-auto text-center">
-            <div className="p-3.5 rounded-2xl bg-white/[0.03] border border-white/[0.08] flex flex-col items-center justify-center space-y-1">
-              <Video className="w-4 h-4 text-[#C27A8A] mb-0.5" />
-              <span className="text-xs font-bold text-white leading-tight">Cámara de Cine</span>
-              <span className="text-[11px] text-zinc-400">Rodaje in situ con equipo pro</span>
+          {/* 4 Clean Value Pillars */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3 max-w-3xl mx-auto text-center">
+            <div className="p-2.5 sm:p-3.5 rounded-xl sm:rounded-2xl bg-white/[0.03] border border-white/[0.08] flex flex-col items-center justify-center space-y-1">
+              <Video className="w-4 h-4 text-[#C27A8A] mb-0.5 shrink-0" />
+              <span className="text-[11px] sm:text-xs font-bold text-white leading-tight">Cámara de Cine</span>
+              <span className="text-[10px] sm:text-[11px] text-zinc-400 leading-tight">Rodaje in situ pro</span>
             </div>
 
-            <div className="p-3.5 rounded-2xl bg-white/[0.03] border border-white/[0.08] flex flex-col items-center justify-center space-y-1">
-              <Clapperboard className="w-4 h-4 text-[#C27A8A] mb-0.5" />
-              <span className="text-xs font-bold text-white leading-tight">Preproducción Profesional</span>
-              <span className="text-[11px] text-zinc-400">Background en cine y eventos</span>
+            <div className="p-2.5 sm:p-3.5 rounded-xl sm:rounded-2xl bg-white/[0.03] border border-white/[0.08] flex flex-col items-center justify-center space-y-1">
+              <Clapperboard className="w-4 h-4 text-[#C27A8A] mb-0.5 shrink-0" />
+              <span className="text-[11px] sm:text-xs font-bold text-white leading-tight">Preproducción</span>
+              <span className="text-[10px] sm:text-[11px] text-zinc-400 leading-tight">Cine y eventos</span>
             </div>
 
-            <div className="p-3.5 rounded-2xl bg-white/[0.03] border border-white/[0.08] flex flex-col items-center justify-center space-y-1">
-              <Zap className="w-4 h-4 text-[#C27A8A] mb-0.5" />
-              <span className="text-xs font-bold text-white leading-tight">Listo para Publicar</span>
-              <span className="text-[11px] text-zinc-400">Edición, sonido y portadas</span>
+            <div className="p-2.5 sm:p-3.5 rounded-xl sm:rounded-2xl bg-white/[0.03] border border-white/[0.08] flex flex-col items-center justify-center space-y-1">
+              <Zap className="w-4 h-4 text-[#C27A8A] mb-0.5 shrink-0" />
+              <span className="text-[11px] sm:text-xs font-bold text-white leading-tight">Listo para Publicar</span>
+              <span className="text-[10px] sm:text-[11px] text-zinc-400 leading-tight">Edición y sonido</span>
             </div>
 
-            <div className="p-3.5 rounded-2xl bg-white/[0.03] border border-white/[0.08] flex flex-col items-center justify-center space-y-1">
-              <FolderCheck className="w-4 h-4 text-[#C27A8A] mb-0.5" />
-              <span className="text-xs font-bold text-white leading-tight">Material 100% Tuyo</span>
-              <span className="text-[11px] text-zinc-400">Derechos de brutos y másteres</span>
+            <div className="p-2.5 sm:p-3.5 rounded-xl sm:rounded-2xl bg-white/[0.03] border border-white/[0.08] flex flex-col items-center justify-center space-y-1">
+              <FolderCheck className="w-4 h-4 text-[#C27A8A] mb-0.5 shrink-0" />
+              <span className="text-[11px] sm:text-xs font-bold text-white leading-tight">Material 100% Tuyo</span>
+              <span className="text-[10px] sm:text-[11px] text-zinc-400 leading-tight">Brutos y másteres</span>
             </div>
           </div>
         </motion.div>
@@ -252,17 +256,17 @@ export function PricingLandingTemplate({
 
                 {/* Ultimate Badge (Electric Bluish Purple) */}
                 {pack.isUltimate && (
-                  <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-3.5 py-0.5 rounded-full bg-gradient-to-r from-[#6366F1] via-[#8B5CF6] to-[#A855F7] text-white text-[10px] sm:text-[11px] font-black tracking-wider uppercase shadow-[0_0_25px_rgba(139,92,246,0.7)] flex items-center gap-1.5 whitespace-nowrap z-20">
-                    <Sparkles className="w-3 h-3 text-amber-300 animate-pulse shrink-0" />
-                    <span>{pack.badge || "EL MODELO DEFINITIVO · MÁXIMO ESTATUS"}</span>
+                  <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-3 sm:px-3.5 py-0.5 rounded-full bg-gradient-to-r from-[#6366F1] via-[#8B5CF6] to-[#A855F7] text-white text-[9px] sm:text-[11px] font-black tracking-wider uppercase shadow-[0_0_25px_rgba(139,92,246,0.7)] flex items-center gap-1 sm:gap-1.5 max-w-[92%] sm:max-w-none text-center truncate sm:whitespace-nowrap z-20">
+                    <Sparkles className="w-2.5 sm:w-3 h-2.5 sm:h-3 text-amber-300 animate-pulse shrink-0" />
+                    <span className="truncate">{pack.badge || "EL MODELO DEFINITIVO · MÁXIMO ESTATUS"}</span>
                   </div>
                 )}
 
                 {/* Popular Badge (Velvet Rose) */}
                 {pack.isPopular && !pack.isUltimate && (
-                  <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-3.5 py-0.5 rounded-full bg-gradient-to-r from-[#9E5C6A] via-[#C27A8A] to-[#D48B9B] text-white text-[10px] sm:text-[11px] font-black tracking-wider uppercase shadow-[0_0_20px_rgba(194,122,138,0.5)] flex items-center gap-1.5 whitespace-nowrap z-20">
-                    <Star className="w-3 h-3 text-amber-200 fill-amber-200 shrink-0" />
-                    <span>{pack.badge || "MÁS RECOMENDADO"}</span>
+                  <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-3 sm:px-3.5 py-0.5 rounded-full bg-gradient-to-r from-[#9E5C6A] via-[#C27A8A] to-[#D48B9B] text-white text-[9px] sm:text-[11px] font-black tracking-wider uppercase shadow-[0_0_20px_rgba(194,122,138,0.5)] flex items-center gap-1 sm:gap-1.5 max-w-[92%] sm:max-w-none text-center truncate sm:whitespace-nowrap z-20">
+                    <Star className="w-2.5 sm:w-3 h-2.5 sm:h-3 text-amber-200 fill-amber-200 shrink-0" />
+                    <span className="truncate">{pack.badge || "MÁS RECOMENDADO"}</span>
                   </div>
                 )}
 
@@ -276,24 +280,24 @@ export function PricingLandingTemplate({
                     >
                       {pack.name}
                     </span>
-                    <div className="flex items-baseline gap-2.5 my-2 flex-wrap">
-                      <span className="text-4xl sm:text-5xl font-black text-white tracking-tight font-mono">
+                    <div className="flex items-baseline gap-2 sm:gap-2.5 my-2 flex-wrap">
+                      <span className="text-3xl sm:text-5xl font-black text-white tracking-tight font-mono shrink-0">
                         {pack.price}
                       </span>
                       {pack.originalPrice && (
-                        <div className="relative flex items-center">
-                          <span className="relative text-xl sm:text-2xl font-bold font-mono text-zinc-500/50 select-none">
+                        <div className="relative flex items-center shrink-0">
+                          <span className="relative text-lg sm:text-2xl font-bold font-mono text-zinc-500/50 select-none">
                             {pack.originalPrice}
                             <span className="absolute inset-x-0 top-1/2 -translate-y-1/2 h-[1.5px] bg-zinc-400/40 -rotate-[18deg] pointer-events-none rounded-full" />
                           </span>
                         </div>
                       )}
-                      <span className="text-xs font-medium text-zinc-400 font-mono">
+                      <span className="text-xs font-medium text-zinc-400 font-mono shrink-0">
                         {pack.period}
                       </span>
                       {pack.savings && (
                         <span
-                          className={`inline-flex items-center px-2 py-0.5 rounded-md text-[10px] font-mono font-bold ${
+                          className={`inline-flex items-center px-2 py-0.5 rounded-md text-[10px] font-mono font-bold shrink-0 ${
                             pack.isUltimate
                               ? "bg-indigo-500/20 border border-indigo-400/35 text-indigo-300"
                               : "bg-[#9E5C6A]/20 border border-[#9E5C6A]/35 text-[#C27A8A]"
@@ -341,7 +345,7 @@ export function PricingLandingTemplate({
                 <div className="pt-4 mt-auto border-t border-white/[0.06]">
                   <button
                     onClick={() => handleSelectPack(pack.id)}
-                    className={`w-full py-3 px-4 rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center gap-2 transition-all cursor-pointer ${
+                    className={`w-full py-3 sm:py-3.5 px-4 rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center gap-2 transition-all cursor-pointer touch-manipulation min-h-[44px] ${
                       pack.isUltimate
                         ? "bg-gradient-to-r from-[#6366F1] via-[#7C3AED] to-[#8B5CF6] hover:from-[#4F46E5] hover:to-[#7C3AED] text-white shadow-lg shadow-indigo-900/50 hover:shadow-indigo-600/60"
                         : pack.isPopular
@@ -369,27 +373,27 @@ export function PricingLandingTemplate({
       {/* ========================================================================= */}
       {/* DESGLOSE DETALLADO DE SERVICIOS (Acordeón) */}
       {/* ========================================================================= */}
-      <section id="desglose" className="relative z-10 w-full max-w-4xl mx-auto px-6 sm:px-8 py-12 text-left">
-        <div className="apple-glass rounded-3xl p-6 sm:p-8 border border-white/[0.09]">
+      <section id="desglose" className="relative z-10 w-full max-w-4xl mx-auto px-4 sm:px-8 py-8 sm:py-12 text-left scroll-mt-20 sm:scroll-mt-24">
+        <div className="apple-glass rounded-2xl sm:rounded-3xl p-5 sm:p-8 border border-white/[0.09]">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-white/[0.08]">
             <div>
               <span className="text-xs font-mono text-[#C27A8A] font-bold uppercase tracking-wider block mb-1">
                 Transparencia &amp; Flexibilidad
               </span>
-              <h2 className="text-xl sm:text-2xl font-black text-white">
+              <h2 className="text-lg sm:text-2xl font-black text-white">
                 Desglose Unitario de Servicios
               </h2>
             </div>
             <button
               onClick={() => setShowBreakdown(!showBreakdown)}
-              className="px-4 py-2 rounded-xl bg-white/[0.05] hover:bg-white/[0.1] border border-white/[0.1] text-xs font-semibold text-zinc-200 hover:text-white flex items-center gap-2 self-start sm:self-auto transition-all cursor-pointer"
+              className="px-4 py-2.5 sm:py-2 rounded-xl bg-white/[0.05] hover:bg-white/[0.1] border border-white/[0.1] text-xs font-semibold text-zinc-200 hover:text-white flex items-center justify-center gap-2 self-stretch sm:self-auto transition-all cursor-pointer touch-manipulation min-h-[40px]"
             >
               <span>{showBreakdown ? "Ocultar Desglose" : "Ver Valores Individuales"}</span>
               <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-300 ${showBreakdown ? "rotate-180" : ""}`} />
             </button>
           </div>
 
-          <p className="text-xs sm:text-sm text-zinc-300 mt-3 mb-4">
+          <p className="text-xs sm:text-sm text-zinc-300 mt-3 mb-4 leading-relaxed">
             Los packs integrados ofrecen una optimización de costes y unificación de producción frente a la contratación individual de cada servicio suelto.
           </p>
 
@@ -431,9 +435,9 @@ export function PricingLandingTemplate({
       {/* ========================================================================= */}
       {/* CONFIRMACIÓN Y CONTACTO DIRECTO */}
       {/* ========================================================================= */}
-      <section id="confirmar-plan" className="relative z-10 w-full max-w-4xl mx-auto px-6 sm:px-8 py-10">
+      <section id="confirmar-plan" className="relative z-10 w-full max-w-4xl mx-auto px-4 sm:px-8 py-8 sm:py-10 scroll-mt-20 sm:scroll-mt-24">
         <div
-          className={`rounded-3xl p-7 sm:p-9 text-left grid grid-cols-1 md:grid-cols-2 gap-8 shadow-2xl transition-all duration-500 ${
+          className={`rounded-2xl sm:rounded-3xl p-5 sm:p-9 text-left grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 shadow-2xl transition-all duration-500 ${
             currentPackObj.isUltimate
               ? "bg-gradient-to-br from-[#16082A] via-[#110520] to-[#0C0318] border-2 border-[#8B5CF6]/50 shadow-[0_0_60px_rgba(139,92,246,0.3)]"
               : currentPackObj.isPopular
@@ -442,7 +446,7 @@ export function PricingLandingTemplate({
           }`}
         >
           {/* Left Summary Box */}
-          <div className="space-y-5 flex flex-col justify-between">
+          <div className="space-y-4 sm:space-y-5 flex flex-col justify-between">
             <div>
               <div
                 className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-bold mb-3 ${
@@ -457,22 +461,22 @@ export function PricingLandingTemplate({
                 <span className="text-white font-black">{currentPackObj.name}</span>
               </div>
 
-              <div className="flex items-baseline gap-2.5 mb-2 flex-wrap">
-                <h3 className="text-2xl sm:text-3xl font-black text-white font-mono">
+              <div className="flex items-baseline gap-2 sm:gap-2.5 mb-2 flex-wrap">
+                <h3 className="text-2xl sm:text-3xl font-black text-white font-mono shrink-0">
                   {currentPackObj.price}
                 </h3>
                 {currentPackObj.originalPrice && (
-                  <span className="relative text-lg sm:text-xl font-bold font-mono text-zinc-500/50 select-none">
+                  <span className="relative text-lg sm:text-xl font-bold font-mono text-zinc-500/50 select-none shrink-0">
                     {currentPackObj.originalPrice}
                     <span className="absolute inset-x-0 top-1/2 -translate-y-1/2 h-[1.5px] bg-zinc-400/40 -rotate-[18deg] pointer-events-none rounded-full" />
                   </span>
                 )}
-                <span className="text-xs font-normal text-zinc-400 font-mono">
+                <span className="text-xs font-normal text-zinc-400 font-mono shrink-0">
                   {currentPackObj.period}
                 </span>
                 {currentPackObj.savings && (
                   <span
-                    className={`px-2 py-0.5 rounded text-[10px] font-mono font-bold ${
+                    className={`px-2 py-0.5 rounded text-[10px] font-mono font-bold shrink-0 ${
                       currentPackObj.isUltimate
                         ? "bg-indigo-500/20 border border-indigo-400/35 text-indigo-300"
                         : "bg-[#9E5C6A]/20 border border-[#9E5C6A]/35 text-[#C27A8A]"
@@ -495,7 +499,7 @@ export function PricingLandingTemplate({
                         currentPackObj.isUltimate ? "text-indigo-400" : "text-[#9E5C6A]"
                       }`}
                     />
-                    <span>{feat}</span>
+                    <span className="leading-snug">{feat}</span>
                   </div>
                 ))}
               </div>
@@ -510,9 +514,9 @@ export function PricingLandingTemplate({
                 href={`https://wa.me/34603625946?text=${whatsappMessage}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full py-2.5 rounded-xl bg-[#25D366]/20 hover:bg-[#25D366]/30 border border-[#25D366]/40 text-[#25D366] text-xs font-bold flex items-center justify-center gap-2 transition-all"
+                className="w-full py-3 sm:py-2.5 rounded-xl bg-[#25D366]/20 hover:bg-[#25D366]/30 border border-[#25D366]/40 text-[#25D366] text-xs font-bold flex items-center justify-center gap-2 transition-all touch-manipulation min-h-[44px]"
               >
-                <MessageCircle className="w-4 h-4" />
+                <MessageCircle className="w-4 h-4 shrink-0" />
                 <span>Confirmar directamente por WhatsApp</span>
               </a>
             </div>
@@ -543,10 +547,11 @@ export function PricingLandingTemplate({
                   <input
                     type="text"
                     required
+                    autoComplete="name"
                     placeholder="Tu nombre y apellidos"
                     value={form.nombre}
                     onChange={(e) => setForm({ ...form, nombre: e.target.value })}
-                    className={`w-full px-4 py-2.5 rounded-xl bg-white border text-xs text-zinc-900 placeholder:text-zinc-400 focus:outline-none transition-colors ${
+                    className={`w-full px-4 py-2.5 rounded-xl bg-white border text-base sm:text-xs text-zinc-900 placeholder:text-zinc-400 focus:outline-none transition-colors ${
                       currentPackObj.isUltimate ? "border-zinc-200 focus:border-indigo-400" : "border-zinc-200 focus:border-[#9E5C6A]"
                     }`}
                   />
@@ -557,10 +562,11 @@ export function PricingLandingTemplate({
                   <input
                     type="text"
                     required
+                    autoComplete="organization"
                     placeholder="Tu empresa o marca"
                     value={form.empresa}
                     onChange={(e) => setForm({ ...form, empresa: e.target.value })}
-                    className={`w-full px-4 py-2.5 rounded-xl bg-white border text-xs text-zinc-900 placeholder:text-zinc-400 focus:outline-none transition-colors ${
+                    className={`w-full px-4 py-2.5 rounded-xl bg-white border text-base sm:text-xs text-zinc-900 placeholder:text-zinc-400 focus:outline-none transition-colors ${
                       currentPackObj.isUltimate ? "border-zinc-200 focus:border-indigo-400" : "border-zinc-200 focus:border-[#9E5C6A]"
                     }`}
                   />
@@ -572,10 +578,12 @@ export function PricingLandingTemplate({
                     <input
                       type="email"
                       required
+                      autoComplete="email"
+                      inputMode="email"
                       placeholder="contacto@empresa.com"
                       value={form.correo}
                       onChange={(e) => setForm({ ...form, correo: e.target.value })}
-                      className={`w-full px-4 py-2.5 rounded-xl bg-white border text-xs text-zinc-900 placeholder:text-zinc-400 focus:outline-none transition-colors ${
+                      className={`w-full px-4 py-2.5 rounded-xl bg-white border text-base sm:text-xs text-zinc-900 placeholder:text-zinc-400 focus:outline-none transition-colors ${
                         currentPackObj.isUltimate ? "border-zinc-200 focus:border-indigo-400" : "border-zinc-200 focus:border-[#9E5C6A]"
                       }`}
                     />
@@ -585,10 +593,12 @@ export function PricingLandingTemplate({
                     <input
                       type="tel"
                       required
+                      autoComplete="tel"
+                      inputMode="tel"
                       placeholder="+34 600 000 000"
                       value={form.telefono}
                       onChange={(e) => setForm({ ...form, telefono: e.target.value })}
-                      className={`w-full px-4 py-2.5 rounded-xl bg-white border text-xs text-zinc-900 placeholder:text-zinc-400 focus:outline-none transition-colors ${
+                      className={`w-full px-4 py-2.5 rounded-xl bg-white border text-base sm:text-xs text-zinc-900 placeholder:text-zinc-400 focus:outline-none transition-colors ${
                         currentPackObj.isUltimate ? "border-zinc-200 focus:border-indigo-400" : "border-zinc-200 focus:border-[#9E5C6A]"
                       }`}
                     />
@@ -599,7 +609,7 @@ export function PricingLandingTemplate({
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   type="submit"
-                  className={`w-full py-3.5 rounded-xl text-xs sm:text-sm font-bold text-white shadow-lg transition-all mt-2 cursor-pointer ${
+                  className={`w-full py-3.5 rounded-xl text-xs sm:text-sm font-bold text-white shadow-lg transition-all mt-2 cursor-pointer touch-manipulation min-h-[48px] ${
                     currentPackObj.isUltimate
                       ? "bg-gradient-to-r from-[#6366F1] via-[#7C3AED] to-[#8B5CF6] hover:from-[#4F46E5] hover:to-[#7C3AED] shadow-indigo-400/30"
                       : "bg-[#9E5C6A] hover:bg-[#854b57] shadow-[#9E5C6A]/30"
@@ -616,14 +626,14 @@ export function PricingLandingTemplate({
       {/* ========================================================================= */}
       {/* PREGUNTAS FRECUENTES (FAQ) */}
       {/* ========================================================================= */}
-      <section id="faq" className="relative z-10 w-full max-w-3xl mx-auto px-6 sm:px-8 py-10 text-center">
+      <section id="faq" className="relative z-10 w-full max-w-3xl mx-auto px-4 sm:px-8 py-8 sm:py-10 text-center scroll-mt-20 sm:scroll-mt-24">
         <span className="text-xs font-mono font-semibold uppercase tracking-widest text-[#9E5C6A] block mb-2">
           Garantías &amp; Dudas
         </span>
         <h3 className="text-2xl sm:text-3xl font-extrabold text-white mb-2 leading-tight">
           Preguntas Frecuentes
         </h3>
-        <p className="text-xs sm:text-sm text-zinc-400 mb-8">
+        <p className="text-xs sm:text-sm text-zinc-400 mb-6 sm:mb-8">
           Transparencia y claridad en la metodología de trabajo.
         </p>
 
@@ -637,7 +647,7 @@ export function PricingLandingTemplate({
               >
                 <button
                   onClick={() => setOpenFaq(isOpen ? null : idx)}
-                  className="w-full p-4 sm:p-5 flex items-center justify-between text-left gap-4 hover:bg-white/[0.02] transition-colors cursor-pointer"
+                  className="w-full p-4 sm:p-5 flex items-center justify-between text-left gap-3 hover:bg-white/[0.02] transition-colors cursor-pointer touch-manipulation min-h-[48px]"
                 >
                   <span className="text-xs sm:text-sm font-bold text-white leading-snug">
                     {item.q}
