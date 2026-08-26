@@ -34,7 +34,7 @@ const googleReviews: GoogleReview[] = [
     date: "Hace 2 semanas",
     sector: "Gimnasio & CrossFit",
     text: "El día de rodaje con cámara de cine fue una pasada. Los vídeos tienen una calidad brutal de documental y por Instagram no paran de pedir información para apuntarse. Muy buen trabajo.",
-    rating: 4,
+    rating: 4.5,
   },
   {
     id: 3,
@@ -55,7 +55,7 @@ const googleReviews: GoogleReview[] = [
     date: "Hace 7 meses",
     sector: "Taberna & Restaurante",
     text: "Llevábamos años dependiendo solo del boca a boca. Entre el posicionamiento en ChatGPT cuando buscan dónde comer bien en el sector y los vídeos que nos hicieron, los fines de semana tenemos el comedor completo.",
-    rating: 5,
+    rating: 4.5,
   },
   {
     id: 5,
@@ -99,7 +99,7 @@ const googleReviews: GoogleReview[] = [
     date: "Hace 4 meses",
     sector: "Productos Electrónicos",
     text: "Nos auditaron las fugas de clientes y nos configuraron todo para salir en ChatGPT cuando alguien pide presupuestos de equipos. Un acierto absoluto.",
-    rating: 4,
+    rating: 4.5,
   },
   {
     id: 9,
@@ -141,7 +141,7 @@ const googleReviews: GoogleReview[] = [
     date: "Hace 2 meses",
     sector: "Albañilería & Reformas",
     text: "Trato impecable. Nos grabaron en obra con cámara de cine y la imagen que damos ahora nos permite cerrar presupuestos más altos sin que nos regateen.",
-    rating: 5,
+    rating: 4.5,
   },
   {
     id: 13,
@@ -151,7 +151,7 @@ const googleReviews: GoogleReview[] = [
     date: "Hace 1 año",
     sector: "Ebanistería",
     text: "La delicadeza con la que mostraron nuestro taller y cómo nos encuentra la gente en Google y ChatGPT cuando buscan restaurar muebles antiguos no tiene precio. Muy agradecido a los dos socios.",
-    rating: 4,
+    rating: 5,
   },
 ];
 
@@ -206,6 +206,42 @@ export function SectorsReviewsCarousel() {
         </div>
       </div>
     </section>
+  );
+}
+
+function StarRating({ rating }: { rating: number }) {
+  return (
+    <div className="flex items-center gap-0.5" aria-label={`${rating} de 5 estrellas`}>
+      {[1, 2, 3, 4, 5].map((starIndex) => {
+        if (rating >= starIndex) {
+          // Full star
+          return (
+            <Star
+              key={starIndex}
+              className="w-3.5 h-3.5 fill-[#F59E0B] text-[#F59E0B] shrink-0"
+            />
+          );
+        } else if (rating >= starIndex - 0.5) {
+          // Half star (4.5)
+          return (
+            <div key={starIndex} className="relative w-3.5 h-3.5 shrink-0">
+              <Star className="w-3.5 h-3.5 fill-zinc-300 text-zinc-300 absolute inset-0" />
+              <div className="w-[50%] overflow-hidden absolute inset-0">
+                <Star className="w-3.5 h-3.5 fill-[#F59E0B] text-[#F59E0B]" />
+              </div>
+            </div>
+          );
+        } else {
+          // Empty star
+          return (
+            <Star
+              key={starIndex}
+              className="w-3.5 h-3.5 fill-zinc-300 text-zinc-300 shrink-0"
+            />
+          );
+        }
+      })}
+    </div>
   );
 }
 
@@ -267,18 +303,7 @@ function GoogleReviewCard({ review }: { review: GoogleReview }) {
         </div>
 
         <div className="flex items-center gap-2 mb-3">
-          <div className="flex items-center gap-0.5">
-            {[...Array(5)].map((_, i) => (
-              <Star
-                key={i}
-                className={`w-3.5 h-3.5 ${
-                  i < review.rating
-                    ? "fill-[#F59E0B] text-[#F59E0B]"
-                    : "fill-zinc-300 text-zinc-300"
-                }`}
-              />
-            ))}
-          </div>
+          <StarRating rating={review.rating} />
           <span className="text-[11px] text-zinc-500 font-medium">{review.date}</span>
         </div>
 
