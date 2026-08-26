@@ -9,6 +9,10 @@ const nextConfig: NextConfig = {
     "127.0.0.1",
     "127.0.0.1:3000",
   ],
+  output: "export",
+  images: {
+    unoptimized: true,
+  },
   experimental: {
     optimizePackageImports: ["lucide-react", "framer-motion", "three"],
   },
