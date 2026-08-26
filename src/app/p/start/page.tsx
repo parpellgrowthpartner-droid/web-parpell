@@ -109,7 +109,7 @@ const servicesPequena: ServiceItem[] = [
   },
 ];
 
-export default function PricingPequenaPage() {
+export default function PricingStartPage() {
   return (
     <PricingLandingTemplate
       heroHeadline="Packs de Producción & Crecimiento Audiovisual"

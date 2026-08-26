@@ -109,7 +109,7 @@ const servicesMediana: ServiceItem[] = [
   },
 ];
 
-export default function PricingMedianaPage() {
+export default function PricingGrowthPage() {
   return (
     <PricingLandingTemplate
       heroHeadline="Escalado Audiovisual & Estrategia Multicanal"

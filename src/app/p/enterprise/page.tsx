@@ -114,7 +114,7 @@ const servicesGrande: ServiceItem[] = [
   },
 ];
 
-export default function PricingGrandePage() {
+export default function PricingEnterprisePage() {
   return (
     <PricingLandingTemplate
       heroHeadline="Infraestructura Audiovisual & Dominio de Marca"
