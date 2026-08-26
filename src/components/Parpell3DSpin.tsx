@@ -38,15 +38,21 @@ export function Parpell3DSpin({ onLoaded, onProgress }: Parpell3DSpinProps) {
               navigator.userAgent
             ));
 
-        const width = Math.max(container.clientWidth || 0, isMobileScreen ? 224 : 360);
-        const height = Math.max(container.clientHeight || 0, isMobileScreen ? 224 : 360);
+        const getContainerDimensions = () => {
+          const rect = container.getBoundingClientRect();
+          const w = rect.width || container.clientWidth || (isMobileScreen ? 240 : 360);
+          const h = rect.height || container.clientHeight || (isMobileScreen ? 240 : 360);
+          return { width: Math.max(w, 200), height: Math.max(h, 200) };
+        };
+
+        let { width, height } = getContainerDimensions();
 
         // 1. Scene & Camera Setup
         const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(38, width / height, 0.1, 1000);
+        const camera = new THREE.PerspectiveCamera(38, width / height, 0.1, 100);
         camera.position.set(0, 0, 4.0);
 
-        // 2. WebGL Renderer
+        // 2. WebGL Renderer with High Precision & Crisp Anti-Aliasing
         const renderer = new THREE.WebGLRenderer({
           canvas,
           alpha: true,
@@ -54,19 +60,20 @@ export function Parpell3DSpin({ onLoaded, onProgress }: Parpell3DSpinProps) {
           powerPreference: "high-performance",
           stencil: false,
           depth: true,
+          precision: isMobileScreen ? "mediump" : "highp",
         });
-        renderer.setSize(width, height);
+        renderer.setSize(width, height, false);
         renderer.setPixelRatio(
           Math.min(
             typeof window !== "undefined" ? window.devicePixelRatio : 1,
-            isMobileScreen ? 1.25 : 1.5
+            isMobileScreen ? 1.5 : 2.0
           )
         );
         renderer.toneMapping = THREE.ACESFilmicToneMapping;
         renderer.toneMappingExposure = 1.35;
         renderer.outputColorSpace = THREE.SRGBColorSpace;
 
-        // 3. Studio Lighting Setup
+        // 3. Studio Lighting Setup (Warm rose & wine specular highlights)
         const ambientLight = new THREE.AmbientLight(0xffffff, 1.6);
         scene.add(ambientLight);
 
@@ -85,7 +92,7 @@ export function Parpell3DSpin({ onLoaded, onProgress }: Parpell3DSpinProps) {
         rimLight.position.set(0, 4, -4);
         scene.add(rimLight);
 
-        // Interactive Point Light (follows mouse/touch)
+        // Interactive Dynamic Point Light (gleams upon tilt)
         const dynamicPointLight = new THREE.PointLight(0xf3b0be, 3.2, 12, 1.2);
         dynamicPointLight.position.set(0, 1.5, 2.5);
         scene.add(dynamicPointLight);
@@ -102,6 +109,7 @@ export function Parpell3DSpin({ onLoaded, onProgress }: Parpell3DSpinProps) {
         const gltfLoader = new GLTFLoader();
         gltfLoader.setDRACOLoader(dracoLoader);
 
+        // 15s failsafe (long enough for mobile 3G/4G, safety fallback only if load hangs completely)
         let modelLoadFailsafe = setTimeout(() => {
           if (!cancelled) {
             console.warn("Mobile 3D GLB load exceeded timeout limit, activating high-res 2D fallback");
@@ -109,7 +117,7 @@ export function Parpell3DSpin({ onLoaded, onProgress }: Parpell3DSpinProps) {
             onProgress?.(100);
             onLoaded?.();
           }
-        }, 5500);
+        }, 15000);
 
         gltfLoader.load(
           "/logo-3d.glb",
@@ -134,24 +142,24 @@ export function Parpell3DSpin({ onLoaded, onProgress }: Parpell3DSpinProps) {
               root.scale.set(scale, scale, scale);
             }
 
-            // Enhance double-sided materials and specular response
+            // Enhance double-sided materials and specular response without altering textures/colors
             root.traverse((child) => {
               if ((child as THREE.Mesh).isMesh) {
                 const mesh = child as THREE.Mesh;
-                mesh.castShadow = true;
-                mesh.receiveShadow = true;
+                mesh.castShadow = false;
+                mesh.receiveShadow = false;
                 if (mesh.material) {
                   if (Array.isArray(mesh.material)) {
                     mesh.material.forEach((mat) => {
                       mat.side = THREE.DoubleSide;
-                      if ("roughness" in mat) mat.roughness = 0.25;
-                      if ("metalness" in mat) mat.metalness = 0.85;
+                      if ("roughness" in mat) mat.roughness = 0.28;
+                      if ("metalness" in mat) mat.metalness = 0.82;
                       mat.needsUpdate = true;
                     });
                   } else {
                     mesh.material.side = THREE.DoubleSide;
-                    if ("roughness" in mesh.material) mesh.material.roughness = 0.25;
-                    if ("metalness" in mesh.material) mesh.material.metalness = 0.85;
+                    if ("roughness" in mesh.material) mesh.material.roughness = 0.28;
+                    if ("metalness" in mesh.material) mesh.material.metalness = 0.82;
                     mesh.material.needsUpdate = true;
                   }
                 }
@@ -196,12 +204,12 @@ export function Parpell3DSpin({ onLoaded, onProgress }: Parpell3DSpinProps) {
             const wasOnScreen = isOnScreen;
             isOnScreen = entry.isIntersecting;
             if (isOnScreen && !wasOnScreen && !cancelled) {
-              clock.getDelta(); // consume stale delta
+              clock.getDelta();
               cancelAnimationFrame(animationFrameId);
-              animate();
+              animate(performance.now());
             }
           },
-          { threshold: 0.0, rootMargin: "200px" }
+          { threshold: 0.0, rootMargin: "150px" }
         );
         visObserver.observe(container);
 
@@ -211,17 +219,23 @@ export function Parpell3DSpin({ onLoaded, onProgress }: Parpell3DSpinProps) {
           if (isTabVisible && !wasTabVisible && isOnScreen && !cancelled) {
             clock.getDelta();
             cancelAnimationFrame(animationFrameId);
-            animate();
+            animate(performance.now());
           }
         };
         document.addEventListener("visibilitychange", handleVisibility);
 
-        // 7. Animation Loop — only runs when visible
+        // 7. Optimized 60FPS Animation Loop with Frame Budgeting
         const clock = new THREE.Clock();
+        let lastFrameTime = 0;
+        const targetFrameInterval = 1000 / 60; // 60 FPS cap for energy efficiency
 
-        const animate = () => {
+        const animate = (timestamp: number) => {
           if (cancelled || !isOnScreen || !isTabVisible) return;
           animationFrameId = requestAnimationFrame(animate);
+
+          // Throttle to 60fps max to save battery and GPU on 120Hz mobile devices
+          if (timestamp - lastFrameTime < targetFrameInterval - 1) return;
+          lastFrameTime = timestamp;
 
           const elapsedTime = clock.getElapsedTime();
 
@@ -264,7 +278,7 @@ export function Parpell3DSpin({ onLoaded, onProgress }: Parpell3DSpinProps) {
 
           renderer.render(scene, camera);
         };
-        animate();
+        animate(performance.now());
 
         // 8. Interaction Handlers (Mouse & Touch on Container Only)
         const onPointerDown = (clientX: number, clientY: number) => {
@@ -293,7 +307,7 @@ export function Parpell3DSpin({ onLoaded, onProgress }: Parpell3DSpinProps) {
           const deltaY = clientY - previousMousePosition.y;
 
           // Mobile touch: calibrate sensitivity and dampen vertical tilt to preserve natural page scroll
-          const sensX = isTouchEvent ? 0.0045 : 0.008;
+          const sensX = isTouchEvent ? 0.005 : 0.008;
           const sensY = isTouchEvent ? 0.002 : 0.008;
 
           dragVelocity = {
@@ -325,34 +339,41 @@ export function Parpell3DSpin({ onLoaded, onProgress }: Parpell3DSpinProps) {
           mouseNormalized = { x: 0, y: 0 };
         };
 
+        let touchStartPos = { x: 0, y: 0 };
         const handleTouchStart = (e: TouchEvent) => {
           if (e.touches.length > 0) {
+            touchStartPos = { x: e.touches[0].clientX, y: e.touches[0].clientY };
             onPointerDown(e.touches[0].clientX, e.touches[0].clientY);
           }
         };
         const handleTouchMove = (e: TouchEvent) => {
           if (e.touches.length > 0 && isInteracting) {
-            onPointerMove(e.touches[0].clientX, e.touches[0].clientY, true);
+            const touch = e.touches[0];
+            const diffX = Math.abs(touch.clientX - touchStartPos.x);
+            const diffY = Math.abs(touch.clientY - touchStartPos.y);
+            // If primary movement is vertical scroll, release interaction to allow page scroll
+            if (diffY > diffX * 1.5 && diffY > 15) {
+              isInteracting = false;
+              return;
+            }
+            onPointerMove(touch.clientX, touch.clientY, true);
           }
         };
         const handleTouchEnd = () => {
           onPointerUp();
         };
 
-        const handleResize = () => {
-          if (!container || !renderer || !camera) return;
-          const isMobile =
-            typeof window !== "undefined" &&
-            (window.innerWidth < 768 ||
-              /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-                navigator.userAgent
-              ));
-          const newWidth = Math.max(container.clientWidth || 0, isMobile ? 224 : 360);
-          const newHeight = Math.max(container.clientHeight || 0, isMobile ? 224 : 360);
-          camera.aspect = newWidth / newHeight;
-          camera.updateProjectionMatrix();
-          renderer.setSize(newWidth, newHeight);
-        };
+        // ResizeObserver for dynamic layout / orientation changes
+        const resizeObserver = new ResizeObserver((entries) => {
+          if (!entries[0] || !renderer || !camera) return;
+          const { width: newW, height: newH } = getContainerDimensions();
+          if (newW > 0 && newH > 0) {
+            camera.aspect = newW / newH;
+            camera.updateProjectionMatrix();
+            renderer.setSize(newW, newH, false);
+          }
+        });
+        resizeObserver.observe(container);
 
         const handleContextLost = (e: Event) => {
           e.preventDefault();
@@ -363,7 +384,6 @@ export function Parpell3DSpin({ onLoaded, onProgress }: Parpell3DSpinProps) {
         };
 
         canvas.addEventListener("webglcontextlost", handleContextLost, { passive: false });
-        window.addEventListener("resize", handleResize, { passive: true });
 
         container.addEventListener("mousedown", handleMouseDown);
         window.addEventListener("mousemove", handleMouseMove, { passive: true });
@@ -377,9 +397,9 @@ export function Parpell3DSpin({ onLoaded, onProgress }: Parpell3DSpinProps) {
         cleanup = () => {
           cancelAnimationFrame(animationFrameId);
           visObserver.disconnect();
+          resizeObserver.disconnect();
           document.removeEventListener("visibilitychange", handleVisibility);
           canvas.removeEventListener("webglcontextlost", handleContextLost);
-          window.removeEventListener("resize", handleResize);
           container.removeEventListener("mousedown", handleMouseDown);
           window.removeEventListener("mousemove", handleMouseMove);
           window.removeEventListener("mouseup", handleMouseUp);
