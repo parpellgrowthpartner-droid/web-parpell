@@ -10,6 +10,7 @@ const nextConfig: NextConfig = {
     "127.0.0.1:3000",
   ],
   output: "export",
+  trailingSlash: true,
   images: {
     unoptimized: true,
   },
