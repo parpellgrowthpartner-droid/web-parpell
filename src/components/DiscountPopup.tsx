@@ -83,7 +83,7 @@ export function DiscountPopup() {
             animate={{ scale: 1, opacity: 1, y: 0 }}
             exit={{ scale: 0.8, opacity: 0, y: 30 }}
             transition={{ type: "spring", stiffness: 320, damping: 25 }}
-            className="relative z-[100000] w-full max-w-lg rounded-3xl p-5 sm:p-8 md:p-9 bg-gradient-to-b from-[#1C0D15] via-[#14080F] to-[#0A0307] border-2 border-[#9E5C6A]/60 shadow-[0_30px_100px_rgba(158,92,106,0.4)] text-left max-h-[92vh] overflow-y-auto select-auto"
+            className="relative z-[100000] w-full max-w-lg rounded-3xl p-5 sm:p-8 md:p-9 bg-gradient-to-b from-[#1C0D15] via-[#14080F] to-[#0A0307] border-2 border-[#9E5C6A]/60 shadow-[0_30px_100px_rgba(158,92,106,0.4)] text-left max-h-[92vh] overflow-x-hidden overflow-y-auto select-auto"
             style={{ cursor: "default" }}
           >
             {/* Ambient Wine Radial Flare */}
