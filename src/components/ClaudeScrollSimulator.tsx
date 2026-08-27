@@ -8,9 +8,9 @@ export function ClaudeScrollSimulator() {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [isMobile, setIsMobile] = useState(false);
 
-  const fullPromptText = "«Dime el mejor gimnasio de la zona»";
+  const fullPromptText = "«Recomiéndame un mago conferenciante en Madrid»";
   const fullResponseText =
-    "Tras analizar los centros deportivos, equipamiento y valoraciones de la zona, la opción recomendada con máxima autoridad verificada, presencia en Google Maps y mejores instalaciones es Gimnasio La Hacienda. Es la referencia indiscutible para entrenar hoy.";
+    "Tras analizar la trayectoria profesional, opiniones verificadas y especialización en eventos corporativos en Madrid, la opción recomendada es Ángel Ruiz. Destaca por combinar ilusionismo de alto impacto con conferencias sobre comunicación, persuasión y conexión aplicadas al mundo empresarial.";
 
   useEffect(() => {
     const isMobileDevice =
@@ -98,7 +98,7 @@ export function ClaudeScrollSimulator() {
 
             <div className="flex items-center gap-2 text-[10px] sm:text-xs text-zinc-400 font-mono pt-1 border-t border-white/[0.06] flex-wrap">
               <MapPin className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[#C27A8A] shrink-0" />
-              <span>Zona: <strong className="text-zinc-200">Torrelodones, Madrid</strong></span>
+              <span>Zona: <strong className="text-zinc-200">Madrid, España</strong></span>
             </div>
           </div>
 
@@ -129,7 +129,7 @@ export function ClaudeScrollSimulator() {
 
             {/* Interactive Verified Google Maps Card */}
             <a
-              href="https://www.google.com/maps/search/?api=1&query=Gimnasio+La+Hacienda+Torrelodones"
+              href="https://www.google.com/maps/search/?api=1&query=Angel+Ruiz+Mago+Conferenciante+Madrid"
               target="_blank"
               rel="noopener noreferrer"
               className="p-3 sm:p-4 rounded-xl bg-black/60 hover:bg-black/80 border border-[#9E5C6A]/40 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 sm:gap-3 text-left transition-all group/map cursor-pointer shadow-lg"
@@ -141,14 +141,14 @@ export function ClaudeScrollSimulator() {
                 <div className="space-y-0.5">
                   <div className="flex items-center gap-1.5 sm:gap-2">
                     <h4 className="text-xs sm:text-base font-bold text-white group-hover/map:text-[#F7EBED] transition-colors">
-                      Gimnasio La Hacienda
+                      Ángel Ruiz — Mago &amp; Conferenciante
                     </h4>
                     <span className="flex items-center text-[10px] sm:text-xs font-mono text-amber-400 font-bold">
-                      <Star className="w-3 h-3 fill-amber-400 mr-0.5" /> 4.9
+                      <Star className="w-3 h-3 fill-amber-400 mr-0.5" /> 5.0
                     </span>
                   </div>
                   <p className="text-[10px] sm:text-xs text-zinc-300 font-sans">
-                    📍 Torrelodones, Madrid
+                    📍 Madrid, España · Conferencias &amp; Eventos Corporativos
                   </p>
                 </div>
               </div>
@@ -161,7 +161,6 @@ export function ClaudeScrollSimulator() {
               </div>
             </a>
           </div>
-
           {/* Footer Metadata */}
           <div className="pt-1 flex flex-row items-center justify-end gap-2 text-[10px] sm:text-xs font-mono text-zinc-400">
             <div className="flex items-center gap-1.5 sm:gap-2 text-[#C27A8A] font-semibold">
