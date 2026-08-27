@@ -1,6 +1,12 @@
 import type { Metadata } from "next";
 import { ShieldCheck, Sparkles, LineChart, Code2 } from "lucide-react";
-import { PricingLandingTemplate, PricingPack, ServiceItem, ValuePillar } from "@/components/PricingLandingTemplate";
+import {
+  PricingLandingTemplate,
+  PricingPack,
+  ServiceItem,
+  ValuePillar,
+  FaqItem,
+} from "@/components/PricingLandingTemplate";
 
 export const metadata: Metadata = {
   title: "Infraestructura Crítica, SEO Corporativo & Dominio GEO (IA)",
@@ -31,6 +37,25 @@ const techPillars: ValuePillar[] = [
     title: "Código 100% Tuyo",
     subtitle: "Sin ataduras ni plantillas",
     icon: <Code2 className="w-4 h-4" />,
+  },
+];
+
+const techFaqs: FaqItem[] = [
+  {
+    q: "¿Cómo funciona el mantenimiento y qué ocurre ante una incidencia?",
+    a: "Monitorizamos la salud de tu web de forma continua. Si surge cualquier problema técnico, caída de servidor o fallo de seguridad, actuamos de inmediato con copias de seguridad redundantes y restauración garantizada.",
+  },
+  {
+    q: "¿En qué consiste el posicionamiento en IA (GEO) y cómo ayuda a mi negocio?",
+    a: "Optimizamos la arquitectura técnica, datos estructurados (Schema) y la huella digital de tu web para que modelos como ChatGPT, Claude, Perplexity y Google te reconozcan y te recomienden cuando los usuarios buscan tus servicios.",
+  },
+  {
+    q: "¿De quién es el código, la web y los datos generados?",
+    a: "El 100% del código fuente, configuraciones, bases de datos y accesos pertenecen exclusivamente a tu empresa. No aplicamos ningún tipo de permanencia ni bloqueo técnico.",
+  },
+  {
+    q: "¿Cómo solicito cambios técnicos o mejoras en la web?",
+    a: "Dispones de canal directo con el socio técnico para solicitar ajustes, evolutivos o revisiones de analítica según las horas incluidas en tu pack, sin tickets lentos ni intermediarios.",
   },
 ];
 
@@ -142,6 +167,7 @@ export default function PricingEnterpriseTecnologiaPage() {
       packs={packsGrande}
       servicesBreakdown={servicesGrande}
       valuePillars={techPillars}
+      faqs={techFaqs}
       footerTitle="Tarifas Oficiales de Infraestructura Crítica & Dominio GEO"
       footerNote="Packs sujetos a reconfiguración según los requerimientos del proyecto. El alcance de cada propuesta es flexible, permitiéndonos priorizar áreas o escalar la operativa técnica para asegurar que el resultado final sea impecable."
     />
