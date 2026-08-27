@@ -45,7 +45,7 @@ export function TeamSection() {
               Socio de estrategia comercial y contenido
             </h3>
             <p className="text-xs text-[#F8F4F2]/80 leading-relaxed mb-6">
-              Director de marketing durante años en una empresa de aparatología médico-estética (ticket alto, decisión larga y competencia dura). Aprendió lo que separa una marca que genera consultas de una que solo genera «me gusta».
+              Experto en dirección de marketing y comunicación audiovisual. Con trayectoria como director de marketing en distintas empresas, diseñador creativo, productor audiovisual y filmmaker, aplica su experiencia en rodajes reales y formación de profesionales en comunicación y negociación. Consigue que tu marca hable, conecte y venda.
             </p>
 
             <ul className="space-y-2 text-xs text-[#F8F4F2]/85 mb-6">

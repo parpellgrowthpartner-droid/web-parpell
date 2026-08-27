@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { PricingLandingTemplate, PricingPack, ServiceItem } from "@/components/PricingLandingTemplate";
+import { ShieldCheck, Sparkles, LineChart, Code2 } from "lucide-react";
+import { PricingLandingTemplate, PricingPack, ServiceItem, ValuePillar } from "@/components/PricingLandingTemplate";
 
 export const metadata: Metadata = {
   title: "Infraestructura Crítica, SEO Corporativo & Dominio GEO (IA)",
@@ -9,6 +10,29 @@ export const metadata: Metadata = {
     follow: false,
   },
 };
+
+const techPillars: ValuePillar[] = [
+  {
+    title: "Hosting & SSL Pro",
+    subtitle: "Velocidad y blindaje",
+    icon: <ShieldCheck className="w-4 h-4" />,
+  },
+  {
+    title: "Motor GEO (IA)",
+    subtitle: "ChatGPT, Claude y Google",
+    icon: <Sparkles className="w-4 h-4" />,
+  },
+  {
+    title: "Analítica & CTR",
+    subtitle: "Visitas reales y posiciones",
+    icon: <LineChart className="w-4 h-4" />,
+  },
+  {
+    title: "Código 100% Tuyo",
+    subtitle: "Sin ataduras ni plantillas",
+    icon: <Code2 className="w-4 h-4" />,
+  },
+];
 
 const packsGrande: PricingPack[] = [
   {
@@ -117,6 +141,8 @@ export default function PricingEnterpriseTecnologiaPage() {
       heroDescription="Ingeniería de software dedicada, arquitectura cloud corporativa y optimización avanzada para consolidar tu liderazgo tecnológico y convertir a tu negocio en la referencia digital y de inteligencia artificial de tu sector."
       packs={packsGrande}
       servicesBreakdown={servicesGrande}
+      valuePillars={techPillars}
+      footerTitle="Tarifas Oficiales de Infraestructura Crítica & Dominio GEO"
       footerNote="Packs sujetos a reconfiguración según los requerimientos del proyecto. El alcance de cada propuesta es flexible, permitiéndonos priorizar áreas o escalar la operativa técnica para asegurar que el resultado final sea impecable."
     />
   );

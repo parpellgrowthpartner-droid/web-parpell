@@ -490,7 +490,7 @@ export default function ParpellLanding() {
             <span className="text-[10px] font-mono text-[#9E5C6A] font-bold uppercase block">Vídeo & Ventas</span>
             <h3 className="text-lg font-bold text-white">Socio Comercial</h3>
             <p className="text-xs sm:text-sm text-zinc-300 leading-relaxed">
-              Exdirector de marketing en venta de ticket alto. Se encarga de rodar en tu local con cámara de cine y guiones diseñados para que tus clientes confíen al instante.
+              Experto en dirección de marketing y comunicación audiovisual. Con trayectoria como director de marketing en distintas empresas, diseñador creativo, productor audiovisual y filmmaker, aplica su experiencia en rodajes reales y formación de profesionales en comunicación y negociación. Consigue que tu marca hable, conecte y venda.
             </p>
           </div>
 

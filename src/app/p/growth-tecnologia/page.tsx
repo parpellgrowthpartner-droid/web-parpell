@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { PricingLandingTemplate, PricingPack, ServiceItem } from "@/components/PricingLandingTemplate";
+import { ShieldCheck, Sparkles, LineChart, Code2 } from "lucide-react";
+import { PricingLandingTemplate, PricingPack, ServiceItem, ValuePillar } from "@/components/PricingLandingTemplate";
 
 export const metadata: Metadata = {
   title: "Packs & Tarifas de Escalado Tecnológico y Motor GEO",
@@ -9,6 +10,29 @@ export const metadata: Metadata = {
     follow: false,
   },
 };
+
+const techPillars: ValuePillar[] = [
+  {
+    title: "Hosting & SSL Pro",
+    subtitle: "Velocidad y blindaje",
+    icon: <ShieldCheck className="w-4 h-4" />,
+  },
+  {
+    title: "Motor GEO (IA)",
+    subtitle: "ChatGPT, Claude y Google",
+    icon: <Sparkles className="w-4 h-4" />,
+  },
+  {
+    title: "Analítica & CTR",
+    subtitle: "Visitas reales y posiciones",
+    icon: <LineChart className="w-4 h-4" />,
+  },
+  {
+    title: "Código 100% Tuyo",
+    subtitle: "Sin ataduras ni plantillas",
+    icon: <Code2 className="w-4 h-4" />,
+  },
+];
 
 const packsMediana: PricingPack[] = [
   {
@@ -117,6 +141,8 @@ export default function PricingGrowthTecnologiaPage() {
       heroDescription="Aplicamos ingeniería de software de alto nivel para blindar tu infraestructura web, dominar el posicionamiento en Google y colocar a tu negocio como respuesta recomendada en las principales Inteligencias Artificiales."
       packs={packsMediana}
       servicesBreakdown={servicesMediana}
+      valuePillars={techPillars}
+      footerTitle="Tarifas Oficiales de Escalado Tecnológico & Motor GEO"
       footerNote="Packs sujetos a reconfiguración según los requerimientos del proyecto. El alcance de cada propuesta es flexible, permitiéndonos priorizar áreas o escalar la operativa técnica para asegurar que el resultado final sea impecable."
     />
   );

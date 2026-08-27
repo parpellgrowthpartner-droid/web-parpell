@@ -49,6 +49,12 @@ export interface PricingPack {
   highlightText?: string;
 }
 
+export interface ValuePillar {
+  title: string;
+  subtitle: string;
+  icon?: React.ReactNode;
+}
+
 export interface FaqItem {
   q: string;
   a: string;
@@ -60,6 +66,8 @@ export interface PricingTemplateProps {
   packs: PricingPack[];
   servicesBreakdown: ServiceItem[];
   faqs?: FaqItem[];
+  valuePillars?: ValuePillar[];
+  footerTitle?: string;
   footerNote?: string;
 }
 
@@ -69,6 +77,8 @@ export function PricingLandingTemplate({
   packs,
   servicesBreakdown,
   faqs,
+  valuePillars,
+  footerTitle,
   footerNote = "Packs sujetos a reconfiguración según los requerimientos del proyecto. El alcance de cada propuesta es flexible, permitiéndonos priorizar áreas o escalar la operativa para asegurar que el resultado final sea impecable.",
 }: PricingTemplateProps) {
   const [selectedPack, setSelectedPack] = useState<string>(
@@ -198,29 +208,50 @@ export function PricingLandingTemplate({
 
           {/* 4 Clean Value Pillars */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3 max-w-3xl mx-auto text-center">
-            <div className="p-2.5 sm:p-3.5 rounded-xl sm:rounded-2xl bg-white/[0.03] border border-white/[0.08] flex flex-col items-center justify-center space-y-1">
-              <Video className="w-4 h-4 text-[#C27A8A] mb-0.5 shrink-0" />
-              <span className="text-[11px] sm:text-xs font-bold text-white leading-tight">Cámara de Cine</span>
-              <span className="text-[10px] sm:text-[11px] text-zinc-400 leading-tight">Rodaje in situ pro</span>
-            </div>
+            {valuePillars && valuePillars.length > 0 ? (
+              valuePillars.map((pillar, idx) => (
+                <div
+                  key={idx}
+                  className="p-2.5 sm:p-3.5 rounded-xl sm:rounded-2xl bg-white/[0.03] border border-white/[0.08] flex flex-col items-center justify-center space-y-1"
+                >
+                  <div className="text-[#C27A8A] mb-0.5 shrink-0">
+                    {pillar.icon || <Sparkles className="w-4 h-4" />}
+                  </div>
+                  <span className="text-[11px] sm:text-xs font-bold text-white leading-tight">
+                    {pillar.title}
+                  </span>
+                  <span className="text-[10px] sm:text-[11px] text-zinc-400 leading-tight">
+                    {pillar.subtitle}
+                  </span>
+                </div>
+              ))
+            ) : (
+              <>
+                <div className="p-2.5 sm:p-3.5 rounded-xl sm:rounded-2xl bg-white/[0.03] border border-white/[0.08] flex flex-col items-center justify-center space-y-1">
+                  <Video className="w-4 h-4 text-[#C27A8A] mb-0.5 shrink-0" />
+                  <span className="text-[11px] sm:text-xs font-bold text-white leading-tight">Cámara de Cine</span>
+                  <span className="text-[10px] sm:text-[11px] text-zinc-400 leading-tight">Rodaje in situ pro</span>
+                </div>
 
-            <div className="p-2.5 sm:p-3.5 rounded-xl sm:rounded-2xl bg-white/[0.03] border border-white/[0.08] flex flex-col items-center justify-center space-y-1">
-              <Clapperboard className="w-4 h-4 text-[#C27A8A] mb-0.5 shrink-0" />
-              <span className="text-[11px] sm:text-xs font-bold text-white leading-tight">Preproducción</span>
-              <span className="text-[10px] sm:text-[11px] text-zinc-400 leading-tight">Cine y eventos</span>
-            </div>
+                <div className="p-2.5 sm:p-3.5 rounded-xl sm:rounded-2xl bg-white/[0.03] border border-white/[0.08] flex flex-col items-center justify-center space-y-1">
+                  <Clapperboard className="w-4 h-4 text-[#C27A8A] mb-0.5 shrink-0" />
+                  <span className="text-[11px] sm:text-xs font-bold text-white leading-tight">Preproducción</span>
+                  <span className="text-[10px] sm:text-[11px] text-zinc-400 leading-tight">Cine y eventos</span>
+                </div>
 
-            <div className="p-2.5 sm:p-3.5 rounded-xl sm:rounded-2xl bg-white/[0.03] border border-white/[0.08] flex flex-col items-center justify-center space-y-1">
-              <Zap className="w-4 h-4 text-[#C27A8A] mb-0.5 shrink-0" />
-              <span className="text-[11px] sm:text-xs font-bold text-white leading-tight">Listo para Publicar</span>
-              <span className="text-[10px] sm:text-[11px] text-zinc-400 leading-tight">Edición y sonido</span>
-            </div>
+                <div className="p-2.5 sm:p-3.5 rounded-xl sm:rounded-2xl bg-white/[0.03] border border-white/[0.08] flex flex-col items-center justify-center space-y-1">
+                  <Zap className="w-4 h-4 text-[#C27A8A] mb-0.5 shrink-0" />
+                  <span className="text-[11px] sm:text-xs font-bold text-white leading-tight">Listo para Publicar</span>
+                  <span className="text-[10px] sm:text-[11px] text-zinc-400 leading-tight">Edición y sonido</span>
+                </div>
 
-            <div className="p-2.5 sm:p-3.5 rounded-xl sm:rounded-2xl bg-white/[0.03] border border-white/[0.08] flex flex-col items-center justify-center space-y-1">
-              <FolderCheck className="w-4 h-4 text-[#C27A8A] mb-0.5 shrink-0" />
-              <span className="text-[11px] sm:text-xs font-bold text-white leading-tight">Material 100% Tuyo</span>
-              <span className="text-[10px] sm:text-[11px] text-zinc-400 leading-tight">Brutos y másteres</span>
-            </div>
+                <div className="p-2.5 sm:p-3.5 rounded-xl sm:rounded-2xl bg-white/[0.03] border border-white/[0.08] flex flex-col items-center justify-center space-y-1">
+                  <FolderCheck className="w-4 h-4 text-[#C27A8A] mb-0.5 shrink-0" />
+                  <span className="text-[11px] sm:text-xs font-bold text-white leading-tight">Material 100% Tuyo</span>
+                  <span className="text-[10px] sm:text-[11px] text-zinc-400 leading-tight">Brutos y másteres</span>
+                </div>
+              </>
+            )}
           </div>
         </motion.div>
       </section>
@@ -686,7 +717,7 @@ export function PricingLandingTemplate({
       {/* ========================================================================= */}
       <footer className="relative z-10 w-full max-w-4xl mx-auto px-6 py-6 mt-6 border-t border-white/[0.04] flex flex-col sm:flex-row items-center justify-between gap-3 text-[10px] text-zinc-500 font-mono">
         <div>
-          <span>Tarifas Oficiales de Producción Audiovisual &amp; Crecimiento</span>
+          <span>{footerTitle || "Tarifas Oficiales de Producción Audiovisual & Crecimiento"}</span>
         </div>
         <div className="flex items-center gap-4">
           <a href="tel:603625946" className="hover:text-zinc-300 transition-colors">603 625 946</a>

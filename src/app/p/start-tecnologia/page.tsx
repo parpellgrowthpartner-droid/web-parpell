@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { PricingLandingTemplate, PricingPack, ServiceItem } from "@/components/PricingLandingTemplate";
+import { ShieldCheck, Sparkles, LineChart, Code2 } from "lucide-react";
+import { PricingLandingTemplate, PricingPack, ServiceItem, ValuePillar } from "@/components/PricingLandingTemplate";
 
 export const metadata: Metadata = {
   title: "Packs & Tarifas de Mantenimiento Web y Posicionamiento IA",
@@ -9,6 +10,29 @@ export const metadata: Metadata = {
     follow: false,
   },
 };
+
+const techPillars: ValuePillar[] = [
+  {
+    title: "Hosting & SSL Pro",
+    subtitle: "Velocidad y blindaje",
+    icon: <ShieldCheck className="w-4 h-4" />,
+  },
+  {
+    title: "Motor GEO (IA)",
+    subtitle: "ChatGPT, Claude y Google",
+    icon: <Sparkles className="w-4 h-4" />,
+  },
+  {
+    title: "Analítica & CTR",
+    subtitle: "Visitas reales y posiciones",
+    icon: <LineChart className="w-4 h-4" />,
+  },
+  {
+    title: "Código 100% Tuyo",
+    subtitle: "Sin ataduras ni plantillas",
+    icon: <Code2 className="w-4 h-4" />,
+  },
+];
 
 const packsPequena: PricingPack[] = [
   {
@@ -117,6 +141,8 @@ export default function PricingStartTecnologiaPage() {
       heroDescription="Cuidamos cada línea de código de tu web, aseguramos máxima velocidad y blindaje técnico, y optimizamos tu huella para que Google y las inteligencias artificiales recomienden tu negocio a clientes reales."
       packs={packsPequena}
       servicesBreakdown={servicesPequena}
+      valuePillars={techPillars}
+      footerTitle="Tarifas Oficiales de Mantenimiento Web, SEO & Posicionamiento IA"
       footerNote="Packs sujetos a reconfiguración según los requerimientos del proyecto. El alcance de cada propuesta es flexible, permitiéndonos priorizar áreas o escalar la operativa técnica para asegurar que el resultado final sea impecable."
     />
   );
