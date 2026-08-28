@@ -138,7 +138,7 @@ export function Parpell3DSpin({ onLoaded, onProgress }: Parpell3DSpinProps) {
         const gltfLoader = new GLTFLoader();
         gltfLoader.setDRACOLoader(dracoLoader);
 
-        // 3.5s failsafe for desktop
+        // 25s safety failsafe for desktop (only activates if network drops completely)
         let modelLoadFailsafe = setTimeout(() => {
           if (!cancelled) {
             console.warn("Desktop 3D GLB load exceeded timeout limit, activating high-res 2D fallback");
@@ -146,7 +146,7 @@ export function Parpell3DSpin({ onLoaded, onProgress }: Parpell3DSpinProps) {
             onProgress?.(100);
             onLoaded?.();
           }
-        }, 3500);
+        }, 25000);
 
         gltfLoader.load(
           "/logo-3d.glb",
