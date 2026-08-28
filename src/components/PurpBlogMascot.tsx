@@ -60,7 +60,7 @@ export function PurpBlogMascot({ mode = "index" }: PurpBlogMascotProps) {
   if (!mounted) return null;
 
   return (
-    <aside className="fixed bottom-4 sm:bottom-6 right-3 sm:right-6 z-40 flex items-end gap-2.5 sm:gap-3 select-none pointer-events-auto flex-row-reverse">
+    <aside className="fixed bottom-4 sm:bottom-6 right-3 sm:right-6 z-[9999] flex items-end gap-2.5 sm:gap-3 select-none pointer-events-auto flex-row-reverse">
       {/* Animated Purp Mascot Button */}
       <motion.button
         type="button"
@@ -68,7 +68,6 @@ export function PurpBlogMascot({ mode = "index" }: PurpBlogMascotProps) {
         whileHover={{ scale: 1.08 }}
         whileTap={{ scale: 0.94 }}
         className="relative group cursor-pointer focus:outline-none shrink-0"
-        title="Purp.IA · Pulsa para escuchar otro consejo"
       >
         <div className="relative w-14 h-14 sm:w-16 sm:h-16 rounded-full liquid-glass border border-[#9E5C6A]/50 p-2 shadow-[0_10px_30px_rgba(158,92,106,0.35)] flex items-center justify-center overflow-hidden">
           <Image

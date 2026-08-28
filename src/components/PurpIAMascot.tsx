@@ -135,7 +135,7 @@ export function PurpIAMascot({ isSecretChamberOpen = false }: PurpIAMascotProps)
   return (
     <aside
       className={`fixed bottom-4 sm:bottom-6 right-3 sm:right-6 flex items-end gap-2.5 sm:gap-3 select-none pointer-events-auto flex-row-reverse transition-all ${
-        isSecretChamberOpen ? "z-[100002]" : "z-30"
+        isSecretChamberOpen ? "z-[100002]" : "z-[9999]"
       }`}
     >
       {/* Animated Purp Mascot Button */}
@@ -145,7 +145,6 @@ export function PurpIAMascot({ isSecretChamberOpen = false }: PurpIAMascotProps)
         whileHover={{ scale: 1.08 }}
         whileTap={{ scale: 0.94 }}
         className="relative group cursor-pointer focus:outline-none shrink-0"
-        title="Purp.IA · Pulsa para interactuar"
       >
         <div className="relative w-14 h-14 sm:w-16 sm:h-16 rounded-full liquid-glass border border-[#9E5C6A]/50 p-2 shadow-[0_10px_30px_rgba(158,92,106,0.35)] flex items-center justify-center overflow-hidden">
           <Image
