@@ -4,8 +4,6 @@ import React, { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import * as THREE from "three";
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
-import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader.js";
 
 interface Parpell3DSpinProps {
   onLoaded?: () => void;
@@ -19,57 +17,32 @@ export function Parpell3DSpin({ onLoaded, onProgress }: Parpell3DSpinProps) {
   const [isModelReady, setIsModelReady] = useState<boolean>(false);
 
   useEffect(() => {
-    // 1. Instant Mobile Detection - Skip heavy 3D GLB & WebGL completely to prevent mobile Chrome OOM crashes
-    const isMobileDevice =
-      typeof window !== "undefined" &&
-      (window.innerWidth < 768 ||
-        /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-          navigator.userAgent
-        ));
-
-    if (isMobileDevice) {
-      setUseFallback(true);
-      onProgress?.(100);
-      onLoaded?.();
-      return;
-    }
-
-    // 2. Safe WebGL Support Check
-    const isWebGLSupported = () => {
-      try {
-        const testCanvas = document.createElement("canvas");
-        return !!(
-          window.WebGLRenderingContext &&
-          (testCanvas.getContext("webgl") || testCanvas.getContext("experimental-webgl"))
-        );
-      } catch {
-        return false;
-      }
-    };
-
-    if (!isWebGLSupported()) {
-      setUseFallback(true);
-      onProgress?.(100);
-      onLoaded?.();
-      return;
-    }
-
     let cancelled = false;
     let animationFrameId: number;
     let cleanup: (() => void) | undefined;
 
-    const init = () => {
+    const init = async () => {
       const container = containerRef.current;
       const canvas = canvasRef.current;
       if (!container || !canvas) return;
 
       try {
+        const { GLTFLoader } = await import("three/examples/jsm/loaders/GLTFLoader.js");
+        const { DRACOLoader } = await import("three/examples/jsm/loaders/DRACOLoader.js");
+
         if (cancelled || !containerRef.current || !canvasRef.current) return;
+
+        const isMobileScreen =
+          typeof window !== "undefined" &&
+          (window.innerWidth < 768 ||
+            /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+              navigator.userAgent
+            ));
 
         const getContainerDimensions = () => {
           const rect = container.getBoundingClientRect();
-          const w = rect.width || container.clientWidth || 360;
-          const h = rect.height || container.clientHeight || 360;
+          const w = rect.width || container.clientWidth || (isMobileScreen ? 240 : 360);
+          const h = rect.height || container.clientHeight || (isMobileScreen ? 240 : 360);
           return { width: Math.max(w, 200), height: Math.max(h, 200) };
         };
 
@@ -88,13 +61,13 @@ export function Parpell3DSpin({ onLoaded, onProgress }: Parpell3DSpinProps) {
           powerPreference: "high-performance",
           stencil: false,
           depth: true,
-          precision: "highp",
+          precision: isMobileScreen ? "mediump" : "highp",
         });
         renderer.setSize(width, height, false);
         renderer.setPixelRatio(
           Math.min(
             typeof window !== "undefined" ? window.devicePixelRatio : 1,
-            2.0
+            isMobileScreen ? 1.5 : 2.0
           )
         );
         renderer.toneMapping = THREE.ACESFilmicToneMapping;
@@ -120,6 +93,11 @@ export function Parpell3DSpin({ onLoaded, onProgress }: Parpell3DSpinProps) {
         rimLight.position.set(0, 4, -4);
         scene.add(rimLight);
 
+        // Interactive Dynamic Point Light (gleams upon tilt)
+        const dynamicPointLight = new THREE.PointLight(0xf3b0be, 3.2, 12, 1.2);
+        dynamicPointLight.position.set(0, 1.5, 2.5);
+        scene.add(dynamicPointLight);
+
         // 4. Model Pivot Group
         const modelGroup = new THREE.Group();
         scene.add(modelGroup);
@@ -132,18 +110,18 @@ export function Parpell3DSpin({ onLoaded, onProgress }: Parpell3DSpinProps) {
         const gltfLoader = new GLTFLoader();
         gltfLoader.setDRACOLoader(dracoLoader);
 
-        // 25s safety failsafe for desktop
+        // 15s failsafe (long enough for mobile 3G/4G, safety fallback only if load hangs completely)
         let modelLoadFailsafe = setTimeout(() => {
           if (!cancelled) {
-            console.warn("Desktop 3D GLB load exceeded timeout limit, activating high-res 2D fallback");
+            console.warn("Mobile 3D GLB load exceeded timeout limit, activating high-res 2D fallback");
             setUseFallback(true);
             onProgress?.(100);
             onLoaded?.();
           }
-        }, 25000);
+        }, 15000);
 
         gltfLoader.load(
-          "/logo-3d.glb",
+          "/logo-3d.glb?v=4",
           (gltf) => {
             clearTimeout(modelLoadFailsafe);
             if (cancelled) return;
@@ -165,7 +143,7 @@ export function Parpell3DSpin({ onLoaded, onProgress }: Parpell3DSpinProps) {
               root.scale.set(scale, scale, scale);
             }
 
-            // Original materials setup
+            // Enhance double-sided materials and specular response without altering textures/colors
             root.traverse((child) => {
               if ((child as THREE.Mesh).isMesh) {
                 const mesh = child as THREE.Mesh;
@@ -257,7 +235,7 @@ export function Parpell3DSpin({ onLoaded, onProgress }: Parpell3DSpinProps) {
           if (cancelled || !isOnScreen || !isTabVisible) return;
           animationFrameId = requestAnimationFrame(animate);
 
-          // Throttle to 60fps max to save battery and GPU
+          // Throttle to 60fps max to save battery and GPU on 120Hz mobile devices
           if (timestamp - lastFrameTime < targetFrameInterval - 1) return;
           lastFrameTime = timestamp;
 
@@ -266,14 +244,14 @@ export function Parpell3DSpin({ onLoaded, onProgress }: Parpell3DSpinProps) {
           if (!isInteracting) {
             // Gentle continuous floating & sway with strictly clamped angles
             const autoSpin = elapsedTime * 0.45;
-            const tiltX = Math.cos(elapsedTime * 0.85) * 0.08 + Math.max(-0.2, Math.min(0.2, mouseNormalized.y * 0.2));
-            const tiltY = Math.sin(autoSpin) * 0.35 + Math.max(-0.3, Math.min(0.3, mouseNormalized.x * 0.3));
+            const tiltX = Math.cos(elapsedTime * 0.85) * 0.12 + Math.max(-0.25, Math.min(0.25, mouseNormalized.y * 0.22));
+            const tiltY = Math.sin(autoSpin) * 0.38 + Math.max(-0.35, Math.min(0.35, mouseNormalized.x * 0.35));
 
-            targetRotationY = tiltY;
-            targetRotationX = tiltX;
+            targetRotationY = Math.max(-0.65, Math.min(0.65, tiltY));
+            targetRotationX = Math.max(-0.35, Math.min(0.35, tiltX));
 
-            // Subtle floating breathing on Y axis
-            modelGroup.position.y = Math.sin(elapsedTime * 1.5) * 0.05;
+            // Harmonic floating breathing on Y axis
+            modelGroup.position.y = Math.sin(elapsedTime * 1.5) * 0.08;
 
             // Smooth decay of mouseNormalized when idle
             mouseNormalized.x *= 0.95;
@@ -290,11 +268,15 @@ export function Parpell3DSpin({ onLoaded, onProgress }: Parpell3DSpinProps) {
           }
 
           // Smooth physics lerping
-          currentRotationY += (targetRotationY - currentRotationY) * 0.06;
-          currentRotationX += (targetRotationX - currentRotationX) * 0.06;
+          currentRotationY += (targetRotationY - currentRotationY) * 0.08;
+          currentRotationX += (targetRotationX - currentRotationX) * 0.08;
 
           modelGroup.rotation.y = currentRotationY;
           modelGroup.rotation.x = currentRotationX;
+
+          // Dynamic light follows tilt for gleaming highlights
+          dynamicPointLight.position.x = Math.sin(currentRotationY) * 2.2;
+          dynamicPointLight.position.y = 1.4 + Math.sin(elapsedTime * 2.0) * 0.4;
 
           renderer.render(scene, camera);
         };
@@ -453,7 +435,12 @@ export function Parpell3DSpin({ onLoaded, onProgress }: Parpell3DSpinProps) {
       }
     };
 
-    cleanup = init();
+    init().then((cleanupFn) => {
+      if (cleanupFn) {
+        if (!cancelled) cleanup = cleanupFn;
+        else cleanupFn();
+      }
+    });
 
     return () => {
       cancelled = true;
