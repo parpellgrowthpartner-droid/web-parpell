@@ -73,6 +73,7 @@ export function Footer() {
               <li><a href="#como-trabajamos" className="hover:text-[#9E5C6A] transition-colors">07 Cómo trabajamos</a></li>
               <li><a href="#quienes-somos" className="hover:text-[#9E5C6A] transition-colors">08 Quiénes somos</a></li>
               <li><a href="#diccionario" className="hover:text-[#9E5C6A] transition-colors">11 Diccionario Parpell</a></li>
+              <li><a href="/blog" className="text-[#C27A8A] font-bold hover:text-white transition-colors">✦ Blog & Recursos</a></li>
             </ul>
           </div>
 

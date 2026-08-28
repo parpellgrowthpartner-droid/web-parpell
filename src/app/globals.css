@@ -49,14 +49,38 @@
   box-shadow: 0 25px 60px rgba(158, 92, 106, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.3);
 }
 
+/* Fluid Liquid Glass Surface with Specular Rim & Refractive Blur */
+.liquid-glass {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.07) 0%, rgba(158, 92, 106, 0.08) 50%, rgba(20, 8, 14, 0.6) 100%);
+  backdrop-filter: blur(32px) saturate(190%);
+  -webkit-backdrop-filter: blur(32px) saturate(190%);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7), inset 0 1px 1px rgba(255, 255, 255, 0.25), inset 0 -1px 1px rgba(158, 92, 106, 0.2);
+  transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.liquid-glass:hover {
+  border-color: rgba(194, 122, 138, 0.5);
+  box-shadow: 0 30px 70px rgba(158, 92, 106, 0.3), inset 0 1px 2px rgba(255, 255, 255, 0.4);
+}
+
+/* Liquid Glass Pill / Badge */
+.liquid-glass-pill {
+  background: linear-gradient(90deg, rgba(158, 92, 106, 0.15) 0%, rgba(255, 255, 255, 0.05) 100%);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
 /* Mobile: Disable expensive backdrop-filter compositing layers to prevent
    GPU memory exhaustion and "page cannot be opened" crashes in iOS Safari,
    Android Chrome, and in-app browsers (Instagram, TikTok, etc.) */
 @media (max-width: 767px), (hover: none) and (pointer: coarse) {
-  .apple-glass {
+  .apple-glass,
+  .liquid-glass {
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
-    background: rgba(43, 26, 32, 0.85);
+    background: rgba(30, 14, 20, 0.92);
   }
 }
 

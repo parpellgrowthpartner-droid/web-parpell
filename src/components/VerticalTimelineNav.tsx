@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { motion, useScroll, useSpring } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, BookOpen } from "lucide-react";
 
 interface SectionMarker {
   id: string;
@@ -204,6 +204,17 @@ export function VerticalTimelineNav() {
       >
         <span>Contacto directo</span>
         <ArrowRight className="w-4 h-4" />
+      </motion.a>
+
+      {/* Secondary CTA Button: Blog Parpell */}
+      <motion.a
+        whileHover={{ scale: 1.05, x: 3 }}
+        whileTap={{ scale: 0.96 }}
+        href="/blog"
+        className="mt-3 h-10 px-5 rounded-full text-xs font-mono font-bold text-[#F8F4F2] liquid-glass hover:bg-white/[0.12] border border-white/20 shadow-lg flex items-center gap-2 backdrop-blur-2xl transition-all cursor-pointer whitespace-nowrap"
+      >
+        <BookOpen className="w-3.5 h-3.5 text-[#C27A8A]" />
+        <span>Blog Parpell</span>
       </motion.a>
     </aside>
   );
