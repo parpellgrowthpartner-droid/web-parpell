@@ -14,10 +14,10 @@ export function DiscountPopup() {
 
   useEffect(() => {
     setMounted(true);
-    // Pops up every time someone enters the website after 1.2 seconds
+    // Pops up comfortably after user enters and explores the hero
     const timer = setTimeout(() => {
       setIsOpen(true);
-    }, 1200);
+    }, 2200);
 
     return () => clearTimeout(timer);
   }, []);

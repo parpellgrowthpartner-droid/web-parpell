@@ -69,33 +69,38 @@ export default function ParpellLanding() {
   // Parpell Brand Loading Screen State
   const [loadProgress, setLoadProgress] = useState(0);
   const [isAppLoaded, setIsAppLoaded] = useState(false);
+  const [is3DLoaded, setIs3DLoaded] = useState(false);
+
+  const handle3DLoaded = () => {
+    setIs3DLoaded(true);
+    setLoadProgress(100);
+    setTimeout(() => {
+      setIsAppLoaded(true);
+    }, 250);
+  };
 
   useEffect(() => {
-    const timer = setInterval(() => {
+    // Smooth progress curve up to 92% while 3D model loads
+    const interval = setInterval(() => {
       setLoadProgress((prev) => {
-        if (prev >= 100) {
-          clearInterval(timer);
-          setIsAppLoaded(true);
-          return 100;
+        if (prev >= 92) {
+          clearInterval(interval);
+          return 92;
         }
-        const delta = prev < 50 ? 25 : prev < 85 ? 18 : 12;
-        const next = Math.min(100, prev + delta);
-        if (next === 100) {
-          clearInterval(timer);
-          setTimeout(() => setIsAppLoaded(true), 120);
-        }
-        return next;
+        const step = prev < 40 ? 6 : prev < 75 ? 4 : 2;
+        return Math.min(92, prev + step);
       });
-    }, 20);
+    }, 45);
 
+    // Failsafe in case 3D takes too long
     const failsafe = setTimeout(() => {
       setLoadProgress(100);
-      setIsAppLoaded(true);
-      clearInterval(timer);
-    }, 500);
+      setTimeout(() => setIsAppLoaded(true), 200);
+      clearInterval(interval);
+    }, 3800);
 
     return () => {
-      clearInterval(timer);
+      clearInterval(interval);
       clearTimeout(failsafe);
     };
   }, []);
@@ -241,7 +246,7 @@ export default function ParpellLanding() {
                   />
                 </div>
                 <div className="w-full flex justify-between items-center text-xs font-mono text-zinc-400">
-                  <span className="text-[11px] text-zinc-500 uppercase tracking-wider">Cargando experiencia</span>
+                  <span className="text-[11px] text-zinc-500 uppercase tracking-wider">Cargando experiencia 3D</span>
                   <span className="font-bold text-[#E598A8] text-xs sm:text-sm">
                     {loadProgress}%
                   </span>
@@ -299,7 +304,7 @@ export default function ParpellLanding() {
       >
         <div className="flex-1 flex flex-col justify-center items-center">
           {/* 3D Spinning Parpell Logo (Top Layer) */}
-          <Parpell3DSpin onLoaded={() => setLoadProgress(100)} />
+          <Parpell3DSpin onLoaded={handle3DLoaded} />
 
           {/* Sized Headline with generous breathing room */}
           <h1 className="text-2xl sm:text-4xl md:text-[42px] lg:text-[46px] font-extrabold tracking-tight text-white mt-2 sm:mt-3 mb-2 leading-[1.2] sm:leading-[1.22]">
