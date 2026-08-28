@@ -28,6 +28,24 @@ const ARTICLE_PHRASES = [
   "Aquí aprendes, pero cuando contratas a Parpell... ¡aquí es donde se factura!",
 ];
 
+const CLICK_PHRASES = [
+  "¡Oye, no me toques tanto que me sonrojo! Mejor dale al botón de 'Contacto' y hablamos de tu negocio.",
+  "Cada vez que me haces clic, un competidor tuyo pierde un cliente. ¿Hablamos con Parpell antes de que se enteren?",
+  "¿Mucho tocar a la mascota, pero cuándo vamos a disparar las ventas de tu web?",
+  "Psst... Menos clics a mí y más clics a 'Contacto directo', que los dos socios están libres hoy.",
+  "¡Uy! Me has hecho cosquillas. Como recompensa, te sugiero ir al Home a ver cómo hacemos que la IA te recomiende.",
+  "Leer el blog está muy bien, pero facturar el triple mola más. ¿Te vienes al Home a ver las tarifas?",
+  "Si me sigues pinchando voy a tener que cobrarte honorarios de consultoría... ¡Mejor contrata a Parpell y te lo montamos todo nosotros!",
+  "Dicen que si visitas la página de Inicio y agendes una sesión, tu facturación sube un 40%. No lo digo yo, lo dice la ciencia.",
+  "¿Te gusta cómo estoy programado? Imagina lo que podemos programar para tu empresa si nos contratas.",
+  "¡Alerta de cotilleo! Si vas al Home descubrirás el secreto de por qué las cámaras de cine venden tanto.",
+  "No soy adivino, pero veo en tu futuro una llamada de 30 minutos con los fundadores de Parpell...",
+  "¡Para ya y vete a ver nuestras tarifas! Te prometo que son transparentes y sin letra pequeña.",
+  "Si has hecho clic 3 veces seguidas significa que necesitas a Parpell urgentemente en tu equipo.",
+  "Menos mirar y más facturar. ¿Por qué no te pasas por el Home a ver qué pack te encaja mejor?",
+  "¿Sabías que los botones de 'Contratar' en el Home no muerden? ¡Pruébalos!",
+];
+
 interface PurpBlogMascotProps {
   mode?: "index" | "article";
 }
@@ -36,6 +54,7 @@ export function PurpBlogMascot({ mode = "index" }: PurpBlogMascotProps) {
   const [mounted, setMounted] = useState(false);
   const [isBubbleVisible, setIsBubbleVisible] = useState(true);
   const [currentPhrase, setCurrentPhrase] = useState("");
+  const [isClickMode, setIsClickMode] = useState(false);
 
   useEffect(() => {
     setMounted(true);
@@ -48,12 +67,10 @@ export function PurpBlogMascot({ mode = "index" }: PurpBlogMascotProps) {
   }, [mode]);
 
   const handleMascotClick = () => {
-    if (mode === "article") {
-      // Pick a new random phrase different from the current one
-      const remaining = ARTICLE_PHRASES.filter((p) => p !== currentPhrase);
-      const nextPhrase = remaining[Math.floor(Math.random() * remaining.length)];
-      setCurrentPhrase(nextPhrase);
-    }
+    setIsClickMode(true);
+    const pool = CLICK_PHRASES.filter((p) => p !== currentPhrase);
+    const nextPhrase = pool[Math.floor(Math.random() * pool.length)];
+    setCurrentPhrase(nextPhrase);
     setIsBubbleVisible(true);
   };
 
@@ -98,7 +115,7 @@ export function PurpBlogMascot({ mode = "index" }: PurpBlogMascotProps) {
             <div className="flex items-center justify-between gap-2 mb-1.5 pb-1 border-b border-white/[0.1]">
               <span className="inline-flex items-center gap-1 text-[10px] font-mono font-bold text-[#E598A8] uppercase tracking-wider">
                 <Sparkles className="w-2.5 h-2.5 text-[#C27A8A]" />
-                <span>Purp.IA</span>
+                <span>{isClickMode ? "Purp.IA te dice:" : "Purp.IA"}</span>
               </span>
 
               <button
