@@ -18,6 +18,7 @@ import {
   Key,
 } from "lucide-react";
 import { ParpellLogo } from "@/components/parpell/ParpellLogo";
+import { Parpell3DSpin } from "@/components/parpell/Parpell3DSpin";
 
 const BackgroundMesh = dynamic(
   () => import("@/components/parpell/BackgroundMesh").then((m) => m.BackgroundMesh),
@@ -25,10 +26,6 @@ const BackgroundMesh = dynamic(
 );
 const VerticalTimelineNav = dynamic(
   () => import("@/components/parpell/VerticalTimelineNav").then((m) => m.VerticalTimelineNav),
-  { ssr: false }
-);
-const Parpell3DSpin = dynamic(
-  () => import("@/components/parpell/Parpell3DSpin").then((m) => m.Parpell3DSpin),
   { ssr: false }
 );
 const DiscountPopup = dynamic(
@@ -300,8 +297,8 @@ export default function ParpellLanding() {
         )}
       </AnimatePresence>
 
-      {/* 15% Discount Pop-up */}
-      <DiscountPopup />
+      {/* 15% Discount Pop-up (Only mounts after 3D experience is active) */}
+      {isAppLoaded && <DiscountPopup />}
 
       {/* Sleek Floating Glass Mobile Header & Nav Drawer */}
       <LiquidGlassNavbar />

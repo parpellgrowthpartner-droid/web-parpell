@@ -69,6 +69,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="es" className={`${geistSans.variable} ${geistMono.variable} dark`}>
+      <head>
+        <link rel="preload" href="/logo-3d.glb" as="fetch" crossOrigin="anonymous" />
+        <link rel="preload" href="/draco/gltf/draco_decoder.wasm" as="fetch" crossOrigin="anonymous" />
+      </head>
       <body className="min-h-screen bg-[#080306] text-[#F8F4F2] antialiased overflow-x-hidden">
         <SmoothScroll />
         {children}

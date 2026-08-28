@@ -4,6 +4,8 @@ import React, { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import * as THREE from "three";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
+import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader.js";
 
 interface Parpell3DSpinProps {
   onLoaded?: () => void;
@@ -56,15 +58,12 @@ export function Parpell3DSpin({ onLoaded, onProgress }: Parpell3DSpinProps) {
     let animationFrameId: number;
     let cleanup: (() => void) | undefined;
 
-    const init = async () => {
+    const init = () => {
       const container = containerRef.current;
       const canvas = canvasRef.current;
       if (!container || !canvas) return;
 
       try {
-        const { GLTFLoader } = await import("three/examples/jsm/loaders/GLTFLoader.js");
-        const { DRACOLoader } = await import("three/examples/jsm/loaders/DRACOLoader.js");
-
         if (cancelled || !containerRef.current || !canvasRef.current) return;
 
         const getContainerDimensions = () => {
@@ -463,12 +462,7 @@ export function Parpell3DSpin({ onLoaded, onProgress }: Parpell3DSpinProps) {
       }
     };
 
-    init().then((cleanupFn) => {
-      if (cleanupFn) {
-        if (!cancelled) cleanup = cleanupFn;
-        else cleanupFn();
-      }
-    });
+    cleanup = init();
 
     return () => {
       cancelled = true;
