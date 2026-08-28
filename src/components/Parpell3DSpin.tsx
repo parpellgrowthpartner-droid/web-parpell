@@ -14,6 +14,7 @@ export function Parpell3DSpin({ onLoaded, onProgress }: Parpell3DSpinProps) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [useFallback, setUseFallback] = useState<boolean>(false);
+  const [isModelReady, setIsModelReady] = useState<boolean>(false);
 
   useEffect(() => {
     let cancelled = false;
@@ -167,6 +168,7 @@ export function Parpell3DSpin({ onLoaded, onProgress }: Parpell3DSpinProps) {
             });
 
             modelGroup.add(root);
+            setIsModelReady(true);
             onProgress?.(100);
             onLoaded?.();
           },
@@ -489,9 +491,30 @@ export function Parpell3DSpin({ onLoaded, onProgress }: Parpell3DSpinProps) {
         style={{ touchAction: "pan-y" }}
         title="Gira el logo 3D interactivo de Parpell"
       >
+        {/* Instant 0ms High-Res 3D Poster (Zero Blank Gap) */}
+        {!isModelReady && (
+          <motion.div
+            initial={{ opacity: 1 }}
+            animate={{ opacity: isModelReady ? 0 : 1 }}
+            transition={{ duration: 0.4 }}
+            className="absolute inset-0 flex items-center justify-center pointer-events-none"
+          >
+            <Image
+              src="/logo-parpell-perfect.png"
+              alt="Logo Parpell 3D"
+              width={340}
+              height={340}
+              priority
+              className="w-44 h-44 sm:w-60 sm:h-60 md:w-72 md:h-72 object-contain drop-shadow-[0_15px_35px_rgba(158,92,106,0.35)]"
+            />
+          </motion.div>
+        )}
+
         <canvas
           ref={canvasRef}
-          className="w-full h-full block pointer-events-auto"
+          className={`w-full h-full block pointer-events-auto transition-opacity duration-500 ${
+            isModelReady ? "opacity-100" : "opacity-0"
+          }`}
           style={{ touchAction: "pan-y" }}
         />
       </div>
