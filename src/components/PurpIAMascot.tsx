@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { X } from "lucide-react";
+import { X, Sparkles } from "lucide-react";
 
 interface SectionDialogue {
   id: string;
@@ -134,93 +134,72 @@ export function PurpIAMascot({ isSecretChamberOpen = false }: PurpIAMascotProps)
 
   return (
     <aside
-      className={`fixed bottom-3 sm:bottom-8 right-2.5 sm:right-6 flex items-end gap-2 sm:gap-3 select-none pointer-events-auto flex-row-reverse transition-all ${
+      className={`fixed bottom-4 sm:bottom-6 right-3 sm:right-6 flex items-end gap-2.5 sm:gap-3 select-none pointer-events-auto flex-row-reverse transition-all ${
         isSecretChamberOpen ? "z-[100002]" : "z-30"
       }`}
     >
-      {/* Mascot Avatar (Pure Floating Character, Compact & Non-intrusive) */}
-      <div className="relative flex flex-col items-center shrink-0">
-        {/* Soft Ambient Purple Glow Behind Mascot */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 sm:w-18 h-10 sm:h-18 bg-gradient-to-tr from-[#A855F7]/30 via-[#C084FC]/20 to-transparent rounded-full blur-lg -z-10 pointer-events-none" />
-
-        {/* Pure Levitating Mascot GIF - Compact on mobile */}
-        <motion.div
-          animate={{ y: [0, -4, 0], rotate: [0, -1, 1, 0] }}
-          transition={{
-            duration: 3.2,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-          whileHover={{ scale: 1.12, rotate: 2 }}
-          whileTap={{ scale: 0.9 }}
-          onClick={handleMascotClick}
-          className="relative w-9 h-9 sm:w-14 sm:h-14 cursor-pointer flex items-center justify-center filter drop-shadow-[0_4px_12px_rgba(168,85,247,0.45)] transition-transform"
-          title="Soy Purp.IA, ¡toca para interactuar!"
-        >
+      {/* Animated Purp Mascot Button */}
+      <motion.button
+        type="button"
+        onClick={handleMascotClick}
+        whileHover={{ scale: 1.08 }}
+        whileTap={{ scale: 0.94 }}
+        className="relative group cursor-pointer focus:outline-none shrink-0"
+        title="Purp.IA · Pulsa para interactuar"
+      >
+        <div className="relative w-14 h-14 sm:w-16 sm:h-16 rounded-full liquid-glass border border-[#9E5C6A]/50 p-2 shadow-[0_10px_30px_rgba(158,92,106,0.35)] flex items-center justify-center overflow-hidden">
           <Image
             src="/bloub-default-cycle.gif"
             alt="Purp.IA Mascot"
-            width={56}
-            height={56}
+            width={64}
+            height={64}
             unoptimized
-            priority
-            className="w-full h-full object-contain pointer-events-none select-none"
+            className="w-full h-full object-contain pointer-events-none drop-shadow-[0_2px_8px_rgba(158,92,106,0.5)]"
           />
-        </motion.div>
-      </div>
+        </div>
 
-      {/* Dynamic Floating Speech Bubble (ONLY on Desktop / Tablet sm+, HIDDEN on mobile) */}
+        {/* Status Indicator Dot */}
+        <span className="absolute top-0 right-0 w-3.5 h-3.5 rounded-full bg-emerald-500 border-2 border-[#080306] shadow-sm animate-pulse" />
+      </motion.button>
+
+      {/* Dynamic Floating Speech Bubble (100% Solid & Opaque) */}
       <AnimatePresence mode="wait">
         {isBubbleVisible && (
           <motion.div
             key={customQuoteIdx !== null ? `quote-${customQuoteIdx}` : activeSection}
-            initial={{ opacity: 0, scale: 0.88, y: 8, x: 6 }}
+            initial={{ opacity: 0, scale: 0.88, y: 15, x: 10 }}
             animate={{ opacity: 1, scale: 1, y: 0, x: 0 }}
-            exit={{ opacity: 0, scale: 0.88, y: 6, x: 6 }}
-            transition={{ type: "spring", stiffness: 400, damping: 28 }}
-            className="hidden sm:block relative max-w-[220px] md:max-w-[260px] p-3 rounded-2xl bg-[#140618]/95 border border-[#C084FC]/35 shadow-[0_8px_30px_rgba(0,0,0,0.85),0_0_20px_rgba(168,85,247,0.2)] text-left mb-1"
+            exit={{ opacity: 0, scale: 0.88, y: 15 }}
+            transition={{ type: "spring", stiffness: 350, damping: 26 }}
+            className="relative max-w-[260px] sm:max-w-[320px] p-3.5 sm:p-4 rounded-2xl bg-[#160812] border-2 border-[#9E5C6A]/70 shadow-[0_25px_60px_rgba(0,0,0,0.98),0_0_30px_rgba(158,92,106,0.35)] text-left"
           >
-            {/* Crisp Triangular Tail pointing directly right towards Mascot */}
-            <svg
-              className="absolute -right-2 bottom-3 w-2.5 h-3 text-[#140618] overflow-visible pointer-events-none"
-              viewBox="0 0 14 16"
-              fill="none"
-            >
-              <path
-                d="M0 1 L13 8 L0 15 Z"
-                fill="#140618"
-                stroke="rgba(192, 132, 252, 0.45)"
-                strokeWidth="1.2"
-                strokeLinejoin="round"
-              />
-              <rect x="-2" y="1.5" width="4" height="13" fill="#140618" />
-            </svg>
-
-            {/* Bubble Header */}
-            <div className="flex items-center justify-between gap-1.5 mb-1 pb-1 border-b border-white/[0.08]">
-              <div className="flex items-center gap-1">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#C084FC] animate-ping" />
-                <span className="text-[9px] font-mono font-bold uppercase tracking-wider text-[#E9D5FF]">
-                  {currentDialogue.tag}
-                </span>
-              </div>
+            {/* Header: Tag + Close (X) */}
+            <div className="flex items-center justify-between gap-2 mb-1.5 pb-1 border-b border-white/[0.1]">
+              <span className="inline-flex items-center gap-1 text-[10px] font-mono font-bold text-[#E598A8] uppercase tracking-wider">
+                <Sparkles className="w-2.5 h-2.5 text-[#C27A8A]" />
+                <span>{currentDialogue.tag}</span>
+              </span>
 
               <button
+                type="button"
                 onClick={(e) => {
                   e.stopPropagation();
                   setIsBubbleVisible(false);
                 }}
-                className="w-4 h-4 rounded-full flex items-center justify-center text-zinc-400 hover:text-white transition-colors"
-                title="Ocultar mensaje"
+                className="w-5 h-5 rounded-full bg-white/[0.08] hover:bg-white/[0.2] text-zinc-300 hover:text-white flex items-center justify-center transition-colors cursor-pointer"
+                title="Cerrar mensaje"
               >
                 <X className="w-3 h-3" />
               </button>
             </div>
 
             {/* Message Body */}
-            <p className="text-xs text-zinc-100 font-sans leading-snug font-normal">
+            <p className="text-xs sm:text-[13px] text-white font-sans leading-snug font-medium">
               {currentDialogue.message}
             </p>
+
+            {/* Speech Tail pointing to Purp */}
+            <div className="absolute bottom-4 -right-1.5 w-3 h-3 bg-[#160812] border-r-2 border-b-2 border-[#9E5C6A]/70 rotate-[-45deg] pointer-events-none" />
           </motion.div>
         )}
       </AnimatePresence>

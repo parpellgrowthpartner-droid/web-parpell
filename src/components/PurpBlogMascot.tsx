@@ -93,10 +93,10 @@ export function PurpBlogMascot({ mode = "index" }: PurpBlogMascotProps) {
             animate={{ opacity: 1, scale: 1, y: 0, x: 0 }}
             exit={{ opacity: 0, scale: 0.88, y: 15 }}
             transition={{ type: "spring", stiffness: 350, damping: 26 }}
-            className="relative max-w-[260px] sm:max-w-[320px] p-3.5 sm:p-4 rounded-2xl liquid-glass border border-[#9E5C6A]/45 shadow-[0_15px_40px_rgba(0,0,0,0.7),0_0_20px_rgba(158,92,106,0.25)] text-left"
+            className="relative max-w-[260px] sm:max-w-[320px] p-3.5 sm:p-4 rounded-2xl bg-[#160812] border-2 border-[#9E5C6A]/70 shadow-[0_25px_60px_rgba(0,0,0,0.98),0_0_30px_rgba(158,92,106,0.35)] text-left"
           >
             {/* Header: Tag + Close (X) */}
-            <div className="flex items-center justify-between gap-2 mb-1.5">
+            <div className="flex items-center justify-between gap-2 mb-1.5 pb-1 border-b border-white/[0.1]">
               <span className="inline-flex items-center gap-1 text-[10px] font-mono font-bold text-[#E598A8] uppercase tracking-wider">
                 <Sparkles className="w-2.5 h-2.5 text-[#C27A8A]" />
                 <span>Purp.IA</span>
@@ -108,7 +108,7 @@ export function PurpBlogMascot({ mode = "index" }: PurpBlogMascotProps) {
                   e.stopPropagation();
                   setIsBubbleVisible(false);
                 }}
-                className="w-5 h-5 rounded-full bg-white/[0.08] hover:bg-white/[0.2] text-zinc-400 hover:text-white flex items-center justify-center transition-colors cursor-pointer"
+                className="w-5 h-5 rounded-full bg-white/[0.08] hover:bg-white/[0.2] text-zinc-300 hover:text-white flex items-center justify-center transition-colors cursor-pointer"
                 title="Cerrar mensaje"
               >
                 <X className="w-3 h-3" />
@@ -116,12 +116,12 @@ export function PurpBlogMascot({ mode = "index" }: PurpBlogMascotProps) {
             </div>
 
             {/* Message Body */}
-            <p className="text-xs sm:text-[13px] text-zinc-100 font-sans leading-snug font-medium">
+            <p className="text-xs sm:text-[13px] text-white font-sans leading-snug font-medium">
               {currentPhrase}
             </p>
 
             {/* Speech Tail pointing to Purp */}
-            <div className="absolute bottom-4 -right-1.5 w-3 h-3 bg-[#1A0A15] border-r border-b border-[#9E5C6A]/45 rotate-[-45deg] pointer-events-none" />
+            <div className="absolute bottom-4 -right-1.5 w-3 h-3 bg-[#160812] border-r-2 border-b-2 border-[#9E5C6A]/70 rotate-[-45deg] pointer-events-none" />
           </motion.div>
         )}
       </AnimatePresence>
