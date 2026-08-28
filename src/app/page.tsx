@@ -66,42 +66,41 @@ const LiquidGlassNavbar = dynamic(
 export default function ParpellLanding() {
   const [activeTab, setActiveTab] = useState<1 | 2 | 3 | 4>(1);
 
-  // Parpell Brand Loading Screen State
+  // Parpell Brand Loading Screen State (Fast & Smooth 0.5s experience)
   const [loadProgress, setLoadProgress] = useState(0);
   const [isAppLoaded, setIsAppLoaded] = useState(false);
-  const [is3DLoaded, setIs3DLoaded] = useState(false);
 
   const handle3DLoaded = () => {
-    setIs3DLoaded(true);
     setLoadProgress(100);
     setTimeout(() => {
       setIsAppLoaded(true);
-    }, 250);
+    }, 150);
   };
 
   useEffect(() => {
-    // Smooth progress curve up to 92% while 3D model loads
-    const interval = setInterval(() => {
-      setLoadProgress((prev) => {
-        if (prev >= 92) {
-          clearInterval(interval);
-          return 92;
-        }
-        const step = prev < 40 ? 6 : prev < 75 ? 4 : 2;
-        return Math.min(92, prev + step);
-      });
-    }, 45);
+    // Ultra-snappy, silky smooth progress progression (~550ms total)
+    const startTime = performance.now();
+    const duration = 550;
 
-    // Failsafe in case 3D takes too long
-    const failsafe = setTimeout(() => {
-      setLoadProgress(100);
-      setTimeout(() => setIsAppLoaded(true), 200);
-      clearInterval(interval);
-    }, 3800);
+    let animId: number;
+    const updateProgress = (time: number) => {
+      const elapsed = time - startTime;
+      const progress = Math.min(100, Math.round((elapsed / duration) * 100));
+      setLoadProgress(progress);
+
+      if (progress < 100) {
+        animId = requestAnimationFrame(updateProgress);
+      } else {
+        setTimeout(() => {
+          setIsAppLoaded(true);
+        }, 150);
+      }
+    };
+
+    animId = requestAnimationFrame(updateProgress);
 
     return () => {
-      clearInterval(interval);
-      clearTimeout(failsafe);
+      cancelAnimationFrame(animId);
     };
   }, []);
 

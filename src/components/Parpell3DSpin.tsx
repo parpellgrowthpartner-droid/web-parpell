@@ -17,6 +17,41 @@ export function Parpell3DSpin({ onLoaded, onProgress }: Parpell3DSpinProps) {
   const [isModelReady, setIsModelReady] = useState<boolean>(false);
 
   useEffect(() => {
+    // 1. Instant Mobile Detection - Skip heavy 3D GLB & WebGL completely to prevent mobile Chrome OOM crashes
+    const isMobileDevice =
+      typeof window !== "undefined" &&
+      (window.innerWidth < 768 ||
+        /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+          navigator.userAgent
+        ));
+
+    if (isMobileDevice) {
+      setUseFallback(true);
+      onProgress?.(100);
+      onLoaded?.();
+      return;
+    }
+
+    // 2. Safe WebGL Support Check
+    const isWebGLSupported = () => {
+      try {
+        const testCanvas = document.createElement("canvas");
+        return !!(
+          window.WebGLRenderingContext &&
+          (testCanvas.getContext("webgl") || testCanvas.getContext("experimental-webgl"))
+        );
+      } catch {
+        return false;
+      }
+    };
+
+    if (!isWebGLSupported()) {
+      setUseFallback(true);
+      onProgress?.(100);
+      onLoaded?.();
+      return;
+    }
+
     let cancelled = false;
     let animationFrameId: number;
     let cleanup: (() => void) | undefined;
@@ -32,17 +67,10 @@ export function Parpell3DSpin({ onLoaded, onProgress }: Parpell3DSpinProps) {
 
         if (cancelled || !containerRef.current || !canvasRef.current) return;
 
-        const isMobileScreen =
-          typeof window !== "undefined" &&
-          (window.innerWidth < 768 ||
-            /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-              navigator.userAgent
-            ));
-
         const getContainerDimensions = () => {
           const rect = container.getBoundingClientRect();
-          const w = rect.width || container.clientWidth || (isMobileScreen ? 240 : 360);
-          const h = rect.height || container.clientHeight || (isMobileScreen ? 240 : 360);
+          const w = rect.width || container.clientWidth || 360;
+          const h = rect.height || container.clientHeight || 360;
           return { width: Math.max(w, 200), height: Math.max(h, 200) };
         };
 
@@ -61,13 +89,13 @@ export function Parpell3DSpin({ onLoaded, onProgress }: Parpell3DSpinProps) {
           powerPreference: "high-performance",
           stencil: false,
           depth: true,
-          precision: isMobileScreen ? "mediump" : "highp",
+          precision: "highp",
         });
         renderer.setSize(width, height, false);
         renderer.setPixelRatio(
           Math.min(
             typeof window !== "undefined" ? window.devicePixelRatio : 1,
-            isMobileScreen ? 1.5 : 2.0
+            2.0
           )
         );
         renderer.toneMapping = THREE.ACESFilmicToneMapping;
@@ -110,15 +138,15 @@ export function Parpell3DSpin({ onLoaded, onProgress }: Parpell3DSpinProps) {
         const gltfLoader = new GLTFLoader();
         gltfLoader.setDRACOLoader(dracoLoader);
 
-        // 15s failsafe (long enough for mobile 3G/4G, safety fallback only if load hangs completely)
+        // 3.5s failsafe for desktop
         let modelLoadFailsafe = setTimeout(() => {
           if (!cancelled) {
-            console.warn("Mobile 3D GLB load exceeded timeout limit, activating high-res 2D fallback");
+            console.warn("Desktop 3D GLB load exceeded timeout limit, activating high-res 2D fallback");
             setUseFallback(true);
             onProgress?.(100);
             onLoaded?.();
           }
-        }, 15000);
+        }, 3500);
 
         gltfLoader.load(
           "/logo-3d.glb",

@@ -17,7 +17,7 @@ export function DiscountPopup() {
     // Pops up comfortably after user enters and explores the hero
     const timer = setTimeout(() => {
       setIsOpen(true);
-    }, 2200);
+    }, 7000);
 
     return () => clearTimeout(timer);
   }, []);
