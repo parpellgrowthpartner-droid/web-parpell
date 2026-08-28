@@ -101,23 +101,23 @@ export function Parpell3DSpin({ onLoaded, onProgress }: Parpell3DSpinProps) {
         renderer.toneMappingExposure = 1.35;
         renderer.outputColorSpace = THREE.SRGBColorSpace;
 
-        // 3. Studio Lighting Setup (Crisp, stable, flicker-free luxury studio lights)
-        const ambientLight = new THREE.AmbientLight(0xffffff, 2.2);
+        // 3. Studio Lighting Setup (Warm rose & wine specular highlights)
+        const ambientLight = new THREE.AmbientLight(0xffffff, 1.6);
         scene.add(ambientLight);
 
-        // Key Light (Warm Rose Studio Light)
-        const keyLight = new THREE.DirectionalLight(0xffe8ec, 3.0);
-        keyLight.position.set(3, 4, 5);
+        // Key Light (Warm Rose)
+        const keyLight = new THREE.DirectionalLight(0xffe4e8, 3.4);
+        keyLight.position.set(3.5, 4.5, 5);
         scene.add(keyLight);
 
-        // Fill Light (Deep Wine Accent)
-        const fillLight = new THREE.DirectionalLight(0x9e5c6a, 2.0);
-        fillLight.position.set(-3, -2, 3);
+        // Fill Light (Deep Burgundy / Wine)
+        const fillLight = new THREE.DirectionalLight(0x9e5c6a, 2.6);
+        fillLight.position.set(-4, -2, 3);
         scene.add(fillLight);
 
-        // Rim Light for edge definition
-        const rimLight = new THREE.DirectionalLight(0xc27a8a, 2.2);
-        rimLight.position.set(0, 3, -4);
+        // Rim Light for 3D silhouette separation
+        const rimLight = new THREE.DirectionalLight(0xc27a8a, 2.8);
+        rimLight.position.set(0, 4, -4);
         scene.add(rimLight);
 
         // 4. Model Pivot Group
@@ -165,12 +165,27 @@ export function Parpell3DSpin({ onLoaded, onProgress }: Parpell3DSpinProps) {
               root.scale.set(scale, scale, scale);
             }
 
-            // Preserve original high-res PBR materials from 3D model
+            // Original materials setup
             root.traverse((child) => {
               if ((child as THREE.Mesh).isMesh) {
                 const mesh = child as THREE.Mesh;
                 mesh.castShadow = false;
                 mesh.receiveShadow = false;
+                if (mesh.material) {
+                  if (Array.isArray(mesh.material)) {
+                    mesh.material.forEach((mat) => {
+                      mat.side = THREE.DoubleSide;
+                      if ("roughness" in mat) mat.roughness = 0.28;
+                      if ("metalness" in mat) mat.metalness = 0.82;
+                      mat.needsUpdate = true;
+                    });
+                  } else {
+                    mesh.material.side = THREE.DoubleSide;
+                    if ("roughness" in mesh.material) mesh.material.roughness = 0.28;
+                    if ("metalness" in mesh.material) mesh.material.metalness = 0.82;
+                    mesh.material.needsUpdate = true;
+                  }
+                }
               }
             });
 
