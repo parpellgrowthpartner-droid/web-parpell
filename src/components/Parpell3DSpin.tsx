@@ -101,29 +101,24 @@ export function Parpell3DSpin({ onLoaded, onProgress }: Parpell3DSpinProps) {
         renderer.toneMappingExposure = 1.35;
         renderer.outputColorSpace = THREE.SRGBColorSpace;
 
-        // 3. Studio Lighting Setup (Warm rose & wine specular highlights)
-        const ambientLight = new THREE.AmbientLight(0xffffff, 1.6);
+        // 3. Studio Lighting Setup (Crisp, stable, flicker-free luxury studio lights)
+        const ambientLight = new THREE.AmbientLight(0xffffff, 2.2);
         scene.add(ambientLight);
 
-        // Key Light (Warm Rose)
-        const keyLight = new THREE.DirectionalLight(0xffe4e8, 3.4);
-        keyLight.position.set(3.5, 4.5, 5);
+        // Key Light (Warm Rose Studio Light)
+        const keyLight = new THREE.DirectionalLight(0xffe8ec, 3.0);
+        keyLight.position.set(3, 4, 5);
         scene.add(keyLight);
 
-        // Fill Light (Deep Burgundy / Wine)
-        const fillLight = new THREE.DirectionalLight(0x9e5c6a, 2.6);
-        fillLight.position.set(-4, -2, 3);
+        // Fill Light (Deep Wine Accent)
+        const fillLight = new THREE.DirectionalLight(0x9e5c6a, 2.0);
+        fillLight.position.set(-3, -2, 3);
         scene.add(fillLight);
 
-        // Rim Light for 3D silhouette separation
-        const rimLight = new THREE.DirectionalLight(0xc27a8a, 2.8);
-        rimLight.position.set(0, 4, -4);
+        // Rim Light for edge definition
+        const rimLight = new THREE.DirectionalLight(0xc27a8a, 2.2);
+        rimLight.position.set(0, 3, -4);
         scene.add(rimLight);
-
-        // Interactive Dynamic Point Light (gleams upon tilt)
-        const dynamicPointLight = new THREE.PointLight(0xf3b0be, 3.2, 12, 1.2);
-        dynamicPointLight.position.set(0, 1.5, 2.5);
-        scene.add(dynamicPointLight);
 
         // 4. Model Pivot Group
         const modelGroup = new THREE.Group();
@@ -137,7 +132,7 @@ export function Parpell3DSpin({ onLoaded, onProgress }: Parpell3DSpinProps) {
         const gltfLoader = new GLTFLoader();
         gltfLoader.setDRACOLoader(dracoLoader);
 
-        // 25s safety failsafe for desktop (only activates if network drops completely)
+        // 25s safety failsafe for desktop
         let modelLoadFailsafe = setTimeout(() => {
           if (!cancelled) {
             console.warn("Desktop 3D GLB load exceeded timeout limit, activating high-res 2D fallback");
@@ -170,27 +165,12 @@ export function Parpell3DSpin({ onLoaded, onProgress }: Parpell3DSpinProps) {
               root.scale.set(scale, scale, scale);
             }
 
-            // Enhance double-sided materials and specular response without altering textures/colors
+            // Preserve original high-res PBR materials from 3D model
             root.traverse((child) => {
               if ((child as THREE.Mesh).isMesh) {
                 const mesh = child as THREE.Mesh;
                 mesh.castShadow = false;
                 mesh.receiveShadow = false;
-                if (mesh.material) {
-                  if (Array.isArray(mesh.material)) {
-                    mesh.material.forEach((mat) => {
-                      mat.side = THREE.DoubleSide;
-                      if ("roughness" in mat) mat.roughness = 0.28;
-                      if ("metalness" in mat) mat.metalness = 0.82;
-                      mat.needsUpdate = true;
-                    });
-                  } else {
-                    mesh.material.side = THREE.DoubleSide;
-                    if ("roughness" in mesh.material) mesh.material.roughness = 0.28;
-                    if ("metalness" in mesh.material) mesh.material.metalness = 0.82;
-                    mesh.material.needsUpdate = true;
-                  }
-                }
               }
             });
 
@@ -262,7 +242,7 @@ export function Parpell3DSpin({ onLoaded, onProgress }: Parpell3DSpinProps) {
           if (cancelled || !isOnScreen || !isTabVisible) return;
           animationFrameId = requestAnimationFrame(animate);
 
-          // Throttle to 60fps max to save battery and GPU on 120Hz mobile devices
+          // Throttle to 60fps max to save battery and GPU
           if (timestamp - lastFrameTime < targetFrameInterval - 1) return;
           lastFrameTime = timestamp;
 
@@ -271,14 +251,14 @@ export function Parpell3DSpin({ onLoaded, onProgress }: Parpell3DSpinProps) {
           if (!isInteracting) {
             // Gentle continuous floating & sway with strictly clamped angles
             const autoSpin = elapsedTime * 0.45;
-            const tiltX = Math.cos(elapsedTime * 0.85) * 0.12 + Math.max(-0.25, Math.min(0.25, mouseNormalized.y * 0.22));
-            const tiltY = Math.sin(autoSpin) * 0.38 + Math.max(-0.35, Math.min(0.35, mouseNormalized.x * 0.35));
+            const tiltX = Math.cos(elapsedTime * 0.85) * 0.08 + Math.max(-0.2, Math.min(0.2, mouseNormalized.y * 0.2));
+            const tiltY = Math.sin(autoSpin) * 0.35 + Math.max(-0.3, Math.min(0.3, mouseNormalized.x * 0.3));
 
-            targetRotationY = Math.max(-0.65, Math.min(0.65, tiltY));
-            targetRotationX = Math.max(-0.35, Math.min(0.35, tiltX));
+            targetRotationY = tiltY;
+            targetRotationX = tiltX;
 
-            // Harmonic floating breathing on Y axis
-            modelGroup.position.y = Math.sin(elapsedTime * 1.5) * 0.08;
+            // Subtle floating breathing on Y axis
+            modelGroup.position.y = Math.sin(elapsedTime * 1.5) * 0.05;
 
             // Smooth decay of mouseNormalized when idle
             mouseNormalized.x *= 0.95;
@@ -295,15 +275,11 @@ export function Parpell3DSpin({ onLoaded, onProgress }: Parpell3DSpinProps) {
           }
 
           // Smooth physics lerping
-          currentRotationY += (targetRotationY - currentRotationY) * 0.08;
-          currentRotationX += (targetRotationX - currentRotationX) * 0.08;
+          currentRotationY += (targetRotationY - currentRotationY) * 0.06;
+          currentRotationX += (targetRotationX - currentRotationX) * 0.06;
 
           modelGroup.rotation.y = currentRotationY;
           modelGroup.rotation.x = currentRotationX;
-
-          // Dynamic light follows tilt for gleaming highlights
-          dynamicPointLight.position.x = Math.sin(currentRotationY) * 2.2;
-          dynamicPointLight.position.y = 1.4 + Math.sin(elapsedTime * 2.0) * 0.4;
 
           renderer.render(scene, camera);
         };
