@@ -1,6 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
+import Link from "next/link";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Check,
@@ -155,20 +157,40 @@ export function PricingLandingTemplate({
           transition={{ duration: 0.5 }}
           className="w-full max-w-3xl h-12 sm:h-14 px-3.5 sm:px-8 rounded-full border bg-[#14080F]/90 border-[#9E5C6A]/30 backdrop-blur-2xl shadow-[0_20px_50px_rgba(0,0,0,0.8)] flex items-center justify-between gap-2"
         >
+          {/* Brand Logo 3D on Left */}
+          <Link
+            href="/"
+            className="flex items-center gap-2 group transition-all shrink-0 mr-1 sm:mr-2"
+            title="Volver a Parpell"
+          >
+            <div className="w-7 h-7 sm:w-8 sm:h-8 relative flex items-center justify-center shrink-0">
+              <Image
+                src="/logo-parpell-perfect.png"
+                alt="Parpell 3D Logo"
+                width={32}
+                height={32}
+                className="w-full h-full object-contain drop-shadow-[0_2px_8px_rgba(158,92,106,0.6)] group-hover:scale-105 transition-transform"
+              />
+            </div>
+            <span className="font-extrabold tracking-tight text-white text-xs sm:text-sm uppercase font-mono">
+              PARPELL
+            </span>
+          </Link>
+
           {/* Navigation Links */}
-          <div className="flex items-center gap-2.5 sm:gap-6 min-w-0">
+          <div className="flex items-center gap-2 sm:gap-5 min-w-0">
             <a
               href="#desglose"
-              className="text-[11px] sm:text-sm font-medium text-zinc-300 hover:text-white transition-colors flex items-center gap-1 shrink-0"
+              className="text-[11px] sm:text-xs font-medium text-zinc-300 hover:text-white transition-colors flex items-center gap-1 shrink-0"
             >
-              <span className="hidden sm:inline">Desglose de Servicios</span>
-              <span className="sm:hidden">Servicios</span>
+              <span className="hidden sm:inline">Desglose</span>
+              <span className="sm:hidden">Desglose</span>
             </a>
             <a
               href="#faq"
-              className="text-[11px] sm:text-sm font-medium text-zinc-300 hover:text-white transition-colors flex items-center gap-1 shrink-0"
+              className="text-[11px] sm:text-xs font-medium text-zinc-300 hover:text-white transition-colors flex items-center gap-1 shrink-0"
             >
-              <span className="hidden sm:inline">Garantías &amp; Dudas</span>
+              <span className="hidden sm:inline">Garantías</span>
               <span className="sm:hidden">Dudas</span>
             </a>
           </div>

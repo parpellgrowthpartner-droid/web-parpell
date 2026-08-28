@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowRight, BookOpen, Clock, Calendar, Sparkles, Tag, Layers, ChevronRight, Home } from "lucide-react";
 import { BLOG_POSTS } from "@/data/blogPosts";
 import { BackgroundMesh } from "@/components/BackgroundMesh";
@@ -64,12 +65,26 @@ export default function BlogIndexPage() {
         <nav className="liquid-glass rounded-full px-4 sm:px-6 py-3 flex items-center justify-between shadow-2xl">
           <Link
             href="/"
-            className="flex items-center gap-2 text-xs font-mono font-bold text-zinc-300 hover:text-white transition-colors group"
+            className="flex items-center gap-2.5 group transition-colors"
+            title="Volver a la página principal de Parpell"
           >
-            <div className="w-7 h-7 rounded-full bg-white/[0.06] border border-white/[0.1] flex items-center justify-center group-hover:border-[#9E5C6A] transition-colors">
-              <Home className="w-3.5 h-3.5 text-[#C27A8A]" />
+            <div className="w-7 h-7 sm:w-8 sm:h-8 relative flex items-center justify-center shrink-0">
+              <Image
+                src="/logo-parpell-perfect.png"
+                alt="Parpell 3D Logo"
+                width={32}
+                height={32}
+                className="w-full h-full object-contain drop-shadow-[0_2px_8px_rgba(158,92,106,0.6)] group-hover:scale-105 transition-transform"
+              />
             </div>
-            <span>Volver a Parpell</span>
+            <div className="flex flex-col">
+              <span className="font-extrabold tracking-tight text-white text-xs sm:text-sm uppercase font-mono leading-none">
+                PARPELL
+              </span>
+              <span className="text-[9px] uppercase font-mono tracking-widest text-[#9E5C6A] hidden sm:block">
+                Brand &amp; Growth
+              </span>
+            </div>
           </Link>
 
           <div className="flex items-center gap-3">

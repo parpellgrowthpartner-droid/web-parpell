@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import {
   ArrowLeft,
   Calendar,
@@ -155,22 +156,44 @@ export default async function BlogPostPage({ params }: Props) {
       {/* Floating Top Navigation */}
       <header className="sticky top-4 z-50 w-full max-w-4xl mx-auto px-4 sm:px-6">
         <nav className="liquid-glass rounded-full px-4 sm:px-6 py-3 flex items-center justify-between shadow-2xl">
-          <Link
-            href="/blog"
-            className="flex items-center gap-2 text-xs font-mono font-bold text-zinc-300 hover:text-white transition-colors group"
-          >
-            <div className="w-7 h-7 rounded-full bg-white/[0.06] border border-white/[0.1] flex items-center justify-center group-hover:border-[#9E5C6A] transition-colors">
+          <div className="flex items-center gap-3">
+            <Link
+              href="/"
+              className="flex items-center gap-2 group transition-all shrink-0"
+              title="Volver a la página principal de Parpell"
+            >
+              <div className="w-7 h-7 sm:w-8 sm:h-8 relative flex items-center justify-center shrink-0">
+                <Image
+                  src="/logo-parpell-perfect.png"
+                  alt="Parpell 3D Logo"
+                  width={32}
+                  height={32}
+                  className="w-full h-full object-contain drop-shadow-[0_2px_8px_rgba(158,92,106,0.6)] group-hover:scale-105 transition-transform"
+                />
+              </div>
+              <span className="font-extrabold tracking-tight text-white text-xs sm:text-sm uppercase font-mono">
+                PARPELL
+              </span>
+            </Link>
+
+            <span className="text-zinc-600 hidden sm:inline">|</span>
+
+            <Link
+              href="/blog"
+              className="flex items-center gap-1.5 text-xs font-mono text-zinc-300 hover:text-white transition-colors"
+            >
               <ArrowLeft className="w-3.5 h-3.5 text-[#C27A8A]" />
-            </div>
-            <span>Volver al Blog</span>
-          </Link>
+              <span className="hidden sm:inline">Todos los Artículos</span>
+              <span className="sm:hidden">Blog</span>
+            </Link>
+          </div>
 
           <div className="flex items-center gap-3">
             <Link
               href="/"
-              className="text-[11px] font-mono text-zinc-400 hover:text-white transition-colors hidden sm:inline-block"
+              className="text-[11px] font-mono text-zinc-400 hover:text-white transition-colors hidden md:inline-block"
             >
-              Inicio
+              Home
             </Link>
             <Link
               href="/#contacto"
@@ -303,6 +326,43 @@ export default async function BlogPostPage({ params }: Props) {
           <div className="pt-6 border-t border-white/[0.08] space-y-3">
             <h3 className="text-lg sm:text-xl font-bold text-white">Conclusión</h3>
             <p className="text-zinc-300 leading-relaxed">{post.content.conclusion}</p>
+          </div>
+
+          {/* Direct Post-Conclusion CTA Card */}
+          <div className="my-8 p-6 sm:p-8 rounded-3xl liquid-glass border-2 border-[#9E5C6A]/50 relative overflow-hidden text-center sm:text-left space-y-4 shadow-[0_20px_50px_rgba(158,92,106,0.25)]">
+            <div className="absolute -right-10 -top-10 w-44 h-44 bg-[#9E5C6A]/20 rounded-full blur-2xl pointer-events-none" />
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-6 relative z-10">
+              <div className="space-y-1.5 max-w-xl">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#9E5C6A]/25 border border-[#9E5C6A]/50 text-[10px] font-mono font-bold text-[#F7EBED]">
+                  <Sparkles className="w-3 h-3 text-[#C27A8A]" />
+                  <span>CONTRATACIÓN DIRECTA CON LOS 2 SOCIOS</span>
+                </span>
+                <h4 className="text-xl sm:text-2xl font-extrabold text-white tracking-tight">
+                  ¿Quieres aplicar esta estrategia a tu empresa?
+                </h4>
+                <p className="text-xs sm:text-sm text-zinc-300 leading-relaxed">
+                  Diseñamos tu posicionamiento en IA, producimos tus piezas de cine in situ y blindamos tu infraestructura web para multiplicar tus conversiones.
+                </p>
+              </div>
+
+              <div className="flex flex-col sm:flex-row items-center gap-3 shrink-0 w-full sm:w-auto">
+                <Link
+                  href="/#contacto"
+                  className="w-full sm:w-auto h-11 px-5 rounded-full bg-[#9E5C6A] hover:bg-[#854b57] text-white text-xs sm:text-sm font-bold shadow-lg shadow-[#9E5C6A]/40 transition-all flex items-center justify-center gap-2 cursor-pointer"
+                >
+                  <span>Contratar o Agendar</span>
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+
+                <Link
+                  href="/"
+                  className="w-full sm:w-auto h-11 px-5 rounded-full liquid-glass hover:bg-white/[0.12] text-white text-xs sm:text-sm font-bold border border-white/20 transition-all flex items-center justify-center gap-2 cursor-pointer"
+                >
+                  <Home className="w-4 h-4 text-[#C27A8A]" />
+                  <span>Ir al Home</span>
+                </Link>
+              </div>
+            </div>
           </div>
 
           {/* FAQ Accordion Section */}
