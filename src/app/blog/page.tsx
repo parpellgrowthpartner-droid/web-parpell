@@ -4,6 +4,7 @@ import Image from "next/image";
 import { ArrowRight, BookOpen, Clock, Calendar, Sparkles, Tag, Layers, ChevronRight, Home } from "lucide-react";
 import { BLOG_POSTS } from "@/data/blogPosts";
 import { BackgroundMesh } from "@/components/BackgroundMesh";
+import { PurpBlogMascot } from "@/components/PurpBlogMascot";
 
 export const metadata: Metadata = {
   title: "Blog & Recursos de Estrategia Digital | Parpell",
@@ -214,6 +215,9 @@ export default function BlogIndexPage() {
           <a href="tel:603625946" className="hover:text-zinc-300 transition-colors">603 625 946</a>
         </div>
       </footer>
+
+      {/* Floating Purp.IA Mascot */}
+      <PurpBlogMascot mode="index" />
     </div>
   );
 }
