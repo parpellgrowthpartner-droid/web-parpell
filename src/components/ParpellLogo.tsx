@@ -16,11 +16,11 @@ export function ParpellLogo({ className = "", size = 32, rounded = "rounded-xl" 
       style={{ width: size, height: size }}
     >
       <Image
-        src="/logo-parpell-transparent.png"
+        src="/logo-nuevo.png"
         alt="Logo Parpell"
         width={size * 2}
         height={size * 2}
-        className="w-full h-full object-contain p-[10%] filter contrast-[1.05]"
+        className="w-full h-full object-contain p-[8%] filter contrast-[1.05]"
         priority
       />
     </div>

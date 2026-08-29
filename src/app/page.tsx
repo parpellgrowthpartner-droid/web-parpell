@@ -27,10 +27,7 @@ const VerticalTimelineNav = dynamic(
   () => import("@/components/parpell/VerticalTimelineNav").then((m) => m.VerticalTimelineNav),
   { ssr: false }
 );
-const Parpell3DSpin = dynamic(
-  () => import("@/components/parpell/Parpell3DSpin").then((m) => m.Parpell3DSpin),
-  { ssr: false }
-);
+import { ParpellFloatingLogo } from "@/components/parpell/ParpellFloatingLogo";
 const DiscountPopup = dynamic(
   () => import("@/components/parpell/DiscountPopup").then((m) => m.DiscountPopup),
   { ssr: false }
@@ -67,10 +64,7 @@ const LiquidGlassNavbar = dynamic(
 export default function ParpellLanding() {
   const [activeTab, setActiveTab] = useState<1 | 2 | 3 | 4>(1);
 
-  // Parpell Brand Loading Screen State (Desktop Only with Purp.IA)
   const [isMobile, setIsMobile] = useState<boolean | null>(null);
-  const [loadProgress, setLoadProgress] = useState(0);
-  const [isAppLoaded, setIsAppLoaded] = useState(false);
 
   useEffect(() => {
     // Check mobile device
@@ -81,39 +75,7 @@ export default function ParpellLanding() {
           navigator.userAgent
         ));
     setIsMobile(mobileCheck);
-
-    if (mobileCheck) {
-      // In mobile, bypass loading screen entirely
-      setIsAppLoaded(true);
-      return;
-    }
-
-    // On PC / Desktop: Smooth progress curve up to 88% while 3D GLB streams in
-    const interval = setInterval(() => {
-      setLoadProgress((prev) => {
-        if (prev >= 88) {
-          return 88;
-        }
-        const step = prev < 35 ? 6 : prev < 65 ? 3 : 1;
-        return Math.min(88, prev + step);
-      });
-    }, 45);
-
-    return () => {
-      clearInterval(interval);
-    };
   }, []);
-
-  const handle3DProgress = (progress: number) => {
-    setLoadProgress((prev) => Math.max(prev, progress));
-  };
-
-  const handle3DLoaded = () => {
-    setLoadProgress(100);
-    setTimeout(() => {
-      setIsAppLoaded(true);
-    }, 280);
-  };
 
 
   // Section 02 - The 4th Secret Box (Full-page 3D Zoom Portal)
@@ -225,83 +187,8 @@ export default function ParpellLanding() {
   return (
     <div className="min-h-screen bg-[#080306] text-[#F8F4F2] font-sans relative overflow-x-hidden selection:bg-[#9E5C6A]/40 pb-32 sm:pb-40">
       
-      {/* Fullscreen Brand Loading Screen (Desktop Only) with Purp.IA Mascot */}
-      <AnimatePresence>
-        {!isAppLoaded && isMobile === false && (
-          <motion.div
-            key="parpell-desktop-preloader"
-            initial={{ opacity: 1 }}
-            exit={{ opacity: 0, scale: 1.02 }}
-            transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-            className="fixed inset-0 z-[999999] bg-[#080306] flex flex-col items-center justify-center select-none overflow-hidden"
-          >
-            {/* Ambient Background Glow */}
-            <div className="absolute w-[520px] h-[520px] rounded-full bg-gradient-to-tr from-[#9E5C6A]/30 via-[#C27A8A]/15 to-purple-950/15 blur-3xl pointer-events-none" />
-
-            <div className="relative z-10 flex flex-col items-center gap-6 max-w-sm sm:max-w-md w-full px-8">
-              {/* Brand Title */}
-              <div className="text-center">
-                <span className="text-base sm:text-lg font-mono font-black tracking-[0.4em] text-[#F8F4F2] uppercase block">
-                  PARPELL
-                </span>
-              </div>
-
-              {/* Purp Mascot Avatar + Speech Bubble */}
-              <div className="flex flex-col items-center gap-3.5 my-1">
-                <motion.div
-                  animate={{ y: [0, -6, 0] }}
-                  transition={{ duration: 2.8, repeat: Infinity, ease: "easeInOut" }}
-                  className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-full liquid-glass border border-[#9E5C6A]/50 p-2 shadow-[0_10px_35px_rgba(158,92,106,0.45)] flex items-center justify-center overflow-hidden"
-                >
-                  <Image
-                    src="/bloub-default-cycle.gif"
-                    alt="Purp.IA Mascot"
-                    width={80}
-                    height={80}
-                    unoptimized
-                    className="w-full h-full object-contain pointer-events-none drop-shadow-[0_2px_12px_rgba(158,92,106,0.6)]"
-                  />
-                  <span className="absolute top-1 right-1 w-3.5 h-3.5 rounded-full bg-emerald-500 border-2 border-[#080306] shadow-sm animate-pulse" />
-                </motion.div>
-
-                {/* Speech Bubble */}
-                <motion.div
-                  initial={{ opacity: 0, y: 6 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.15, duration: 0.3 }}
-                  className="relative px-4 py-2.5 rounded-2xl bg-[#160814] border-2 border-[#9E5C6A]/70 shadow-[0_15px_40px_rgba(0,0,0,0.9),0_0_25px_rgba(158,92,106,0.3)] text-center max-w-[280px]"
-                >
-                  <p className="text-xs sm:text-[13px] font-semibold text-white leading-snug">
-                    «Espera un momento que estamos cargando la vista en 3D»
-                  </p>
-                  {/* Arrow pointing up */}
-                  <div className="absolute -top-1.5 left-1/2 -translate-x-1/2 w-3 h-3 bg-[#160814] border-t-2 border-l-2 border-[#9E5C6A]/70 rotate-45 pointer-events-none" />
-                </motion.div>
-              </div>
-
-              {/* Standard Clean Larger Progress Bar */}
-              <div className="w-full flex flex-col items-center gap-2.5 mt-1">
-                <div className="w-full h-2.5 sm:h-3 rounded-full bg-white/[0.08] p-[1.5px] overflow-hidden relative shadow-inner border border-white/10">
-                  <motion.div
-                    className="h-full bg-gradient-to-r from-[#9E5C6A] via-[#C27A8A] to-[#F3B0BE] rounded-full shadow-[0_0_20px_rgba(194,122,138,0.9)]"
-                    style={{ width: `${loadProgress}%` }}
-                    transition={{ ease: "easeOut", duration: 0.15 }}
-                  />
-                </div>
-                <div className="w-full flex justify-between items-center text-xs font-mono text-zinc-400">
-                  <span className="text-[11px] text-zinc-500 uppercase tracking-wider">Cargando experiencia 3D</span>
-                  <span className="font-bold text-[#E598A8] text-xs sm:text-sm">
-                    {loadProgress}%
-                  </span>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* 15% Discount Pop-up (Only mounts after 3D experience is active) */}
-      {isAppLoaded && <DiscountPopup />}
+      {/* 15% Discount Pop-up */}
+      <DiscountPopup />
 
       {/* Sleek Floating Glass Mobile Header & Nav Drawer */}
       <LiquidGlassNavbar />
@@ -346,8 +233,8 @@ export default function ParpellLanding() {
         className="relative z-30 w-full max-w-4xl mx-auto px-4 sm:px-8 min-h-[90vh] sm:min-h-screen flex flex-col justify-between items-center text-center pt-20 sm:pt-24 lg:pt-12 pb-8 sm:pb-16"
       >
         <div className="flex-1 flex flex-col justify-center items-center">
-          {/* 3D Spinning Parpell Logo (Top Layer) */}
-          <Parpell3DSpin onLoaded={handle3DLoaded} onProgress={handle3DProgress} />
+          {/* Floating Parpell Logo with Minimalist Levitation */}
+          <ParpellFloatingLogo />
 
           {/* Sized Headline with generous breathing room */}
           <h1 className="text-2xl sm:text-4xl md:text-[42px] lg:text-[46px] font-extrabold tracking-tight text-white mt-2 sm:mt-3 mb-2 leading-[1.2] sm:leading-[1.22]">

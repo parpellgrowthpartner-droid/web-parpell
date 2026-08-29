@@ -12,11 +12,11 @@ export default function NotFound() {
       <div className="absolute w-96 h-96 rounded-full bg-gradient-to-tr from-[#9E5C6A]/25 via-[#C27A8A]/15 to-transparent blur-3xl pointer-events-none -z-10" />
 
       <main className="relative z-10 max-w-lg w-full liquid-glass rounded-3xl p-8 sm:p-10 border border-[#9E5C6A]/40 shadow-2xl space-y-6">
-        {/* 3D Logo Header */}
+        {/* Parpell Floating Brand Logo */}
         <div className="w-20 h-20 sm:w-24 sm:h-24 mx-auto relative flex items-center justify-center">
           <Image
-            src="/logo-parpell-perfect.png"
-            alt="Parpell 3D Logo"
+            src="/logo-nuevo.png"
+            alt="Parpell Logo"
             width={96}
             height={96}
             priority

@@ -42,3 +42,7 @@ next-env.d.ts
 
 # raw 3d assets
 Hi3D_*.glb
+
+# scratch
+scratch/
+

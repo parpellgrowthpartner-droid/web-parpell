@@ -165,8 +165,8 @@ export function PricingLandingTemplate({
           >
             <div className="w-7 h-7 sm:w-8 sm:h-8 relative flex items-center justify-center shrink-0">
               <Image
-                src="/logo-parpell-perfect.png"
-                alt="Parpell 3D Logo"
+                src="/logo-nuevo.png"
+                alt="Parpell Logo"
                 width={32}
                 height={32}
                 className="w-full h-full object-contain drop-shadow-[0_2px_8px_rgba(158,92,106,0.6)] group-hover:scale-105 transition-transform"
