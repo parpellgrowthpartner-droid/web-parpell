@@ -14,10 +14,10 @@ export function DiscountPopup() {
 
   useEffect(() => {
     setMounted(true);
-    // Pops up comfortably after user enters and explores the hero
+    // Pops up after 2s of entering the website
     const timer = setTimeout(() => {
       setIsOpen(true);
-    }, 7000);
+    }, 2000);
 
     return () => clearTimeout(timer);
   }, []);
