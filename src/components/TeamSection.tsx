@@ -77,7 +77,7 @@ export function TeamSection() {
               Socio técnico
             </h3>
             <p className="text-xs text-[#F8F4F2]/80 leading-relaxed mb-6">
-              Especialista técnico en arquitecturas web y posicionamiento digital. Respaldado por certificaciones en ciberseguridad, IA y SEO, aplica su experiencia en proyectos reales para optimizar tu huella digital. Consigue que la inteligencia artificial y los motores de búsqueda recomienden tu negocio.
+              Especialista técnico en arquitecturas web y posicionamiento digital. Respaldado por certificaciones en IA y SEO, aplica su experiencia en proyectos reales para optimizar tu huella digital. Consigue que la inteligencia artificial y los motores de búsqueda recomienden tu negocio.
             </p>
 
             <ul className="space-y-2 text-xs text-[#F8F4F2]/85 mb-6">

@@ -433,7 +433,7 @@ export default function ParpellLanding() {
             <span className="text-[10px] font-mono text-[#9E5C6A] font-bold uppercase block">Tecnología & IA</span>
             <h3 className="text-lg font-bold text-white">Socio Técnico</h3>
             <p className="text-xs sm:text-sm text-zinc-300 leading-relaxed">
-              Especialista técnico en arquitecturas web y posicionamiento digital. Respaldado por certificaciones en ciberseguridad, IA y SEO, aplica su experiencia en proyectos reales para optimizar tu huella digital. Consigue que la inteligencia artificial y los motores de búsqueda recomienden tu negocio.
+              Especialista técnico en arquitecturas web y posicionamiento digital. Respaldado por certificaciones en IA y SEO, aplica su experiencia en proyectos reales para optimizar tu huella digital. Consigue que la inteligencia artificial y los motores de búsqueda recomienden tu negocio.
             </p>
           </div>
         </div>
