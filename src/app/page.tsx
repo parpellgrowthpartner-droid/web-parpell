@@ -742,16 +742,25 @@ export default function ParpellLanding() {
       </motion.div>
 
       {/* ========================================================================= */}
-      {/* ULTRA MINIMAL FOOTER */}
+      {/* ULTRA MINIMAL FOOTER WITH INTERNAL SEO & NAVIGATION LINKS */}
       {/* ========================================================================= */}
-      <footer className="relative z-10 w-full max-w-4xl mx-auto px-6 py-2 border-t border-white/[0.04] flex items-center justify-between text-[9px] text-zinc-500 font-mono">
-        <div className="flex items-center gap-1.5">
-          <ParpellLogo size={14} rounded="rounded-sm" />
-          <span className="font-bold text-zinc-400">PARPELL</span>
+      <footer className="relative z-10 w-full max-w-4xl mx-auto px-6 py-6 border-t border-white/[0.06] flex flex-col sm:flex-row items-center justify-between gap-4 text-[10px] text-zinc-500 font-mono">
+        <div className="flex items-center gap-2">
+          <ParpellLogo size={16} rounded="rounded-sm" />
+          <span className="font-bold text-zinc-300">PARPELL</span>
           <span>·</span>
-          <span>Brand & Growth</span>
+          <span>Brand & Growth Orchestrator</span>
         </div>
-        <span>© {new Date().getFullYear()} Parpell</span>
+
+        <div className="flex items-center flex-wrap justify-center gap-4 text-zinc-400">
+          <a href="#problema" className="hover:text-white transition-colors">El Problema</a>
+          <a href="#areas" className="hover:text-white transition-colors">Las 3 Áreas</a>
+          <a href="#equipo" className="hover:text-white transition-colors">Equipo</a>
+          <a href="#contacto" className="hover:text-white transition-colors">Contacto</a>
+          <a href="/blog" className="text-[#C27A8A] hover:text-white font-bold transition-colors">Blog &amp; Recursos</a>
+        </div>
+
+        <span>© {new Date().getFullYear()} Parpell · España</span>
       </footer>
 
       {/* ========================================================================= */}

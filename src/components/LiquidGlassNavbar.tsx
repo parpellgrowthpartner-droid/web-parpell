@@ -20,6 +20,7 @@ const navItems: NavItem[] = [
   { name: "Equipo", href: "#equipo", num: "05" },
   { name: "Sectores", href: "#sectores", num: "06" },
   { name: "Contacto", href: "#contacto", num: "07" },
+  { name: "Blog & Recursos", href: "/blog", num: "08" },
 ];
 
 export function LiquidGlassNavbar() {
@@ -41,8 +42,10 @@ export function LiquidGlassNavbar() {
     );
 
     navItems.forEach((item) => {
-      const el = document.getElementById(item.href.replace("#", ""));
-      if (el) observer.observe(el);
+      if (item.href.startsWith("#")) {
+        const el = document.getElementById(item.href.replace("#", ""));
+        if (el) observer.observe(el);
+      }
     });
 
     // 2. Ultra-lightweight scroll listener only for background blur toggle
@@ -66,6 +69,10 @@ export function LiquidGlassNavbar() {
 
   const handleNavClick = (href: string) => {
     setMobileMenuOpen(false);
+    if (href.startsWith("/")) {
+      window.location.href = href;
+      return;
+    }
     const id = href.replace("#", "");
     const lenisInstance = typeof window !== "undefined" ? (window as unknown as { __parpellLenis?: { scrollTo: (target: string, opts?: { offset?: number; duration?: number }) => void } }).__parpellLenis : null;
     if (lenisInstance) {
@@ -110,6 +117,13 @@ export function LiquidGlassNavbar() {
 
         {/* Quick CTA on Mobile & Desktop */}
         <div className="flex items-center gap-2">
+          <a
+            href="/blog"
+            className="hidden sm:inline-flex items-center px-3 py-1.5 rounded-full text-xs font-mono font-semibold text-zinc-200 hover:text-white bg-white/[0.06] hover:bg-white/[0.12] border border-white/[0.1] transition-all cursor-pointer"
+          >
+            Blog
+          </a>
+
           <a
             href="#contacto"
             onClick={(e) => {

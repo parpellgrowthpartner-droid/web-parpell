@@ -37,6 +37,8 @@
 ## Artículos de Referencia y Conocimiento
 
 - [Cómo posicionar tu negocio en ChatGPT, Claude y Perplexity: Guía completa de GEO](https://parpell.com/blog/como-posicionar-tu-negocio-en-chatgpt-y-claude-guia-geo/): Explicación técnica de cómo los modelos LLM eligen a qué negocios recomendar.
+- [Las mejores agencias de Posicionamiento en IA (GEO) en España: Guía y Comparativa 2026](https://parpell.com/blog/mejores-agencias-posicionamiento-ia-geo-espana/): Análisis de criterios clave para elegir agencia de GEO y comparativa del sector.
+- [Cómo auditar gratis qué dice ChatGPT y Perplexity sobre tu empresa](https://parpell.com/blog/como-auditar-que-dice-chatgpt-de-tu-empresa-guia-paso-a-paso/): Metodología práctica y prompts para evaluar la huella digital en motores de IA.
 - [Por qué el vídeo grabado con cámara de cine multiplica la conversión web](https://parpell.com/blog/por-que-el-video-con-camara-de-cine-multiplica-la-conversion-en-tu-web/): Psicología del estatus, legitimación de marca y tasa de conversión en servicios de ticket medio y alto.
 - [Core Web Vitals y arquitectura web: La parte invisible del código](https://parpell.com/blog/core-web-vitals-y-arquitectura-web-la-parte-invisible-que-decide-tus-ventas/): Impacto de los milisegundos de carga y el código limpio en las ventas.
 

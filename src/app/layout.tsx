@@ -156,6 +156,48 @@ const jsonLdGlobal = {
         "Automatización de Ventas y Respuestas en RRSS",
         "Auditoría y Consultoría Digital de Empresa",
       ],
+      hasOfferCatalog: {
+        "@type": "OfferCatalog",
+        name: "Servicios de Crecimiento & Posicionamiento Parpell",
+        itemListElement: [
+          {
+            "@type": "Offer",
+            itemOffered: {
+              "@type": "Service",
+              name: "Posicionamiento en Inteligencia Artificial (GEO)",
+              description:
+                "Optimización técnica para aparecer como primera opción recomendada en ChatGPT, Claude, Perplexity y Gemini.",
+            },
+          },
+          {
+            "@type": "Offer",
+            itemOffered: {
+              "@type": "Service",
+              name: "Producción Audiovisual con Cámara de Cine In Situ",
+              description:
+                "Rodaje presencial en instalaciones con cámara de cine, ópticas anamórficas y edición de autor para alta conversión.",
+            },
+          },
+          {
+            "@type": "Offer",
+            itemOffered: {
+              "@type": "Service",
+              name: "Automatización Comercial y Social Selling (ManyChat)",
+              description:
+                "Embudos automatizados en Instagram y TikTok para cualificar y entregar leads listos para comprar.",
+            },
+          },
+          {
+            "@type": "Offer",
+            itemOffered: {
+              "@type": "Service",
+              name: "Auditoría Digital & Optimización de Procesos (El Cuarto Secreto)",
+              description:
+                "Formación comercial, optimización de workflows con IA y detección de fugas de dinero en operativas empresariales.",
+            },
+          },
+        ],
+      },
       sameAs: [
         "https://www.instagram.com/parpell",
         "https://www.linkedin.com/company/parpell",

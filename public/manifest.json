@@ -1,0 +1,22 @@
+{
+  "name": "Parpell — Brand & Growth Orchestrator",
+  "short_name": "Parpell",
+  "description": "Posicionamiento en IA (GEO), contenido audiovisual de cine y máquina de ventas. Dos socios, cero intermediarios.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#080306",
+  "theme_color": "#9E5C6A",
+  "icons": [
+    {
+      "src": "/icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ]
+}
