@@ -139,8 +139,11 @@ export function PricingLandingTemplate({
     },
   ];
 
+  const isCustomQuote = currentPackObj?.price.toLowerCase().includes("solicita");
   const whatsappMessage = encodeURIComponent(
-    `Hola, estoy interesado en el ${currentPackObj?.name} (${currentPackObj?.price}) para mi negocio. Me gustaría coordinar los detalles.`
+    isCustomQuote
+      ? `Hola, me gustaría solicitar presupuesto personalizado para el ${currentPackObj?.name} para mi empresa. ¿Podríamos coordinar los detalles?`
+      : `Hola, estoy interesado en el ${currentPackObj?.name} (${currentPackObj?.price}) para mi negocio. Me gustaría coordinar los detalles.`
   );
 
   return (
@@ -334,7 +337,13 @@ export function PricingLandingTemplate({
                       {pack.name}
                     </span>
                     <div className="flex items-baseline gap-2 sm:gap-2.5 my-2 flex-wrap">
-                      <span className="text-3xl sm:text-5xl font-black text-white tracking-tight font-mono shrink-0">
+                      <span
+                        className={
+                          pack.price.toLowerCase().includes("solicita")
+                            ? "text-xl sm:text-2xl lg:text-[25px] font-black text-white tracking-tight leading-tight shrink-0 py-1"
+                            : "text-3xl sm:text-5xl font-black text-white tracking-tight font-mono shrink-0"
+                        }
+                      >
                         {pack.price}
                       </span>
                       {pack.originalPrice && (
@@ -345,9 +354,11 @@ export function PricingLandingTemplate({
                           </span>
                         </div>
                       )}
-                      <span className="text-xs font-medium text-zinc-400 font-mono shrink-0">
-                        {pack.period}
-                      </span>
+                      {pack.period && (
+                        <span className="text-xs font-medium text-zinc-400 font-mono shrink-0">
+                          {pack.period}
+                        </span>
+                      )}
                       {pack.savings && (
                         <span
                           className={`inline-flex items-center px-2 py-0.5 rounded-md text-[10px] font-mono font-bold shrink-0 ${
@@ -515,7 +526,13 @@ export function PricingLandingTemplate({
               </div>
 
               <div className="flex items-baseline gap-2 sm:gap-2.5 mb-2 flex-wrap">
-                <h3 className="text-2xl sm:text-3xl font-black text-white font-mono shrink-0">
+                <h3
+                  className={
+                    currentPackObj.price.toLowerCase().includes("solicita")
+                      ? "text-xl sm:text-2xl font-black text-white tracking-tight shrink-0 py-0.5"
+                      : "text-2xl sm:text-3xl font-black text-white font-mono shrink-0"
+                  }
+                >
                   {currentPackObj.price}
                 </h3>
                 {currentPackObj.originalPrice && (
@@ -524,9 +541,11 @@ export function PricingLandingTemplate({
                     <span className="absolute inset-x-0 top-1/2 -translate-y-1/2 h-[1.5px] bg-zinc-400/40 -rotate-[18deg] pointer-events-none rounded-full" />
                   </span>
                 )}
-                <span className="text-xs font-normal text-zinc-400 font-mono shrink-0">
-                  {currentPackObj.period}
-                </span>
+                {currentPackObj.period && (
+                  <span className="text-xs font-normal text-zinc-400 font-mono shrink-0">
+                    {currentPackObj.period}
+                  </span>
+                )}
                 {currentPackObj.savings && (
                   <span
                     className={`px-2 py-0.5 rounded text-[10px] font-mono font-bold shrink-0 ${

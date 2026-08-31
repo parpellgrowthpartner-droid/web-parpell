@@ -2,11 +2,20 @@ import type { Metadata } from "next";
 import { PricingLandingTemplate, PricingPack, ServiceItem } from "@/components/PricingLandingTemplate";
 
 export const metadata: Metadata = {
-  title: "Infraestructura Audiovisual & Dominio de Marca",
+  title: "Infraestructura Audiovisual & Dominio de Marca | Parpell",
   description: "Infraestructura de producción cinematográfica continua, paid media a gran escala y consultoría de crecimiento.",
   robots: {
     index: false,
     follow: false,
+    nocache: true,
+    googleBot: {
+      index: false,
+      follow: false,
+      noimageindex: true,
+      "max-video-preview": -1,
+      "max-image-preview": "none",
+      "max-snippet": -1,
+    },
   },
 };
 
@@ -57,10 +66,8 @@ const packsGrande: PricingPack[] = [
     name: "Pack Custom Retainer",
     badge: "EL MODELO DEFINITIVO · MÁXIMO ESTATUS",
     isUltimate: true,
-    price: "4.900€",
-    originalPrice: "8.000€",
-    savings: "Ahorras 3.100€",
-    period: "/mes",
+    price: "Solicita tu presupuesto",
+    period: "",
     description: "Departamento audiovisual y de crecimiento con dedicación prioritaria y consultoría de formación de equipos.",
     includesSummary: ["Omnichannel Leader", "4 Jornadas Rodaje", "Formación Comercial", "Exclusividad"],
     features: [

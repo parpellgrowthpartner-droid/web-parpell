@@ -9,11 +9,20 @@ import {
 } from "@/components/PricingLandingTemplate";
 
 export const metadata: Metadata = {
-  title: "Packs & Tarifas de Escalado Tecnológico y Motor GEO",
+  title: "Packs & Tarifas de Escalado Tecnológico y Motor GEO | Parpell",
   description: "Tarifas de ingeniería web, optimización de motores generativos de IA (GEO), analítica avanzada y auditorías de huella digital.",
   robots: {
     index: false,
     follow: false,
+    nocache: true,
+    googleBot: {
+      index: false,
+      follow: false,
+      noimageindex: true,
+      "max-video-preview": -1,
+      "max-image-preview": "none",
+      "max-snippet": -1,
+    },
   },
 };
 
@@ -107,10 +116,8 @@ const packsMediana: PricingPack[] = [
     name: "Autoridad Digital Total",
     badge: "EL MODELO DEFINITIVO · MÁXIMO ESTATUS",
     isUltimate: true,
-    price: "1.750€",
-    originalPrice: "2.500€",
-    savings: "Ahorras 750€",
-    period: "/mes",
+    price: "Solicita tu presupuesto",
+    period: "",
     description: "Dominio absoluto del sector: auditoría de ciberseguridad, integraciones a medida y soporte técnico con dedicación prioritaria.",
     includesSummary: ["Dominio SEO & GEO", "Ciberseguridad", "Integraciones CRM/APIs", "Soporte Prioritario"],
     features: [

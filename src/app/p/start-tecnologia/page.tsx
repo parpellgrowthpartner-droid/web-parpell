@@ -9,11 +9,20 @@ import {
 } from "@/components/PricingLandingTemplate";
 
 export const metadata: Metadata = {
-  title: "Packs & Tarifas de Mantenimiento Web y Posicionamiento IA",
+  title: "Packs & Tarifas de Mantenimiento Web y Posicionamiento IA | Parpell",
   description: "Tarifas de hosting de alta velocidad, mantenimiento técnico, auditorías de huella digital y posicionamiento en buscadores e IA.",
   robots: {
     index: false,
     follow: false,
+    nocache: true,
+    googleBot: {
+      index: false,
+      follow: false,
+      noimageindex: true,
+      "max-video-preview": -1,
+      "max-image-preview": "none",
+      "max-snippet": -1,
+    },
   },
 };
 
@@ -107,10 +116,8 @@ const packsPequena: PricingPack[] = [
     name: "Crecimiento Digital & Conversión",
     badge: "EL MODELO DEFINITIVO · MÁXIMO ESTATUS",
     isUltimate: true,
-    price: "790€",
-    originalPrice: "1.100€",
-    savings: "Ahorras 310€",
-    period: "/mes",
+    price: "Solicita tu presupuesto",
+    period: "",
     description: "Visibilidad integral en IA, optimización continua de velocidad de carga y soporte directo para captar más clientes.",
     includesSummary: ["Local SEO & IA", "CRO & Velocidad", "Análisis Competencia", "Soporte Directo"],
     features: [

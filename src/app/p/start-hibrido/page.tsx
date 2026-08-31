@@ -9,11 +9,20 @@ import {
 } from "@/components/PricingLandingTemplate";
 
 export const metadata: Metadata = {
-  title: "Packs & Tarifas Híbridas: Producción Audiovisual & Infraestructura IA",
+  title: "Packs & Tarifas Híbridas: Producción Audiovisual & Infraestructura IA | Parpell",
   description: "Tarifas integrales que combinan producción de cine in situ, posicionamiento en IA (GEO), mantenimiento web y máquina de ventas.",
   robots: {
     index: false,
     follow: false,
+    nocache: true,
+    googleBot: {
+      index: false,
+      follow: false,
+      noimageindex: true,
+      "max-video-preview": -1,
+      "max-image-preview": "none",
+      "max-snippet": -1,
+    },
   },
 };
 
@@ -104,10 +113,8 @@ const packsPequena: PricingPack[] = [
     name: "Pack Híbrido Authority & Dominio",
     badge: "EL MODELO DEFINITIVO · MÁXIMO ESTATUS",
     isUltimate: true,
-    price: "1.690€",
-    originalPrice: "2.500€",
-    savings: "Ahorras 810€",
-    period: "/mes",
+    price: "Solicita tu presupuesto",
+    period: "",
     description: "El ecosistema integral de autoridad: cine, distribución publicitaria pagada, motor de IA y soporte técnico prioritario.",
     includesSummary: ["Growth & GEO", "Paid Media (Ads)", "CRO & Velocidad", "Soporte Directo 2 Socios"],
     features: [

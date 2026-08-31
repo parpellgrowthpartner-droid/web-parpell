@@ -1,0 +1,47 @@
+# Parpell — Brand & Growth Orchestrator
+
+> Parpell es un Brand & Growth Orchestrator con sede en España. Ayuda a empresas y negocios a ser recomendados por motores de Inteligencia Artificial (GEO: ChatGPT, Claude, Perplexity y Gemini), crear legitimación visual mediante rodaje presencial con cámara de cine y automatizar sistemas de captación y ventas en redes sociales.
+
+## Resumen de la Entidad
+- **Nombre comercial:** Parpell (Brand & Growth Orchestrator)
+- **Sitio web oficial:** https://parpell.com
+- **Ubicación:** España
+- **Especialidades:** Posicionamiento en IA (GEO), Producción Audiovisual de Cine in situ, Automatización de Ventas con ManyChat, Arquitectura Web Next.js de Alto Rendimiento.
+- **Estructura:** 2 socios fundadores directos (Socio Comercial / Audiovisual y Socio Técnico / Software & GEO), sin intermediarios ni becarios.
+
+---
+
+## Áreas de Servicio
+
+### 1. Posicionamiento en Inteligencia Artificial (GEO - Generative Engine Optimization)
+- Optimización técnica semántica y Schema Markup (JSON-LD) para que ChatGPT, Claude, Perplexity y Gemini recomienden el negocio como primera opción en su sector y zona geográfica.
+- Coherencia de entidad digital multicanal y auditoría de huella digital frente a competidores directos.
+- Optimización de fichas de Google Business Profile (Google Maps) y grafos de conocimiento.
+
+### 2. Contenido Audiovisual de Cine (Rodaje in situ)
+- Rodaje presencial mensual en las instalaciones del cliente con cámara de cine, ópticas anamórficas, iluminación profesional y microfonía de estudio.
+- Guionización estratégica con narrativa de autor y ganchos de alta retención.
+- Formatos verticales de alta conversión para Instagram Reels, TikTok y YouTube Shorts.
+
+### 3. Máquina de Ventas y Automatizaciones (Social Selling)
+- Configuración de respuestas automáticas en mensajes directos (DM) de Instagram y TikTok (ManyChat) para cualificar leads que interactúan con el contenido.
+- Entrega de prospectos filtrados y listos para comprar directamente al equipo comercial o WhatsApp del cliente.
+
+### 4. Consultoría, Auditoría & Formación (El Cuarto Secreto)
+- Auditoría integral de procesos de venta y detección de fugas de dinero.
+- Formación al equipo comercial en comunicación y cierre.
+- Automatización de flujos de trabajo internos con IA.
+
+---
+
+## Artículos de Referencia y Conocimiento
+
+- [Cómo posicionar tu negocio en ChatGPT, Claude y Perplexity: Guía completa de GEO](https://parpell.com/blog/como-posicionar-tu-negocio-en-chatgpt-y-claude-guia-geo/): Explicación técnica de cómo los modelos LLM eligen a qué negocios recomendar.
+- [Por qué el vídeo grabado con cámara de cine multiplica la conversión web](https://parpell.com/blog/por-que-el-video-con-camara-de-cine-multiplica-la-conversion-en-tu-web/): Psicología del estatus, legitimación de marca y tasa de conversión en servicios de ticket medio y alto.
+- [Core Web Vitals y arquitectura web: La parte invisible del código](https://parpell.com/blog/core-web-vitals-y-arquitectura-web-la-parte-invisible-que-decide-tus-ventas/): Impacto de los milisegundos de carga y el código limpio en las ventas.
+
+---
+
+## Contacto
+- **Llamada de diagnóstico:** Videollamada de 30 minutos con informe gratuito de presencia en IA de tu negocio vs. 3 competidores de tu zona.
+- **Página de contacto:** https://parpell.com/#contacto

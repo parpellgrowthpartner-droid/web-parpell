@@ -9,11 +9,20 @@ import {
 } from "@/components/PricingLandingTemplate";
 
 export const metadata: Metadata = {
-  title: "Packs & Tarifas Híbridas de Escalado: Audiovisual, Paid Media & GEO (IA)",
+  title: "Packs & Tarifas Híbridas de Escalado: Audiovisual, Paid Media & GEO (IA) | Parpell",
   description: "Tarifas de escalado integral para empresas: doble jornada de rodaje, campañas multicanal, optimización en IA y automatizaciones comerciales.",
   robots: {
     index: false,
     follow: false,
+    nocache: true,
+    googleBot: {
+      index: false,
+      follow: false,
+      noimageindex: true,
+      "max-video-preview": -1,
+      "max-image-preview": "none",
+      "max-snippet": -1,
+    },
   },
 };
 
@@ -105,17 +114,15 @@ const packsMediana: PricingPack[] = [
     name: "Pack Híbrido Autoridad Total",
     badge: "EL MODELO DEFINITIVO · MÁXIMO ESTATUS",
     isUltimate: true,
-    price: "3.450€",
-    originalPrice: "5.800€",
-    savings: "Ahorras 2.350€",
-    period: "/mes",
+    price: "Solicita tu presupuesto",
+    period: "",
     description: "Dominio absoluto del sector: embudo publicitario completo, retargeting avanzado, ciberseguridad y soporte técnico prioritario.",
     includesSummary: ["Market Dominance", "Retargeting Avanzado", "Ciberseguridad", "Soporte Prioritario VIP"],
     features: [
       "Todo lo incluido en Market Dominance (Valor individual: 4.500€)",
       "Community Management proactivo y atención cualificada a comentarios y prospectos",
       "Embudo de retargeting publicitario y audiencias personalizadas de alta conversión",
-      "Auditoría mensual de ciberseguridad y optimización de arquitectura de datos",
+      "Revisión técnica de seguridad y buenas prácticas (accesos, backups, actualizaciones) + optimización de arquitectura de datos",
       "4 horas mensuales de desarrollo técnico evolutivo prioritario",
       "Canal de comunicación VIP y soporte directo con los 2 socios de Parpell",
     ],

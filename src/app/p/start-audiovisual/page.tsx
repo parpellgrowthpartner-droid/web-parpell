@@ -2,11 +2,20 @@ import type { Metadata } from "next";
 import { PricingLandingTemplate, PricingPack, ServiceItem } from "@/components/PricingLandingTemplate";
 
 export const metadata: Metadata = {
-  title: "Packs & Tarifas de Producción Audiovisual",
+  title: "Packs & Tarifas de Producción Audiovisual | Parpell",
   description: "Tarifas y packs de producción cinematográfica, preproducción y crecimiento.",
   robots: {
     index: false,
     follow: false,
+    nocache: true,
+    googleBot: {
+      index: false,
+      follow: false,
+      noimageindex: true,
+      "max-video-preview": -1,
+      "max-image-preview": "none",
+      "max-snippet": -1,
+    },
   },
 };
 
@@ -57,10 +66,8 @@ const packsPequena: PricingPack[] = [
     name: "Pack Authority",
     badge: "EL MODELO DEFINITIVO · MÁXIMO ESTATUS",
     isUltimate: true,
-    price: "1.200€",
-    originalPrice: "1.800€",
-    savings: "Ahorras 600€",
-    period: "/mes",
+    price: "Solicita tu presupuesto",
+    period: "",
     description: "Producción cinematográfica + distribución publicitaria pagada y atención a prospectos.",
     includesSummary: ["Pack Growth", "Paid Media", "Community Management"],
     features: [

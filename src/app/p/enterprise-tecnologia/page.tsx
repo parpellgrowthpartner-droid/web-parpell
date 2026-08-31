@@ -9,11 +9,20 @@ import {
 } from "@/components/PricingLandingTemplate";
 
 export const metadata: Metadata = {
-  title: "Infraestructura Crítica, SEO Corporativo & Dominio GEO (IA)",
+  title: "Infraestructura Crítica, SEO Corporativo & Dominio GEO (IA) | Parpell",
   description: "Ingeniería de software dedicada, arquitectura cloud corporativa, optimización multimodelo en IA y consultoría técnica continua.",
   robots: {
     index: false,
     follow: false,
+    nocache: true,
+    googleBot: {
+      index: false,
+      follow: false,
+      noimageindex: true,
+      "max-video-preview": -1,
+      "max-image-preview": "none",
+      "max-snippet": -1,
+    },
   },
 };
 
@@ -88,39 +97,37 @@ const packsGrande: PricingPack[] = [
     originalPrice: "4.300€",
     savings: "Ahorras 1.400€",
     period: "/mes",
-    description: "El ecosistema completo: optimización multimodelo en IA continua, integraciones a medida con ERP/CRM y CRO avanzado.",
-    includesSummary: ["Infraestructura Crítica", "IA Multimodelo", "Integraciones APIs/ERP", "CRO & Tests A/B"],
+    description: "El ecosistema completo: optimización multimodelo en IA continua, integraciones de marketing y CRO avanzado.",
+    includesSummary: ["Infraestructura Crítica", "IA Multimodelo", "Integraciones & APIs", "CRO & Tests A/B"],
     features: [
       "Todo lo incluido en Infraestructura Crítica (Valor individual: 2.900€)",
       "Optimización y monitorización continua en modelos de IA (ChatGPT, Claude, Gemini, SearchGPT)",
-      "Desarrollo e integración de APIs, ERP, CRM y sistemas automatizados a medida",
+      "Integraciones ligeras vía APIs y conectores existentes (formularios, CRM, herramientas de marketing) — sin desarrollo de software interno a medida",
       "Optimización continua de conversión mediante tests A/B y análisis de mapas de calor",
       "Consultoría técnica mensual de arquitectura e inteligencia artificial aplicada al negocio",
       "Informe mensual de métricas de comunidad, alcance audiovisual y retención multicanal",
       "Auditoría mensual de narrativa de marca y coherencia visual en todos los canales",
     ],
-    deliverables: "Infraestructura Crítica + IA Multimodelo + Integraciones ERP/CRM + CRO Continuo",
+    deliverables: "Infraestructura Crítica + IA Multimodelo + Integraciones de Marketing + CRO Continuo",
   },
   {
     id: "pack-retainer-tecnologico",
     name: "Retainer Tecnológico Exclusivo (CTO as a Service)",
     badge: "EL MODELO DEFINITIVO · MÁXIMO ESTATUS",
     isUltimate: true,
-    price: "4.200€",
-    originalPrice: "6.500€",
-    savings: "Ahorras 2.300€",
-    period: "/mes",
-    description: "Departamento de ingeniería de software con dedicación prioritaria, exclusividad sectorial y dirección técnica directa.",
+    price: "Solicita tu presupuesto",
+    period: "",
+    description: "Departamento técnico y web con dedicación prioritaria, exclusividad sectorial y dirección técnica directa.",
     includesSummary: ["Ecosistema Corporativo", "Dedicación Prioritaria", "Exclusividad Sectorial", "CTO as a Service"],
     features: [
       "Todo lo incluido en Ecosistema Digital Corporativo (Valor individual: 4.300€)",
-      "Dedicación de ingeniería continua y desarrollos a medida sin límite de iteraciones menores",
-      "Auditorías avanzadas de ciberseguridad, penetración y cumplimiento normativo de datos",
-      "Optimización y automatización de flujos operativos con IA interna para tu empresa",
+      "Dedicación técnica continua para tu infraestructura web, landing pages y flujos de captación",
+      "Hardening y auditoría de seguridad continua + gestión de pentesting certificado a través de partner especializado",
+      "Optimización y automatización de flujos de captación y herramientas de IA",
       "Auditoría mensual integral de autoridad de marca, narrativa audiovisual y resonancia",
       "Informe mensual estratégico de producción audiovisual y diferenciación corporativa",
       "Exclusividad sectorial y geográfica total: no trabajamos con tus competidores directos",
-      "Canal VIP prioritario y asesoramiento técnico directo con el socio de software",
+      "Soporte prioritario en horario extendido (L-V + fines de semana bajo aviso) y asesoramiento técnico directo",
     ],
     deliverables: "Departamento Técnico Integral + CTO Dedicado + Exclusividad de Sector",
   },
@@ -134,7 +141,7 @@ const servicesGrande: ServiceItem[] = [
   },
   {
     name: "Auditoría de Ciberseguridad & Salud Técnica",
-    detail: "Supervisión continua de vulnerabilidades, cabeceras de seguridad, certificados SSL y cumplimiento técnico.",
+    detail: "Supervisión continua de vulnerabilidades, cabeceras de seguridad, certificados SSL y buenas prácticas.",
     price: "500€",
   },
   {
@@ -148,8 +155,8 @@ const servicesGrande: ServiceItem[] = [
     price: "450€",
   },
   {
-    name: "Desarrollo de Integraciones (APIs / ERP / CRM)",
-    detail: "Conectores a medida para sincronizar flujos de clientes, pedidos, agendas y bases de datos.",
+    name: "Integraciones de Marketing (APIs / CRM / Webhooks)",
+    detail: "Conectores y formularios para sincronizar flujos de clientes, agendas y bases de datos.",
     price: "850€",
   },
   {
@@ -158,8 +165,8 @@ const servicesGrande: ServiceItem[] = [
     price: "600€",
   },
   {
-    name: "Consultoría de IA Interna & Automatizaciones",
-    detail: "Sesiones estratégicas para integrar herramientas de IA en las operaciones internas de tu equipo.",
+    name: "Consultoría de IA & Automatizaciones de Captación",
+    detail: "Sesiones estratégicas para integrar herramientas de IA en la captación y operaciones del equipo.",
     price: "650€",
   },
 ];

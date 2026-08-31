@@ -2,11 +2,20 @@ import type { Metadata } from "next";
 import { PricingLandingTemplate, PricingPack, ServiceItem } from "@/components/PricingLandingTemplate";
 
 export const metadata: Metadata = {
-  title: "Packs & Tarifas de Escalado Audiovisual",
+  title: "Packs & Tarifas de Escalado Audiovisual | Parpell",
   description: "Tarifas y packs de producción cinematográfica, paid media y automatización multicanal.",
   robots: {
     index: false,
     follow: false,
+    nocache: true,
+    googleBot: {
+      index: false,
+      follow: false,
+      noimageindex: true,
+      "max-video-preview": -1,
+      "max-image-preview": "none",
+      "max-snippet": -1,
+    },
   },
 };
 
@@ -57,10 +66,8 @@ const packsMediana: PricingPack[] = [
     name: "Pack Dominance",
     badge: "EL MODELO DEFINITIVO · MÁXIMO ESTATUS",
     isUltimate: true,
-    price: "2.400€",
-    originalPrice: "4.220€",
-    savings: "Ahorras 1.820€",
-    period: "/mes",
+    price: "Solicita tu presupuesto",
+    period: "",
     description: "Dominio integral de mercado: embudo completo de conversión, retargeting avanzado y atención a prospectos.",
     includesSummary: ["Pack Market Growth", "Community Management", "Retargeting", "Auditoría IA"],
     features: [
