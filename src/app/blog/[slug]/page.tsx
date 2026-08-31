@@ -116,7 +116,7 @@ export default async function BlogPostPage({ params }: Props) {
         description: post.excerpt,
         url: `https://parpell.com/blog/${post.slug}`,
         datePublished: "2026-08-28T00:00:00.000Z",
-        dateModified: "2026-08-28T00:00:00.000Z",
+        dateModified: "2026-08-31T00:00:00.000Z",
         mainEntityOfPage: {
           "@type": "WebPage",
           "@id": `https://parpell.com/blog/${post.slug}`,
@@ -125,6 +125,12 @@ export default async function BlogPostPage({ params }: Props) {
           "@type": "Person",
           name: post.author.name,
           jobTitle: post.author.role,
+          description: post.author.bio,
+          worksFor: {
+            "@type": "Organization",
+            name: "Parpell",
+            url: "https://parpell.com",
+          },
         },
         publisher: {
           "@type": "Organization",
@@ -276,6 +282,33 @@ export default async function BlogPostPage({ params }: Props) {
             «{post.content.intro}»
           </div>
 
+          {/* Key Takeaways Box (Citation Engineering para IA & Lectura Rápida) */}
+          {post.keyTakeaways && post.keyTakeaways.length > 0 && (
+            <div className="my-6 p-6 sm:p-7 rounded-2xl liquid-glass border border-[#9E5C6A]/50 bg-gradient-to-br from-[#1A0817]/90 via-[#120510]/80 to-[#1A0817]/90 shadow-[0_10px_35px_rgba(158,92,106,0.18)]">
+              <div className="flex items-center justify-between gap-3 mb-4 pb-3 border-b border-white/[0.08]">
+                <div className="flex items-center gap-2">
+                  <div className="w-6 h-6 rounded-lg bg-[#9E5C6A]/30 border border-[#9E5C6A]/60 flex items-center justify-center text-[#F3B0BE]">
+                    <Sparkles className="w-3.5 h-3.5" />
+                  </div>
+                  <span className="text-xs font-mono font-bold tracking-wider text-[#F8F4F2] uppercase">
+                    Conclusiones Clave · Resumen Rápido
+                  </span>
+                </div>
+                <span className="text-[10px] font-mono text-[#E598A8] bg-[#9E5C6A]/20 px-2 py-0.5 rounded-full border border-[#9E5C6A]/30">
+                  Lectura en 30s
+                </span>
+              </div>
+              <ul className="space-y-2.5 text-xs sm:text-sm text-zinc-200">
+                {post.keyTakeaways.map((point, kIdx) => (
+                  <li key={kIdx} className="flex items-start gap-2.5 leading-relaxed">
+                    <CheckCircle2 className="w-4 h-4 text-[#C27A8A] shrink-0 mt-0.5" />
+                    <span>{point}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
           {/* Sections */}
           {post.content.sections.map((section, idx) => (
             <div key={idx} className="space-y-4 pt-2">
@@ -390,6 +423,31 @@ export default async function BlogPostPage({ params }: Props) {
               </div>
             </div>
           )}
+
+          {/* Author Bio Box (E-E-A-T Authority) */}
+          <div className="mt-10 p-6 sm:p-7 rounded-2xl liquid-glass border border-white/[0.1] bg-white/[0.02] flex flex-col sm:flex-row items-start sm:items-center gap-5">
+            <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#9E5C6A] to-[#4A1525] p-[2px] shrink-0 shadow-lg shadow-[#9E5C6A]/30">
+              <div className="w-full h-full rounded-[14px] bg-[#120510] flex items-center justify-center text-white font-mono font-black text-lg">
+                P
+              </div>
+            </div>
+            <div className="space-y-1.5 flex-1">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+                <span className="text-sm sm:text-base font-bold text-white">
+                  {post.author.name}
+                </span>
+                <span className="text-[10px] font-mono text-[#E598A8] bg-[#9E5C6A]/20 px-2.5 py-0.5 rounded-full border border-[#9E5C6A]/40 w-fit">
+                  {post.author.credentials}
+                </span>
+              </div>
+              <span className="block text-xs font-mono text-zinc-400">
+                {post.author.role}
+              </span>
+              <p className="text-xs text-zinc-300 leading-relaxed pt-1">
+                {post.author.bio}
+              </p>
+            </div>
+          </div>
 
           {/* Tags */}
           <div className="pt-6 flex flex-wrap items-center gap-2">

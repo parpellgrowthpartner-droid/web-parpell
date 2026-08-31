@@ -21,7 +21,7 @@ export function ThreeAreasSection() {
         "Informe mensual con capturas reales de consultas a las IA.",
       ],
       enCristiano: "Una IA es como un alumno que se ha leído internet para un examen. Nuestro trabajo es meter tu negocio en esos libros para que escriba tu nombre.",
-      executor: "Nuestro socio ingeniero de software. No se subcontrata.",
+      executor: "Nuestro socio técnico y desarrollador. No se subcontrata.",
       colSpan: "md:col-span-1",
     },
     {

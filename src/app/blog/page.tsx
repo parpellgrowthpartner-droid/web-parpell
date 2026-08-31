@@ -25,29 +25,51 @@ export const metadata: Metadata = {
 export default function BlogIndexPage() {
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "Blog",
-    name: "Blog Parpell — Brand & Growth Orchestrator",
-    description:
-      "Publicaciones sobre GEO (Generative Engine Optimization), producción audiovisual de cine, Core Web Vitals y sistemas de ventas.",
-    url: "https://parpell.com/blog",
-    publisher: {
-      "@type": "Organization",
-      name: "Parpell",
-      url: "https://parpell.com",
-      logo: "https://parpell.com/icon.png",
-    },
-    blogPost: BLOG_POSTS.map((post) => ({
-      "@type": "BlogPosting",
-      headline: post.title,
-      description: post.excerpt,
-      url: `https://parpell.com/blog/${post.slug}`,
-      datePublished: "2026-08-28",
-      dateModified: "2026-08-28",
-      author: {
-        "@type": "Person",
-        name: post.author.name,
+    "@graph": [
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Inicio",
+            item: "https://parpell.com",
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: "Blog & Recursos",
+            item: "https://parpell.com/blog",
+          },
+        ],
       },
-    })),
+      {
+        "@type": "Blog",
+        name: "Blog Parpell — Brand & Growth Orchestrator",
+        description:
+          "Publicaciones sobre GEO (Generative Engine Optimization), producción audiovisual de cine, Core Web Vitals y sistemas de ventas.",
+        url: "https://parpell.com/blog",
+        publisher: {
+          "@type": "Organization",
+          name: "Parpell",
+          url: "https://parpell.com",
+          logo: "https://parpell.com/icon.png",
+        },
+        blogPost: BLOG_POSTS.map((post) => ({
+          "@type": "BlogPosting",
+          headline: post.title,
+          description: post.excerpt,
+          url: `https://parpell.com/blog/${post.slug}`,
+          datePublished: "2026-08-28",
+          dateModified: "2026-08-28",
+          author: {
+            "@type": "Person",
+            name: post.author.name,
+            jobTitle: post.author.role,
+          },
+        })),
+      },
+    ],
   };
 
   return (

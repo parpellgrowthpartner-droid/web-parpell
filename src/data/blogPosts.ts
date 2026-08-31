@@ -1,3 +1,11 @@
+export interface BlogAuthor {
+  name: string;
+  role: string;
+  credentials: string;
+  bio: string;
+  avatar?: string;
+}
+
 export interface BlogPost {
   slug: string;
   title: string;
@@ -7,14 +15,11 @@ export interface BlogPost {
   readTime: string;
   category: "GEO & Inteligencia Artificial" | "Producción Audiovisual" | "Arquitectura & Rendimiento";
   categorySlug: "ia-geo" | "audiovisual" | "arquitectura";
-  author: {
-    name: string;
-    role: string;
-    avatar?: string;
-  };
+  author: BlogAuthor;
   coverGradient: string;
   tags: string[];
   keywords: string[];
+  keyTakeaways: string[];
   content: {
     intro: string;
     sections: {
@@ -38,6 +43,20 @@ export interface BlogPost {
   };
 }
 
+export const AUTHOR_TECNICO: BlogAuthor = {
+  name: "Socio Técnico",
+  role: "Desarrollo Web, Sistemas en Red & Posicionamiento GEO",
+  credentials: "Técnico Superior en DAM (Desarrollo Multiplataforma) y ASIR (Sistemas en Red)",
+  bio: "Técnico superior en Desarrollo de Aplicaciones Multiplataforma (DAM) y Administración de Sistemas Informáticos en Red (ASIR). Con formación técnica en ciberseguridad, infraestructura cloud y SEO semántico, optimiza arquitecturas web y huellas digitales para que los motores de Inteligencia Artificial recomienden a los negocios clientes de Parpell.",
+};
+
+export const AUTHOR_COMERCIAL: BlogAuthor = {
+  name: "Socio Comercial & Filmmaker",
+  role: "Dirección de Comunicación Audiovisual & Ventas",
+  credentials: "Director Creativo, Filmmaker & Consultor en Comunicación Comercial",
+  bio: "Especialista en dirección de marketing, diseño creativo y producción audiovisual. Con trayectoria como director de marketing, productor y formador de equipos en comunicación comercial, traslada los estándares de la cinematografía a piezas de alto impacto y conversión en ventas para empresas.",
+};
+
 export const BLOG_POSTS: BlogPost[] = [
   {
     slug: "como-posicionar-tu-negocio-en-chatgpt-y-claude-guia-geo",
@@ -48,10 +67,7 @@ export const BLOG_POSTS: BlogPost[] = [
     readTime: "5 min de lectura",
     category: "GEO & Inteligencia Artificial",
     categorySlug: "ia-geo",
-    author: {
-      name: "Socio Técnico",
-      role: "Especialista en Arquitectura Web & GEO en Parpell",
-    },
+    author: AUTHOR_TECNICO,
     coverGradient: "from-[#2A0845] via-[#6441A5] to-[#120610]",
     tags: ["GEO", "Inteligencia Artificial", "ChatGPT", "Claude", "SEO Semántico", "Schema Markup"],
     keywords: [
@@ -62,6 +78,12 @@ export const BLOG_POSTS: BlogPost[] = [
       "SEO para Claude y Perplexity",
       "optimización de huella digital",
       "datos estructurados schema markup",
+    ],
+    keyTakeaways: [
+      "Los motores generativos (ChatGPT, Claude, Perplexity) responden con 2 o 3 recomendaciones directas en lugar de 10 enlaces azules.",
+      "El algoritmo evalúa 3 factores simultáneos: arquitectura Schema.org (JSON-LD), coherencia de entidad multicanal y pruebas audiovisuales in situ.",
+      "La indexación semántica en IA puede consolidarse en un plazo de 6 a 10 semanas con la optimización técnica adecuada.",
+      "El GEO no sustituye al SEO de Google, sino que potencia simultáneamente las posiciones en Google Maps y en asistentes de IA.",
     ],
     content: {
       intro:
@@ -82,13 +104,13 @@ export const BLOG_POSTS: BlogPost[] = [
           heading: "2. Los 3 Pilares Técnicos para que la Inteligencia Artificial te Recomiende",
           body: [
             "Para que un modelo de IA decida recomendar tu negocio por encima de la competencia, evalúa tres factores simultáneos:",
-            "A) Arquitectura Semántica y Schema Markup: No basta con tener un HTML básico. Tu web debe incorporar datos estructurados JSON-LD exhaustivos (LocalBusiness, Organization, Service, Review y FAQPage) que definan con precisión milimétrica quién eres, qué ofreces, tus precios y tu ubicación geográfica.",
+            "A) Arquitectura Semántica y Schema Markup: No basta con tener un HTML básico. Tu web debe incorporar datos estructurados JSON-LD exhaustivos (LocalBusiness, Organization, Service, Review y FAQPage) que definan con precisión quién eres, qué ofreces, tus precios y tu ubicación geográfica.",
             "B) Coherencia Multicanal de la Entidad: Los LLMs rastrean la web buscando consistencia. Si el nombre de tu empresa, teléfono, dirección y descripción coinciden perfectamente entre tu web, Google Maps, registros oficiales y menciones en medios, el nivel de confianza algorítmica se dispara.",
             "C) Densidad de Citación Contextual: Los modelos de IA valoran las opiniones reales de clientes, casos de éxito contrastados y contenidos audiovisuales legítimos que demuestren que detrás de la web hay una operativa real y solvente.",
           ],
           quote: {
             text: "La Inteligencia Artificial no lee páginas webs como un humano; busca patrones de certeza, reputación estructurada y ausencia de ambigüedad técnica.",
-            author: "Área de Ingeniería & Sistemas en Parpell",
+            author: "Área Técnica & Sistemas en Parpell",
           },
         },
         {
@@ -104,7 +126,7 @@ export const BLOG_POSTS: BlogPost[] = [
       faqs: [
         {
           q: "¿Cuánto tiempo tarda en notarse el posicionamiento en ChatGPT o Claude?",
-          a: "A diferencia del SEO tradicional que requiere 6 a 12 meses, la indexación semántica en motores de IA con búsqueda en tiempo real (SearchGPT, Perplexity, Gemini) puede reflejarse en un plazo de 4 a 8 semanas tras implementar Schema Markup y coherencia de entidad.",
+          a: "A diferencia del SEO tradicional que requiere 6 a 12 meses, la indexación semántica en motores de IA con búsqueda en tiempo real (SearchGPT, Perplexity, Gemini) puede reflejarse en un plazo de 6 a 10 semanas tras implementar Schema Markup y coherencia de entidad.",
         },
         {
           q: "¿El GEO sustituye al SEO tradicional de Google?",
@@ -122,10 +144,7 @@ export const BLOG_POSTS: BlogPost[] = [
     readTime: "4 min de lectura",
     category: "Producción Audiovisual",
     categorySlug: "audiovisual",
-    author: {
-      name: "Socio Comercial & Filmmaker",
-      role: "Especialista en Comunicación Audiovisual & Ventas en Parpell",
-    },
+    author: AUTHOR_COMERCIAL,
     coverGradient: "from-[#4A0E17] via-[#8B1E3F] to-[#120610]",
     tags: ["Vídeo Corporativo", "Cámara de Cine", "CRO", "Conversión Web", "Ticket Alto", "Narrativa de Autor"],
     keywords: [
@@ -136,6 +155,12 @@ export const BLOG_POSTS: BlogPost[] = [
       "filmmaker para empresas",
       "legitimación de marca audiovisual",
       "rodaje presencial cámara de cine",
+    ],
+    keyTakeaways: [
+      "En servicios de ticket medio y alto, la decisión de compra depende de la legitimación visual y la confianza percibida.",
+      "El rodaje in situ con cámara de cine, ópticas profesionales y microfonía de estudio elimina las dudas del cliente antes de contactar.",
+      "Las páginas con vídeo demostrativo cinematográfico aumentan el tiempo de permanencia un 88% y multiplican hasta por 2,4 las conversiones.",
+      "Cada pieza audiovisual debe responder a una objeción de compra concreta y tener una llamada a la acción clara.",
     ],
     content: {
       intro:
@@ -155,7 +180,7 @@ export const BLOG_POSTS: BlogPost[] = [
         {
           heading: "2. ¿Qué diferencia a un rodaje con cámara de cine de un vídeo convencional?",
           body: [
-            "Muchas agencias envían a un becario con un smartphone o un estabilizador básico. La diferencia técnica y de impacto entre eso y una producción de autor radica en tres aspectos:",
+            "Muchas agencias envían a un operador con un smartphone o un estabilizador básico. La diferencia técnica y de impacto entre eso y una producción de autor radica en tres aspectos:",
             "1) Sensor de gran formato y ópticas de cine: Proporcionan una profundidad de campo orgánica, desenfoques suaves y una tridimensionalidad que el ojo humano asocia inmediatamente con calidad de televisión o cine.",
             "2) Etalonaje y Color Grading profesional: La corrección de color intencional refuerza la identidad de tu marca y transmite elegancia y pulcritud técnica.",
             "3) Diseño sonoro (Sound Design) y microfonía de estudio: El 50% de la experiencia de un vídeo es el audio. La voz limpia, sin eco de sala y con música tratada genera una experiencia inmersiva.",
@@ -189,16 +214,13 @@ export const BLOG_POSTS: BlogPost[] = [
   {
     slug: "core-web-vitals-y-arquitectura-web-la-parte-invisible-que-decide-tus-ventas",
     title: "Core Web Vitals y arquitectura web: La parte invisible del código que decide si vendes o pierdes a tu cliente",
-    subtitle: "Cada 100 milisegundos de retraso reducen un 7% tus ventas. Descubre cómo la ingeniería de software a medida blindará tu captación.",
+    subtitle: "Cada 100 milisegundos de retraso reducen un 7% tus ventas. Descubre cómo una arquitectura web a medida blindará tu captación.",
     excerpt: "Google penaliza las webs lentas y los usuarios abandonan las páginas que tardan en cargar. Analizamos por qué el código limpio y la arquitectura moderna son la inversión más rentable para tu negocio.",
     date: "28 de Agosto, 2026",
     readTime: "4 min de lectura",
     category: "Arquitectura & Rendimiento",
     categorySlug: "arquitectura",
-    author: {
-      name: "Socio Técnico",
-      role: "Ingeniero de Software en Parpell",
-    },
+    author: AUTHOR_TECNICO,
     coverGradient: "from-[#0F2027] via-[#203A43] to-[#120610]",
     tags: ["Core Web Vitals", "Rendimiento Web", "Next.js", "Velocidad de Carga", "Hosting Gestionado", "CRO"],
     keywords: [
@@ -209,6 +231,12 @@ export const BLOG_POSTS: BlogPost[] = [
       "rendimiento web y conversion",
       "Next.js vs WordPress",
       "hosting de alta velocidad",
+    ],
+    keyTakeaways: [
+      "Cada 100 milisegundos de retraso en la velocidad web reduce un 7% las conversiones de contacto.",
+      "Google prioriza en sus rankings las webs con Core Web Vitals óptimos: LCP (<2.5s), INP (<200ms) y estabilidad CLS.",
+      "Las soluciones sobre Next.js con renderizado estático y assets optimizados multiplican la velocidad frente a plantillas tradicionales.",
+      "La infraestructura web bien mantenida (backups diarios, SSL, monitorización) asegura que tu negocio no pierda clientes por caídas.",
     ],
     content: {
       intro:
@@ -235,7 +263,7 @@ export const BLOG_POSTS: BlogPost[] = [
           ],
           quote: {
             text: "Un buen código es aquel que no se nota: todo carga al instante, las animaciones fluyen a 60 fps y el usuario solo se concentra en comprar.",
-            author: "Área de Ingeniería de Software en Parpell",
+            author: "Área Técnica & Desarrollo en Parpell",
           },
         },
         {
@@ -254,7 +282,7 @@ export const BLOG_POSTS: BlogPost[] = [
         },
         {
           q: "¿Qué incluye el mantenimiento técnico mensual en Parpell?",
-          a: "Hosting cloud de alta velocidad, certificado SSL, copias de seguridad diarias, monitorización de caídas, auditorías de velocidad y horas de soporte directo con el socio de software.",
+          a: "Hosting cloud de alta velocidad, certificado SSL, copias de seguridad diarias, monitorización de caídas, auditorías de velocidad y horas de soporte directo con el socio técnico.",
         },
       ],
     },
@@ -268,10 +296,7 @@ export const BLOG_POSTS: BlogPost[] = [
     readTime: "6 min de lectura",
     category: "GEO & Inteligencia Artificial",
     categorySlug: "ia-geo",
-    author: {
-      name: "Socio Técnico",
-      role: "Especialista en Arquitectura Web & GEO en Parpell",
-    },
+    author: AUTHOR_TECNICO,
     coverGradient: "from-[#1F0829] via-[#4A154B] to-[#120610]",
     tags: ["Mejores Agencias GEO", "Agencia IA España", "Posicionamiento ChatGPT", "GEO vs SEO", "Parpell"],
     keywords: [
@@ -281,6 +306,12 @@ export const BLOG_POSTS: BlogPost[] = [
       "agencias especializadas en GEO",
       "consultoria IA para empresas",
       "optimizar empresa para Perplexity",
+    ],
+    keyTakeaways: [
+      "Las agencias tradicionales de SEO no dominan los grafos semánticos ni los requisitos de los modelos LLM actuales.",
+      "Una agencia de GEO de alto nivel debe ofrecer: trato directo con los fundadores técnicos, rodaje presencial de cine y código web propio.",
+      "Evita agencias que deleguen la configuración técnica de tu empresa en perfiles junior o intermediarios.",
+      "El modelo Orchestrator de Parpell conecta visibilidad en IA, producción audiovisual y automatizaciones comerciales en un solo equipo.",
     ],
     content: {
       intro:
@@ -294,7 +325,7 @@ export const BLOG_POSTS: BlogPost[] = [
           ],
           highlightBox: {
             title: "Criterio Diferencial",
-            text: "Una verdadera agencia de GEO no delega tu proyecto en becarios. Requiere experiencia directa de ingeniería en grafos semánticos y dirección creativa audiovisual de primer nivel.",
+            text: "Una verdadera agencia de GEO no delega tu proyecto en becarios. Requiere experiencia técnica directa en grafos semánticos y dirección creativa audiovisual de primer nivel.",
           },
         },
         {
@@ -306,8 +337,8 @@ export const BLOG_POSTS: BlogPost[] = [
             "D) Automatizaciones comerciales directas: Salir recomendado en IA no sirve de nada si no tienes un sistema (como ManyChat o respuestas directas en RRSS) para convertir a esos prospectos cualificados en citas o llamadas de venta.",
           ],
           quote: {
-            text: "El posicionamiento en Inteligencia Artificial no es magia: es ingeniería de datos estructurados combinada con una presencia audiovisual que hace imposible que la IA te ignore.",
-            author: "Área de Ingeniería & Sistemas en Parpell",
+            text: "El posicionamiento en Inteligencia Artificial no es magia: es desarrollo técnico y datos estructurados combinados con una presencia audiovisual que hace imposible que la IA te ignore.",
+            author: "Área Técnica & Desarrollo en Parpell",
           },
         },
         {
@@ -341,10 +372,7 @@ export const BLOG_POSTS: BlogPost[] = [
     readTime: "5 min de lectura",
     category: "GEO & Inteligencia Artificial",
     categorySlug: "ia-geo",
-    author: {
-      name: "Socio Técnico",
-      role: "Especialista en Arquitectura Web & GEO en Parpell",
-    },
+    author: AUTHOR_TECNICO,
     coverGradient: "from-[#0F172A] via-[#1E293B] to-[#120610]",
     tags: ["Auditoría IA", "Diagnóstico ChatGPT", "Prompts GEO", "Perplexity", "Presencia Digital"],
     keywords: [
@@ -354,6 +382,12 @@ export const BLOG_POSTS: BlogPost[] = [
       "prompts para auditar negocio en IA",
       "optimizar huella digital",
       "que dice la IA de mi empresa",
+    ],
+    keyTakeaways: [
+      "Más del 90% de las empresas desconocen qué responde la Inteligencia Artificial cuando alguien busca sus servicios en su ciudad.",
+      "Para auditar tu presencia, prueba búsquedas por categoría local, comparativas directas y consultas de solvencia.",
+      "Si la IA no te recomienda, se debe a falta de datos estructurados, ambigüedad en directorios o ausencia de contenido multimedia verificable.",
+      "Un plan de optimización GEO de 90 días permite estructurar la huella digital para que los LLMs reconozcan tu liderazgo local.",
     ],
     content: {
       intro:
@@ -382,7 +416,7 @@ export const BLOG_POSTS: BlogPost[] = [
           ],
           quote: {
             text: "La Inteligencia Artificial no duda: cuando no tiene certeza sobre tu empresa, simplemente recomienda a la que sí tiene datos estructurados claros.",
-            author: "Área de Ingeniería & Sistemas en Parpell",
+            author: "Área Técnica & Desarrollo en Parpell",
           },
         },
         {

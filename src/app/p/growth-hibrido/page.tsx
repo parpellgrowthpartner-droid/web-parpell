@@ -56,7 +56,7 @@ const hybridFaqs: FaqItem[] = [
   },
   {
     q: "¿Quién ejecuta cada parte del trabajo?",
-    a: "Nuestros dos socios en persona. El socio comercial y filmmaker realiza el rodaje, guiones y dirección; el socio ingeniero de software programa tu web, sistemas y posicionamiento GEO en IA. No hay becarios ni subcontratas.",
+    a: "Nuestros dos socios en persona. El socio comercial y filmmaker realiza el rodaje, guiones y dirección; el socio técnico especialista en desarrollo y sistemas programa tu web y posicionamiento GEO en IA. No hay becarios ni subcontratas.",
   },
   {
     q: "¿De quién es el material y el código?",
