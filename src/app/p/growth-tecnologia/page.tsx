@@ -116,8 +116,10 @@ const packsMediana: PricingPack[] = [
     name: "Autoridad Digital Total",
     badge: "EL MODELO DEFINITIVO · MÁXIMO ESTATUS",
     isUltimate: true,
-    price: "Solicita tu presupuesto",
-    period: "",
+    price: "1.750€",
+    originalPrice: "2.500€",
+    savings: "Ahorras 750€",
+    period: "/mes",
     description: "Dominio absoluto del sector: auditoría de ciberseguridad, integraciones a medida y soporte técnico con dedicación prioritaria.",
     includesSummary: ["Dominio SEO & GEO", "Ciberseguridad", "Integraciones CRM/APIs", "Soporte Prioritario"],
     features: [

@@ -66,8 +66,10 @@ const packsGrande: PricingPack[] = [
     name: "Pack Custom Retainer",
     badge: "EL MODELO DEFINITIVO · MÁXIMO ESTATUS",
     isUltimate: true,
-    price: "Solicita tu presupuesto",
-    period: "",
+    price: "4.900€",
+    originalPrice: "8.000€",
+    savings: "Ahorras 3.100€",
+    period: "/mes",
     description: "Departamento audiovisual y de crecimiento con dedicación prioritaria y consultoría de formación de equipos.",
     includesSummary: ["Omnichannel Leader", "4 Jornadas Rodaje", "Formación Comercial", "Exclusividad"],
     features: [

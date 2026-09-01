@@ -116,8 +116,10 @@ const packsPequena: PricingPack[] = [
     name: "Crecimiento Digital & Conversión",
     badge: "EL MODELO DEFINITIVO · MÁXIMO ESTATUS",
     isUltimate: true,
-    price: "Solicita tu presupuesto",
-    period: "",
+    price: "790€",
+    originalPrice: "1.100€",
+    savings: "Ahorras 310€",
+    period: "/mes",
     description: "Visibilidad integral en IA, optimización continua de velocidad de carga y soporte directo para captar más clientes.",
     includesSummary: ["Local SEO & IA", "CRO & Velocidad", "Análisis Competencia", "Soporte Directo"],
     features: [

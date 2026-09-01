@@ -114,8 +114,10 @@ const packsMediana: PricingPack[] = [
     name: "Pack Híbrido Autoridad Total",
     badge: "EL MODELO DEFINITIVO · MÁXIMO ESTATUS",
     isUltimate: true,
-    price: "Solicita tu presupuesto",
-    period: "",
+    price: "3.450€",
+    originalPrice: "5.800€",
+    savings: "Ahorras 2.350€",
+    period: "/mes",
     description: "Dominio absoluto del sector: embudo publicitario completo, retargeting avanzado, ciberseguridad y soporte técnico prioritario.",
     includesSummary: ["Market Dominance", "Retargeting Avanzado", "Ciberseguridad", "Soporte Prioritario VIP"],
     features: [

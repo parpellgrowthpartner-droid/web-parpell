@@ -115,8 +115,10 @@ const packsGrande: PricingPack[] = [
     name: "Retainer Tecnológico Exclusivo (CTO as a Service)",
     badge: "EL MODELO DEFINITIVO · MÁXIMO ESTATUS",
     isUltimate: true,
-    price: "Solicita tu presupuesto",
-    period: "",
+    price: "4.200€",
+    originalPrice: "6.500€",
+    savings: "Ahorras 2.300€",
+    period: "/mes",
     description: "Departamento técnico y web con dedicación prioritaria, exclusividad sectorial y dirección técnica directa.",
     includesSummary: ["Ecosistema Corporativo", "Dedicación Prioritaria", "Exclusividad Sectorial", "CTO as a Service"],
     features: [

@@ -66,8 +66,10 @@ const packsMediana: PricingPack[] = [
     name: "Pack Dominance",
     badge: "EL MODELO DEFINITIVO · MÁXIMO ESTATUS",
     isUltimate: true,
-    price: "Solicita tu presupuesto",
-    period: "",
+    price: "2.400€",
+    originalPrice: "4.220€",
+    savings: "Ahorras 1.820€",
+    period: "/mes",
     description: "Dominio integral de mercado: embudo completo de conversión, retargeting avanzado y atención a prospectos.",
     includesSummary: ["Pack Market Growth", "Community Management", "Retargeting", "Auditoría IA"],
     features: [

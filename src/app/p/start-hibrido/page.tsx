@@ -113,8 +113,10 @@ const packsPequena: PricingPack[] = [
     name: "Pack Híbrido Authority & Dominio",
     badge: "EL MODELO DEFINITIVO · MÁXIMO ESTATUS",
     isUltimate: true,
-    price: "Solicita tu presupuesto",
-    period: "",
+    price: "1.690€",
+    originalPrice: "2.500€",
+    savings: "Ahorras 810€",
+    period: "/mes",
     description: "El ecosistema integral de autoridad: cine, distribución publicitaria pagada, motor de IA y soporte técnico prioritario.",
     includesSummary: ["Growth & GEO", "Paid Media (Ads)", "CRO & Velocidad", "Soporte Directo 2 Socios"],
     features: [
