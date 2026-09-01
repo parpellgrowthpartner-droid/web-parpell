@@ -16,6 +16,7 @@ import {
   User,
   Quote,
   HelpCircle,
+  ChevronRight,
 } from "lucide-react";
 import { BLOG_POSTS } from "@/data/blogPosts";
 import { BackgroundMesh } from "@/components/BackgroundMesh";
@@ -55,7 +56,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description: post.excerpt,
       url,
       type: "article",
-      publishedTime: "2026-08-28T00:00:00.000Z",
+      publishedTime: post.isoDate,
+      modifiedTime: post.isoModified || post.isoDate,
+      locale: "es_ES",
+      siteName: "Parpell — Brand & Growth Orchestrator",
       authors: [post.author.name],
       tags: post.tags,
       images: [
@@ -73,6 +77,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description: post.excerpt,
       images: ["/og-image.png"],
     },
+    other: {
+      citation_title: post.title,
+      citation_author: post.author.name,
+      citation_publication_date: post.isoDate.split("T")[0],
+      "dc.date": post.isoDate,
+      "dc.creator": post.author.name,
+    },
   };
 }
 
@@ -83,6 +94,11 @@ export default async function BlogPostPage({ params }: Props) {
   if (!post) {
     notFound();
   }
+
+  // Related posts (same category first, then newest)
+  const relatedPosts = BLOG_POSTS.filter((p) => p.slug !== post.slug)
+    .sort((a, b) => (a.categorySlug === post.categorySlug ? -1 : 1))
+    .slice(0, 3);
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -115,11 +131,15 @@ export default async function BlogPostPage({ params }: Props) {
         headline: post.title,
         description: post.excerpt,
         url: `https://parpell.com/blog/${post.slug}`,
-        datePublished: "2026-08-28T00:00:00.000Z",
-        dateModified: "2026-08-31T00:00:00.000Z",
+        datePublished: post.isoDate,
+        dateModified: post.isoModified || post.isoDate,
         mainEntityOfPage: {
           "@type": "WebPage",
           "@id": `https://parpell.com/blog/${post.slug}`,
+        },
+        speakable: {
+          "@type": "SpeakableSpecification",
+          cssSelector: [".article-intro-text", ".article-summary-box"],
         },
         author: {
           "@type": "Person",
@@ -143,9 +163,27 @@ export default async function BlogPostPage({ params }: Props) {
         },
         keywords: post.keywords.join(", "),
         articleSection: post.category,
-        wordCount: 1200,
+        about: post.tags.map((tag) => ({
+          "@type": "Thing",
+          name: tag,
+        })),
         inLanguage: "es-ES",
       },
+      ...(post.content.faqs && post.content.faqs.length > 0
+        ? [
+            {
+              "@type": "FAQPage",
+              mainEntity: post.content.faqs.map((faq) => ({
+                "@type": "Question",
+                name: faq.q,
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: faq.a,
+                },
+              })),
+            },
+          ]
+        : []),
     ],
   };
 
@@ -214,7 +252,7 @@ export default async function BlogPostPage({ params }: Props) {
       </header>
 
       {/* Main Article Container */}
-      <main className="relative z-10 w-full max-w-4xl mx-auto px-4 sm:px-6 pt-10 sm:pt-16">
+      <main id="main-content" className="relative z-10 w-full max-w-4xl mx-auto px-4 sm:px-6 pt-10 sm:pt-16">
         {/* Breadcrumb Navigation */}
         <nav className="flex items-center gap-2 text-[11px] font-mono text-zinc-400 mb-6">
           <Link href="/" className="hover:text-white transition-colors">
@@ -278,13 +316,13 @@ export default async function BlogPostPage({ params }: Props) {
         {/* Article Body */}
         <article className="prose prose-invert max-w-none space-y-8 sm:space-y-10 text-sm sm:text-base text-zinc-200 leading-relaxed font-sans">
           {/* Intro Box */}
-          <div className="p-5 sm:p-7 rounded-2xl bg-gradient-to-r from-[#9E5C6A]/15 to-white/[0.02] border-l-4 border-[#9E5C6A] text-zinc-100 font-medium leading-relaxed italic">
+          <div className="article-intro-text p-5 sm:p-7 rounded-2xl bg-gradient-to-r from-[#9E5C6A]/15 to-white/[0.02] border-l-4 border-[#9E5C6A] text-zinc-100 font-medium leading-relaxed italic">
             «{post.content.intro}»
           </div>
 
           {/* Key Takeaways Box (Citation Engineering para IA & Lectura Rápida) */}
           {post.keyTakeaways && post.keyTakeaways.length > 0 && (
-            <div className="my-6 p-6 sm:p-7 rounded-2xl liquid-glass border border-[#9E5C6A]/50 bg-gradient-to-br from-[#1A0817]/90 via-[#120510]/80 to-[#1A0817]/90 shadow-[0_10px_35px_rgba(158,92,106,0.18)]">
+            <div className="article-summary-box my-6 p-6 sm:p-7 rounded-2xl liquid-glass border border-[#9E5C6A]/50 bg-gradient-to-br from-[#1A0817]/90 via-[#120510]/80 to-[#1A0817]/90 shadow-[0_10px_35px_rgba(158,92,106,0.18)]">
               <div className="flex items-center justify-between gap-3 mb-4 pb-3 border-b border-white/[0.08]">
                 <div className="flex items-center gap-2">
                   <div className="w-6 h-6 rounded-lg bg-[#9E5C6A]/30 border border-[#9E5C6A]/60 flex items-center justify-center text-[#F3B0BE]">
@@ -298,6 +336,7 @@ export default async function BlogPostPage({ params }: Props) {
                   Lectura en 30s
                 </span>
               </div>
+
               <ul className="space-y-2.5 text-xs sm:text-sm text-zinc-200">
                 {post.keyTakeaways.map((point, kIdx) => (
                   <li key={kIdx} className="flex items-start gap-2.5 leading-relaxed">
@@ -462,6 +501,62 @@ export default async function BlogPostPage({ params }: Props) {
             ))}
           </div>
         </article>
+
+        {/* Related Articles (Topical Clustering for SEO & UX) */}
+        {relatedPosts.length > 0 && (
+          <section className="mt-16 pt-12 border-t border-white/[0.08]">
+            <div className="flex items-center justify-between mb-8">
+              <div>
+                <span className="text-[11px] font-mono text-[#9E5C6A] uppercase font-bold tracking-wider block">
+                  Artículos Relacionados
+                </span>
+                <h3 className="text-xl sm:text-2xl font-bold text-white">
+                  Continúa aprendiendo
+                </h3>
+              </div>
+              <Link
+                href="/blog"
+                className="text-xs font-mono text-[#C27A8A] hover:text-white flex items-center gap-1 transition-colors"
+              >
+                <span>Ver todos</span>
+                <ChevronRight className="w-3.5 h-3.5" />
+              </Link>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+              {relatedPosts.map((rPost) => (
+                <Link
+                  key={rPost.slug}
+                  href={`/blog/${rPost.slug}`}
+                  className="liquid-glass rounded-2xl p-5 flex flex-col justify-between group hover:border-[#C27A8A]/50 transition-all hover:scale-[1.02]"
+                >
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between gap-2">
+                      <span className="text-[10px] font-mono text-[#E598A8] bg-[#9E5C6A]/20 px-2 py-0.5 rounded border border-[#9E5C6A]/30 truncate max-w-[140px]">
+                        {rPost.category}
+                      </span>
+                      <span className="text-[10px] font-mono text-zinc-400">
+                        {rPost.readTime}
+                      </span>
+                    </div>
+                    <h4 className="text-sm font-bold text-white group-hover:text-[#F7EBED] transition-colors line-clamp-2 leading-snug">
+                      {rPost.title}
+                    </h4>
+                    <p className="text-xs text-zinc-400 line-clamp-2">
+                      {rPost.excerpt}
+                    </p>
+                  </div>
+                  <div className="pt-3 mt-3 border-t border-white/[0.06] flex items-center justify-between text-[11px] font-mono text-zinc-400">
+                    <span>{rPost.date}</span>
+                    <span className="text-[#C27A8A] group-hover:text-white flex items-center gap-0.5 font-bold">
+                      Leer <ChevronRight className="w-3 h-3" />
+                    </span>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </section>
+        )}
 
         {/* Next Articles / Conversion CTA Card */}
         <div className="mt-14 sm:mt-20 liquid-glass rounded-3xl p-8 sm:p-12 text-center relative overflow-hidden">

@@ -220,6 +220,7 @@ export default function ParpellLanding() {
           ease: [0.22, 1, 0.36, 1],
         }}
         className="w-full"
+        id="main-content"
       >
 
 

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { SmoothScroll } from "@/components/SmoothScroll";
+import { AnalyticsTracker } from "@/components/AnalyticsTracker";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -41,6 +42,7 @@ export const metadata: Metadata = {
   authors: [{ name: "Parpell", url: "https://parpell.com" }],
   creator: "Parpell",
   publisher: "Parpell",
+  manifest: "/manifest.webmanifest",
   formatDetection: {
     email: false,
     address: false,
@@ -256,13 +258,23 @@ export default function RootLayout({
     <html lang="es" className={`${geistSans.variable} ${geistMono.variable} dark`}>
       <head>
         <link rel="preload" href="/logo-nuevo.png" as="image" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdGlobal) }}
         />
       </head>
       <body className="min-h-screen bg-[#080306] text-[#F8F4F2] antialiased overflow-x-hidden">
+        {/* Skip to Content for A11y & Keyboard Navigation */}
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-[#9E5C6A] focus:text-white focus:rounded-full focus:shadow-2xl focus:text-xs focus:font-bold focus:outline-none"
+        >
+          Saltar al contenido principal
+        </a>
         <SmoothScroll />
+        <AnalyticsTracker />
         {children}
       </body>
     </html>
