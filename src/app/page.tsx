@@ -782,14 +782,10 @@ export default function ParpellLanding() {
         </div>
 
         <div className="flex items-center flex-wrap justify-center gap-3.5 text-zinc-400">
-          <a href="#problema" className="hover:text-white transition-colors">El Problema</a>
-          <a href="#areas" className="hover:text-white transition-colors">Las 3 Áreas</a>
-          <a href="#equipo" className="hover:text-white transition-colors">Equipo</a>
-          <a href="#contacto" className="hover:text-white transition-colors">Contacto</a>
-          <a href="/blog" className="text-[#C27A8A] hover:text-white font-bold transition-colors">Blog</a>
-          <span className="text-zinc-600 hidden sm:inline">·</span>
           <a href="/aviso-legal" className="hover:text-white transition-colors">Aviso Legal</a>
+          <span>·</span>
           <a href="/privacidad" className="hover:text-white transition-colors">Privacidad</a>
+          <span>·</span>
           <a href="/cookies" className="hover:text-white transition-colors">Cookies</a>
         </div>
 
