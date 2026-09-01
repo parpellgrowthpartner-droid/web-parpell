@@ -19,11 +19,11 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL("https://parpell.com"),
   title: {
-    default: "Parpell | Brand & Growth Orchestrator | Posicionamiento en IA (GEO) & Cine",
+    default: "Parpell | Posicionamiento en IA (GEO) & Vídeo de Cine",
     template: "%s | Parpell",
   },
   description:
-    "Que la inteligencia artificial te recomiende. Que el contenido te haga elegible. Que tu equipo lo convierta en ventas. Posicionamiento en IA (GEO), rodaje con cámara de cine y sistemas de ventas. Dos socios, cero intermediarios.",
+    "Posicionamiento en IA (GEO), rodaje con cámara de cine y sistemas de ventas. Dos socios, cero intermediarios. Multiplica la conversión de tu empresa.",
   keywords: [
     "Parpell",
     "GEO",
@@ -71,9 +71,9 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "Parpell | Brand & Growth Orchestrator",
+    title: "Parpell | Posicionamiento en IA (GEO) & Vídeo de Cine",
     description:
-      "Posicionamiento en IA (GEO), contenido audiovisual de cine y máquina de ventas. Todo conectado. Dos socios, cero intermediarios.",
+      "Posicionamiento en IA (GEO), rodaje con cámara de cine y sistemas de ventas. Dos socios, cero intermediarios. Multiplica la conversión de tu empresa.",
     url: "https://parpell.com",
     locale: "es_ES",
     type: "website",
@@ -83,15 +83,15 @@ export const metadata: Metadata = {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Parpell | Brand & Growth Orchestrator",
+        alt: "Parpell | Posicionamiento en IA (GEO) & Vídeo de Cine",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Parpell | Brand & Growth Orchestrator",
+    title: "Parpell | Posicionamiento en IA (GEO) & Vídeo de Cine",
     description:
-      "Posicionamiento en IA (GEO), contenido audiovisual de cine y máquina de ventas. Todo conectado. Dos socios, cero intermediarios.",
+      "Posicionamiento en IA (GEO), rodaje con cámara de cine y sistemas de ventas. Dos socios, cero intermediarios. Multiplica la conversión de tu empresa.",
     images: ["/og-image.png"],
   },
   verification: {
