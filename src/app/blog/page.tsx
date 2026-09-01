@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, BookOpen, Clock, Calendar, Sparkles, Tag, Layers, ChevronRight, Home } from "lucide-react";
+import { ArrowRight, BookOpen } from "lucide-react";
 import { BLOG_POSTS } from "@/data/blogPosts";
 import { BackgroundMesh } from "@/components/BackgroundMesh";
 import { PurpBlogMascot } from "@/components/PurpBlogMascot";
+import { BlogFilterGrid } from "@/components/BlogFilterGrid";
 
 export const metadata: Metadata = {
   title: "Blog & Recursos de Estrategia Digital | Parpell",
@@ -114,7 +115,7 @@ export default function BlogIndexPage() {
 
           <div className="flex items-center gap-3">
             <span className="hidden sm:inline-block px-3 py-1 rounded-full liquid-glass-pill text-[11px] font-mono text-[#F7EBED] border border-[#9E5C6A]/30">
-              10 ARTÍCULOS &amp; GUÍAS
+              RECURSOS &amp; ARTÍCULOS
             </span>
             <Link
               href="/#contacto"
@@ -129,7 +130,7 @@ export default function BlogIndexPage() {
 
       {/* Hero Section */}
       <main id="main-content" className="relative z-10 w-full max-w-5xl mx-auto px-4 sm:px-6 pt-12 sm:pt-20">
-        <div className="text-center max-w-3xl mx-auto mb-14 sm:mb-20">
+        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full liquid-glass-pill text-xs font-mono text-[#9E5C6A] mb-5 border border-[#9E5C6A]/30">
             <BookOpen className="w-3.5 h-3.5 text-[#C27A8A]" />
             <span>BLOG &amp; ESTRATEGIA TÉCNICA</span>
@@ -142,76 +143,10 @@ export default function BlogIndexPage() {
           <p className="text-sm sm:text-base text-zinc-300 max-w-2xl mx-auto leading-relaxed">
             Guías prácticas, análisis de algoritmos de Inteligencia Artificial (GEO), producción audiovisual cinematográfica y arquitectura web de alto rendimiento escritas directamente por los 2 socios.
           </p>
-
-          {/* Category Topics Filter Tags */}
-          <div className="flex flex-wrap items-center justify-center gap-2 mt-8">
-            <span className="px-3 py-1 rounded-full bg-[#9E5C6A]/20 border border-[#9E5C6A]/40 text-xs font-mono text-[#F3B0BE]">
-              ⚡ GEO &amp; Inteligencia Artificial
-            </span>
-            <span className="px-3 py-1 rounded-full bg-[#8B1E3F]/20 border border-[#8B1E3F]/40 text-xs font-mono text-[#F7D6DE]">
-              🎬 Producción Audiovisual de Cine
-            </span>
-            <span className="px-3 py-1 rounded-full bg-[#203A43]/30 border border-[#203A43]/50 text-xs font-mono text-[#BCE6EB]">
-              ⚙️ Arquitectura Web &amp; Core Web Vitals
-            </span>
-          </div>
         </div>
 
-        {/* Featured Articles Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7 items-stretch">
-          {BLOG_POSTS.map((post) => (
-            <article
-              key={post.slug}
-              className="liquid-glass rounded-3xl p-6 sm:p-7 flex flex-col justify-between group relative transition-all duration-300 hover:scale-[1.02] hover:border-[#C27A8A]/50 shadow-lg"
-            >
-              <div>
-                {/* Top Category Badge & Read Time */}
-                <div className="flex items-center justify-between gap-2 mb-4">
-                  <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-[#9E5C6A]/20 border border-[#9E5C6A]/40 text-[10px] sm:text-[11px] font-mono font-bold text-[#E598A8] truncate max-w-[170px]">
-                    <Tag className="w-2.5 h-2.5 shrink-0" />
-                    <span className="truncate">{post.category}</span>
-                  </span>
-                  <span className="flex items-center gap-1 text-[10px] font-mono text-zinc-400 shrink-0">
-                    <Clock className="w-3 h-3 text-zinc-500" />
-                    {post.readTime}
-                  </span>
-                </div>
-
-                {/* Title */}
-                <h2 className="text-base sm:text-lg font-bold text-white mb-3 group-hover:text-[#F7EBED] transition-colors leading-snug">
-                  <Link href={`/blog/${post.slug}`} className="focus:outline-none">
-                    {post.title}
-                  </Link>
-                </h2>
-
-                {/* Excerpt */}
-                <p className="text-xs text-zinc-300 leading-relaxed mb-6 line-clamp-4">
-                  {post.excerpt}
-                </p>
-              </div>
-
-              {/* Bottom Byline & Action */}
-              <div className="pt-4 border-t border-white/[0.08] flex items-center justify-between text-xs">
-                <div className="space-y-0.5">
-                  <span className="block text-[11px] font-bold text-zinc-200">
-                    {post.author.name}
-                  </span>
-                  <span className="block text-[10px] font-mono text-zinc-400">
-                    {post.date}
-                  </span>
-                </div>
-
-                <Link
-                  href={`/blog/${post.slug}`}
-                  className="inline-flex items-center gap-1 text-xs font-mono font-bold text-[#C27A8A] group-hover:text-white transition-colors"
-                >
-                  <span>Leer artículo</span>
-                  <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-                </Link>
-              </div>
-            </article>
-          ))}
-        </div>
+        {/* Interactive Filter Buttons & Posts Grid */}
+        <BlogFilterGrid posts={BLOG_POSTS} />
 
         {/* Bottom CTA Card */}
         <div className="mt-16 sm:mt-24 liquid-glass rounded-3xl p-8 sm:p-12 text-center relative overflow-hidden">
