@@ -231,8 +231,14 @@ export function PricingLandingTemplate({
             {heroDescription}
           </p>
 
-          {/* 4 Clean Value Pillars */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3 max-w-3xl mx-auto text-center">
+          {/* Value Pillars */}
+          <div
+            className={`grid gap-2 sm:gap-3 mx-auto text-center ${
+              valuePillars && valuePillars.length === 4
+                ? "grid-cols-2 sm:grid-cols-4 max-w-3xl"
+                : "grid-cols-3 max-w-2xl"
+            }`}
+          >
             {valuePillars && valuePillars.length > 0 ? (
               valuePillars.map((pillar, idx) => (
                 <div
@@ -268,12 +274,6 @@ export function PricingLandingTemplate({
                   <Zap className="w-4 h-4 text-[#C27A8A] mb-0.5 shrink-0" />
                   <span className="text-[11px] sm:text-xs font-bold text-white leading-tight">Listo para Publicar</span>
                   <span className="text-[10px] sm:text-[11px] text-zinc-400 leading-tight">Edición y sonido</span>
-                </div>
-
-                <div className="p-2.5 sm:p-3.5 rounded-xl sm:rounded-2xl bg-white/[0.03] border border-white/[0.08] flex flex-col items-center justify-center space-y-1">
-                  <FolderCheck className="w-4 h-4 text-[#C27A8A] mb-0.5 shrink-0" />
-                  <span className="text-[11px] sm:text-xs font-bold text-white leading-tight">Material 100% Tuyo</span>
-                  <span className="text-[10px] sm:text-[11px] text-zinc-400 leading-tight">Brutos y másteres</span>
                 </div>
               </>
             )}
