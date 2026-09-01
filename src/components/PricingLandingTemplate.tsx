@@ -760,10 +760,14 @@ export function PricingLandingTemplate({
         <div>
           <span>{footerTitle || "Tarifas Oficiales de Producción Audiovisual & Crecimiento"}</span>
         </div>
-        <div className="flex items-center gap-4">
-          <a href="tel:603625946" className="hover:text-zinc-300 transition-colors">603 625 946</a>
+        <div className="flex items-center flex-wrap gap-3 sm:gap-4">
+          <a href="/aviso-legal" className="hover:text-zinc-300 transition-colors">Aviso Legal</a>
           <span>·</span>
-          <span>© {new Date().getFullYear()}</span>
+          <a href="/privacidad" className="hover:text-zinc-300 transition-colors">Privacidad</a>
+          <span>·</span>
+          <a href="/cookies" className="hover:text-zinc-300 transition-colors">Cookies</a>
+          <span>·</span>
+          <span>© {new Date().getFullYear()} Parpell</span>
         </div>
       </footer>
     </div>

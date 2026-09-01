@@ -90,7 +90,15 @@ export function Footer() {
 
         {/* Bottom Line */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#F8F4F2]/60">
-          <p>© {new Date().getFullYear()} Parpell. Brand & Growth Orchestrator.</p>
+          <div className="flex items-center flex-wrap gap-3">
+            <p>© {new Date().getFullYear()} Parpell. Brand &amp; Growth Orchestrator.</p>
+            <span>·</span>
+            <a href="/aviso-legal" className="hover:text-white transition-colors">Aviso Legal</a>
+            <span>·</span>
+            <a href="/privacidad" className="hover:text-white transition-colors">Privacidad</a>
+            <span>·</span>
+            <a href="/cookies" className="hover:text-white transition-colors">Cookies</a>
+          </div>
           <p className="font-mono text-[11px] text-[#9E5C6A]">
             Que la IA te recomiende · Que el contenido te haga elegible · Que tu equipo venda
           </p>

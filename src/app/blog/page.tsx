@@ -179,12 +179,16 @@ export default function BlogIndexPage() {
         <div>
           <span>© {new Date().getFullYear()} Parpell — Brand &amp; Growth Orchestrator</span>
         </div>
-        <div className="flex items-center gap-4">
+        <div className="flex items-center flex-wrap gap-3 sm:gap-4">
           <Link href="/" className="hover:text-zinc-300 transition-colors">Inicio</Link>
           <span>·</span>
           <Link href="/blog" className="hover:text-zinc-300 transition-colors text-zinc-400">Blog</Link>
           <span>·</span>
-          <a href="tel:603625946" className="hover:text-zinc-300 transition-colors">603 625 946</a>
+          <Link href="/aviso-legal" className="hover:text-zinc-300 transition-colors">Aviso Legal</Link>
+          <span>·</span>
+          <Link href="/privacidad" className="hover:text-zinc-300 transition-colors">Privacidad</Link>
+          <span>·</span>
+          <Link href="/cookies" className="hover:text-zinc-300 transition-colors">Cookies</Link>
         </div>
       </footer>
 

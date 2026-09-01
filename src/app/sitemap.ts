@@ -14,6 +14,28 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.85,
   }));
 
+  // Legal pages
+  const legalEntries: MetadataRoute.Sitemap = [
+    {
+      url: `${baseUrl}/aviso-legal/`,
+      lastModified: new Date("2026-09-01"),
+      changeFrequency: "yearly",
+      priority: 0.3,
+    },
+    {
+      url: `${baseUrl}/privacidad/`,
+      lastModified: new Date("2026-09-01"),
+      changeFrequency: "yearly",
+      priority: 0.3,
+    },
+    {
+      url: `${baseUrl}/cookies/`,
+      lastModified: new Date("2026-09-01"),
+      changeFrequency: "yearly",
+      priority: 0.3,
+    },
+  ];
+
   return [
     {
       url: `${baseUrl}/`,
@@ -28,5 +50,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.95,
     },
     ...blogEntries,
+    ...legalEntries,
   ];
 }

@@ -118,6 +118,7 @@ export default function ParpellLanding() {
     telefono: "",
     web: "",
     sector: "",
+    aceptaPrivacidad: false,
   });
 
   const dictionary = [
@@ -157,7 +158,7 @@ export default function ParpellLanding() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!form.correo || !form.web) return;
+    if (!form.correo || !form.web || !form.aceptaPrivacidad) return;
     try {
       const confetti = (await import("canvas-confetti")).default;
       confetti({
@@ -619,11 +620,38 @@ export default function ParpellLanding() {
                   />
                 </div>
 
+                <div className="pt-1">
+                  <label className="flex items-start gap-2.5 text-[11px] text-zinc-300 leading-snug cursor-pointer select-none">
+                    <input
+                      type="checkbox"
+                      required
+                      checked={form.aceptaPrivacidad}
+                      onChange={(e) => setForm({ ...form, aceptaPrivacidad: e.target.checked })}
+                      className="mt-0.5 w-4 h-4 rounded border-white/20 bg-white/10 text-[#9E5C6A] focus:ring-0 focus:ring-offset-0 shrink-0 cursor-pointer accent-[#9E5C6A]"
+                    />
+                    <span>
+                      He leído y acepto la{" "}
+                      <a href="/privacidad" target="_blank" className="text-[#E598A8] underline hover:text-white">
+                        Política de Privacidad
+                      </a>{" "}
+                      y el{" "}
+                      <a href="/aviso-legal" target="_blank" className="text-[#E598A8] underline hover:text-white">
+                        Aviso Legal
+                      </a>.
+                    </span>
+                  </label>
+                </div>
+
                 <motion.button
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   type="submit"
-                  className="w-full py-3 rounded-xl text-xs sm:text-sm font-bold text-white bg-[#9E5C6A] hover:bg-[#854b57] shadow-lg shadow-[#9E5C6A]/30 transition-all mt-2"
+                  disabled={!form.aceptaPrivacidad}
+                  className={`w-full py-3 rounded-xl text-xs sm:text-sm font-bold text-white transition-all mt-2 ${
+                    form.aceptaPrivacidad
+                      ? "bg-[#9E5C6A] hover:bg-[#854b57] shadow-lg shadow-[#9E5C6A]/30 cursor-pointer"
+                      : "bg-[#9E5C6A]/40 text-zinc-400 cursor-not-allowed"
+                  }`}
                 >
                   Solicitar conversación de 30 minutos
                 </motion.button>
@@ -753,12 +781,16 @@ export default function ParpellLanding() {
           <span>Brand & Growth Orchestrator</span>
         </div>
 
-        <div className="flex items-center flex-wrap justify-center gap-4 text-zinc-400">
+        <div className="flex items-center flex-wrap justify-center gap-3.5 text-zinc-400">
           <a href="#problema" className="hover:text-white transition-colors">El Problema</a>
           <a href="#areas" className="hover:text-white transition-colors">Las 3 Áreas</a>
           <a href="#equipo" className="hover:text-white transition-colors">Equipo</a>
           <a href="#contacto" className="hover:text-white transition-colors">Contacto</a>
-          <a href="/blog" className="text-[#C27A8A] hover:text-white font-bold transition-colors">Blog &amp; Recursos</a>
+          <a href="/blog" className="text-[#C27A8A] hover:text-white font-bold transition-colors">Blog</a>
+          <span className="text-zinc-600 hidden sm:inline">·</span>
+          <a href="/aviso-legal" className="hover:text-white transition-colors">Aviso Legal</a>
+          <a href="/privacidad" className="hover:text-white transition-colors">Privacidad</a>
+          <a href="/cookies" className="hover:text-white transition-colors">Cookies</a>
         </div>
 
         <span>© {new Date().getFullYear()} Parpell · España</span>
